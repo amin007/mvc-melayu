@@ -1,9 +1,9 @@
 <?php
 
 // 4 folder utama
-define('KAWAL', 'aplikasi/kawal/');
-define('LIHAT', 'aplikasi/lihat/');
-define('TANYA', 'aplikasi/tanya/');
+define('KAWAL', 'aplikasi/kawalan/');
+define('PAPAR', 'aplikasi/paparan/');
+define('URUSDATA', 'aplikasi/urusdata/');
 define('PUSTAKA', 'aplikasi/pustaka/');
  
 // Fungsi Global
@@ -27,9 +27,9 @@ if ($server == 'bssu.amin007.org')
 {   // isytihar tatarajah mysql
     define('DB_TYPE', 'mysql');
     define('DB_HOST', 'localhost');
-    define('DB_NAME', '***');
-    define('DB_USER', '***');
-    define('DB_PASS', '***');
+    define('DB_NAME', '***'); // nama pangkalan data di server
+    define('DB_USER', '***'); // username untuk capai pangkalan data
+    define('DB_PASS', '***'); // password untuk capai pangkalan data
     // isytihar lokasi folder js
     define('JS', 'http://' . $_SERVER['SERVER_NAME'] . '/js/');
     // buat gambar latarbelakang
@@ -41,9 +41,9 @@ else
 {   // isytihar tatarajah mysql
     define('DB_TYPE', 'mysql');
     define('DB_HOST', 'localhost');
-    define('DB_NAME', '***');
-    define('DB_USER', '***');
-    define('DB_PASS', '***');
+    define('DB_NAME', '***'); // nama pangkalan data di localhost
+    define('DB_USER', '***'); // username untuk capai pangkalan data
+    define('DB_PASS', '***'); // password untuk capai pangkalan data
     // isytihar lokasi folder js
     define('JS', 'http://' . $_SERVER['SERVER_NAME'] . '/private/js/');
     // buat gambar latarbelakang
@@ -57,8 +57,10 @@ else
 // Hashkey untuk tapak sesawang, jangan ubah kerana ia digunakan untuk kata laluan!
 // This is for other hash keys... Not sure yet
 // Ini adalah untuk kekunci lain hash ... Tidak pasti lagi
-define('HASH_GENERAL_KEY', 'MixitUp200');
+// boleh tukar nilai HASH_GENERAL_KEY ikut suka hati
+define('HASH_GENERAL_KEY', 'BiarRahsia@Hati');
  
 // This is for database passwords only
 // Ini adalah untuk kata laluan pangkalan data sahaja
-define('HASH_PASSWORD_KEY', 'catsFLYhigh2000miles');
+// boleh tukar nilai HASH_PASSWORD_KEY ikut suka hati
+define('HASH_PASSWORD_KEY', 'kucingTERBANGtinggi2000meter');
