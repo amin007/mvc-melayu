@@ -20,9 +20,9 @@ require 'tatarajah.php';
  
 // 4. masukkan semua fail class dari folder PUSTAKA
 //    Also spl_autoload_register (Take a look at it if you like)
-function __autoload($class) 
+function __autoload($kelas) 
 {
-    require PUSTAKA . $class . '.php';
+    require PUSTAKA . $kelas . '.php';
 }
  
 // 5. istihar class Mulakan
