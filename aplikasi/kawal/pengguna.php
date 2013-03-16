@@ -6,18 +6,7 @@ class Pengguna extends Kawal
 	public function __construct() 
 	{
 		parent::__construct();
-		Sesi::init();
-		$logged = Sesi::get('loggedIn');
-		$level = Sesi::get('levelPegawai');
-		// semak level
-		$senaraiLevel=array('fe', 'kawal');
-		
-		if ($logged == false || !in_array($level,$senaraiLevel)) 
-		{
-			Sesi::destroy();
-			header('location:' . URL);
-			exit;
-		}
+		Kebenaran::kawalKeluar();
 	}
 	
 	public function index() 
