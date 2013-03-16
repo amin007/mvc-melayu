@@ -267,41 +267,6 @@ function bersih($papar)
 	return $papar;
 }
 
-function sms_baki()
-{
-	$p['userid'] = 'amin77';
-	$p['passwd'] = 'amin@@7';
-	$p['cmd']='BAKI';
-	$p['token']='i1d04568126feca38d0d7957abc377f6d';
-	
-	$url='http://202.171.45.205/blast/sms_gwy.php?' . data_get_sms($p);
-	//echo '<pre>SMS BAKI:$p->', print_r($p) . '</pre>' . '<br>' . $url . '<br>';
-	
-	return $papar = file_get_contents($url);
-}
-
-function sms_kawan($data)
-{
-	/*
-	$data->Array
-	(
-		[kawan] => amin
-		[mobile_no] => 0122159410
-		[message] => CHOP SIA HENG KEE
-	)
-	*/
-	$p['userid'] = 'amin77';
-	$p['passwd'] = 'amin@@7';
-	$p['message']= $data['kawan'] . ', ' . $data['message'];
-	$p['mobile_no']='6' . $data['mobile_no'];
-	$p['token']='i1d04568126feca38d0d7957abc377f6d';
-	//$p['mobile_no']='60122159410';// amin punya hp
-	
-	$url='http://202.171.45.205/blast/sms_gwy.php?' . sms_get_data($p);
-	//echo '<pre>SMS KAWAN:$p->', print_r($p) . '</pre>' . '<br>' . $url . '<br>';
-	
-	return $papar = file_get_contents($url);
-}
 
 function sms_get_data($data)
 {
