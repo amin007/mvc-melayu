@@ -6,19 +6,7 @@ class Ruangtamu extends Kawal
 	function __construct() 
 	{
 		parent::__construct();
-		Sesi::init();
-		$logged = Sesi::get('loggedIn');
-		$level = Sesi::get('levelPegawai');
-		// semak level
-		$senaraiLevel=array('fe', 'kawal');
-		
-		if ($logged == false || !in_array($level,$senaraiLevel)) 
-		{
-			Sesi::destroy();
-			header('location:' . URL);
-			exit;
-		}
-	
+		Kebenaran::kawalKeluar();	
 		//$this->lihat->js = array('ruangtamu/js/default.js');
 		
 	}
