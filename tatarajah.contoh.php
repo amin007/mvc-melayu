@@ -21,9 +21,9 @@ $server = $_SERVER['SERVER_NAME'];
 echo "<br>Alamat IP : <font color='red'>" . $ip . "</font> |
 \r<br>Nama PC : <font color='red'>" . $hostname . "</font> | 
 \r<br>Server : <font color='red'>" . $server . "</font>\r";
-*/
+//*/
  
-if ($server == 'bssu.amin007.org')
+if ($server == 'laman.server.anda')
 {   // isytihar tatarajah mysql
     define('DB_TYPE', 'mysql');
     define('DB_HOST', 'localhost');
