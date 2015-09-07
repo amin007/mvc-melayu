@@ -1,9 +1,7 @@
 <?php 
 $nav = 'data-toggle="dropdown" class="dropdown-toggle active"';
 Sesi::init(); 
-$pengguna = null; //Sesi::get('namaPegawai');
-$pegawai = null; //$this->pegawai;
-$url = dpt_url();
+$pengguna = Sesi::get('namaPengguna');
 ?>
 <ul class="nav">
 <li class="dropdown">
