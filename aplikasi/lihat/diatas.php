@@ -7,25 +7,23 @@
 echo $this->Tajuk_Muka_Surat;
 
 $dpt_url = dpt_url();
-echo (empty($url[2])) ? null 
-	: '[' . $dpt_url[2] . ']';
+echo (empty($url[2])) ? null : '[' . $dpt_url[2] . ']';
  ?></title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="">
 <meta name="author" content="">
-<?php
-require 'diatas-bootstrap.php';
-?>
-<link rel="stylesheet" href="<?php echo JS ?>public/css/gambar_head.css" />
+<?php require 'diatas-bootstrap.php'; ?>
 <style type="text/css">
-table.excel {
+table.excel 
+{
 	border-style:ridge;
 	border-width:1;
 	border-collapse:collapse;
 	font-family:sans-serif;
 	font-size:11px;
 }
-table.excel thead th, table.excel tbody th {
+table.excel thead th, table.excel tbody th 
+{
 	background:#CCCCCC;
 	border-style:ridge;
 	border-width:1;
@@ -41,30 +39,10 @@ table.excel tbody td
 }
 </style><?php
 if (isset($this->css)) 
-{
 	foreach ($this->css as $css)
 	{
-		//echo "\n" . '<script type="text/javascript" src="' . JS . $js .'"></script>';
-		echo "\n" . '<link rel="stylesheet" type="text/css" href="' . JS . $css .'">';
+		echo "\n" . '<link rel="stylesheet" type="text/css" href="' . URL . $css .'">';
 	}
-}
-
-if (isset($this->js)) 
-{
-	foreach ($this->js as $js)
-	{
-		echo "\n" . '<script type="text/javascript" src="' . JS . $js .'"></script>';
-	}
-}
 ?>
-
 </head>  
-<body background="<?php //echo GAMBAR . $this->gambar ?>">
-<?php
-/*
-<!-- background="<?php echo GAMBAR . $this->gambar ?>" -->
-<img src="<?php echo GAMBAR . $this->gambar ?>" alt="background image" id="bg">
-<div id="content">
-*/
-?>
-<br><br><br>
+<body>
