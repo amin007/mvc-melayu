@@ -21,7 +21,7 @@ class Kawal
 		
 		if (file_exists($tanya)) 
 		{
-			$tanyaNama = ucfirst($nama) . '_Tanya';
+			$tanyaNama = '\\Aplikasi\Tanya\\' . huruf('Besar', $nama) . '_Tanya';
 			//echo '<br>$tanyaNama->' . $tanyaNama . '<br>';
 			
 			require_once $tanya;
