@@ -8,6 +8,7 @@
  * 4. dapatkan fail dalam folder KAWAL yang serupa dengan $url[0]
  * 5. semak sama ada dalam folder KAWAL $fail benar2 wujud
  */
+namespace aplikasi\pustaka; //echo __NAMESPACE__; 
 class Mulakan 
 {
 
@@ -29,6 +30,7 @@ class Mulakan
 		 */
 		
 		$url[0]= (empty($url[0])) ? 'index' : $url[0];
+		$Url[0] = '\\Aplikasi\Kawal\\' . huruf('Besar', $url[0]);
 		$fail = KAWAL . $url[0] . '.php';
 		//echo '<hr>$fail->' . $fail . '<br>';
 		
@@ -40,13 +42,20 @@ class Mulakan
 		if (file_exists($fail)) 
 		{
 			require $fail;
-			$kawal = new $url[0];
-			$this->cari_pengawal($kawal, $url);
-		} 
-		else 
-		{
-			$this->sesat();
-		}
+			$kawal = new $Url[0];
+			$kawal->muatTanya($url[0]);
+			# jika $url[1] tak disetkan, bagi $method='index'
+			$method = (isset($url[1])) ? $url[1] : 'index';
+			# semak sama ada method ada dalam $kawal
+			if ( !method_exists($kawal, $method))
+				$this->parameter();			
+			else $this->cari_pengawal($kawal, $url);
+			//*/
+        }
+        else
+        {
+            $this->sesat();
+        } //*/
 		
 	}
 	
