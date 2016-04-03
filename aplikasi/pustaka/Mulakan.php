@@ -35,12 +35,17 @@ class Mulakan
  
 		$failKawal = GetMatchingFiles(GetContents(KAWAL),$url[0] . '.php');
 		$fail = $failKawal[0];
+
+        //echo '<hr>KAWAL=' . KAWAL . '<br>';
+		//echo '<pre>$failKawal='; print_r($failKawal) . '</pre>';
+        //echo '<hr>$fail->' . $fail . '<br>';
+        //echo '<hr>$url[0]->' . $Url[0] . '<br>';
 		
 		/*
 		 * 4. semak sama ada dalam folder KAWAL $fail benar2 wujud
 		 * jika ya : masukkan $fail dan isytihar class tersebut
 		 * jika tak : cari fungsi sesat()
-		 */
+		 */ 
 		if (file_exists($fail)) 
 		{
 			require $fail;
