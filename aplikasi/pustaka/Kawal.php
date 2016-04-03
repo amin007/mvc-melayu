@@ -2,13 +2,13 @@
 namespace Aplikasi\Kitab; //echo __NAMESPACE__; 
 class Kawal 
 {
-
+#----------------------------------------------------------------------------------------------
 	function __construct() 
 	{
 		//echo '<br>class Kawal';
 		$this->lihat = new Lihat();
 	}
-	
+#----------------------------------------------------------------------------------------------	
 	public function muatTanya($nama) 
 	{
 		$failTanya = GetMatchingFiles(GetContents(TANYA),$nama . '_tanya.php');
@@ -33,5 +33,5 @@ class Kawal
 		}
 		
 	}
-
+#----------------------------------------------------------------------------------------------
 }
