@@ -33,10 +33,10 @@ spl_autoload_register(function ($namaClass)
 	echo '<hr>nama class:' . $class[count($class)-1] . ' | ';
 	$cariFail = GetMatchingFiles(GetContents('Aplikasi'),$class[count($class)-1] . '.php');
 	# jika fail wujud, masukkan 
-	foreach($cariFail as $kitabApa)
+	foreach($cariFail as $failApa)
 	{	
-		echo '$kitabApa->' . $kitabApa . '<br>';
-		if (file_exists($kitabApa)) require $kitabApa;
+		echo '$failApa->' . $failApa . '<br>';
+		if (file_exists($failApa)) require $failApa;
 		//else echo 'tidak jumpa daa<br>';
 	}
 });
