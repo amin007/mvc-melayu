@@ -16,8 +16,7 @@ class Kawal
 		/*echo '<br> class Kawal :: $nama : ' . $nama . '|';
 		echo 'TANYA->' . TANYA . '';
 		echo '<pre>$failTanya->'; print_r($failTanya) . '</pre>';
-		echo '$tanya->' . $tanya . '<br>';
-		//*/
+		echo '$tanya->' . $tanya . '<br>';//*/
 		
 		if (file_exists($tanya)) 
 		{
@@ -26,12 +25,9 @@ class Kawal
 			
 			require_once $tanya;
 			$this->tanya = new $tanyaNama();
-			/*
-			if (class_exists($tanyaNama)) echo '<br>class ' . $tanyaNama . ' wujud<br>';
-			else echo '<br>class ' . $tanyaNama . ' tak wujud<br>';
-			*/
+			/*if (class_exists($tanyaNama)) echo '<br>class ' . $tanyaNama . ' wujud<br>';
+			else echo '<br>class ' . $tanyaNama . ' tak wujud<br>';//*/
 		}
-		
 	}
 #----------------------------------------------------------------------------------------------
 }
