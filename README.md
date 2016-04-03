@@ -14,7 +14,7 @@ dimana kawal => controller, papar => view, kitab => library dan tanya => model.
 Dedikasikan kepada nabi muhammad saw (selawat atas nabi).
 
 Jadi antara cadangan kita tukar istilah 4 folder utama adalah
-fikirumat => controller, dahwah => view, kitab => library dan  => model. 
+fikirumat => controller, dakwah => view, kitab => library dan  ??? => model. 
 
 ##karkun 
 Dalam tabligh ada istilah taskil yang bertujuan memujuk orang keluar pada jalan Allah.
