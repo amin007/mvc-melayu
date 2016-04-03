@@ -6,7 +6,7 @@ class Kawal
 	function __construct() 
 	{
 		//echo '<br>class Kawal';
-		$this->lihat = new Lihat();
+		$this->papar = new Papar();
 	}
 #----------------------------------------------------------------------------------------------	
 	public function muatTanya($nama) 
