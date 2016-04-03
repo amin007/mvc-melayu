@@ -2,55 +2,54 @@
 namespace aplikasi\pustaka; //echo __NAMESPACE__; 
 class Papar 
 {
-
+#----------------------------------------------------------------------------------------------
 	function __construct() 
 	{
-		//echo '<br>1. Anda berada di class Lihat<br>';
+		//echo '<br>1. Anda berada di class Papar<br>';
 	}
-	
+#----------------------------------------------------------------------------------------------	
 	public function bacaan($nama, $noInclude = false)
 	{
-		//echo 'Anda berada di class Lihat<br>' .
+		//echo 'Anda berada di class Papar<br>' .
 		//'fungsi ' . $nama . '()<br>';
 
 
 		if ($noInclude == true) 
 		{
-			require LIHAT . $nama . '.php';	
+			require PAPAR . $nama . '.php';	
 		}
 		else 
 		{
-			require LIHAT . 'diatas.php';
-			require LIHAT . 'menu_atas.php';
-			require LIHAT . $nama . '.php';
-			require LIHAT . 'dibawah.php';	
+			require PAPAR . 'diatas.php';
+			require PAPAR . 'menu_atas.php';
+			require PAPAR . $nama . '.php';
+			require PAPAR . 'dibawah.php';	
 		}
 	}
 
 	public function baca($nama, $noInclude = false)
 	{
-		//echo '<br>1.Anda berada di class Lihat::' . $nama . '()<br>';
+		//echo '<br>1.Anda berada di class Papar::' . $nama . '()<br>';
 
 		$cariNama = array ('index/index', 'index/login',
 		'index/login_automatik', 'index/salah');
 			
 		if ($noInclude == true) 
 		{
-			require LIHAT . $nama . '.php';	
+			require PAPAR . $nama . '.php';	
 		}
 		else 
 		{
 			/*if( in_array($nama,$cariNama) )
-				require LIHAT . $nama . '.php';	
+				require PAPAR . $nama . '.php';	
 			else*/
-			
-				require LIHAT . 'diatas.php';
-				require LIHAT . 'menu_atas.php';
-				require LIHAT . $nama . '.php';
-				require LIHAT . 'dibawah.php';	
+				require PAPAR . 'diatas.php';
+				require PAPAR . 'menu_atas.php';
+				require PAPAR . $nama . '.php';
+				require PAPAR . 'dibawah.php';	
 			
 			
 		}
 	}
-
+#----------------------------------------------------------------------------------------------
 }
