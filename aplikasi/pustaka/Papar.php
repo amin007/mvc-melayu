@@ -10,10 +10,7 @@ class Papar
 #----------------------------------------------------------------------------------------------	
 	public function bacaan($nama, $noInclude = false)
 	{
-		//echo 'Anda berada di class Papar<br>' .
-		//'fungsi ' . $nama . '()<br>';
-
-
+		//echo '<br>1.Anda berada di class Papar::' . $nama . '()<br>';
 		if ($noInclude == true) 
 		{
 			require PAPAR . $nama . '.php';	
@@ -30,7 +27,6 @@ class Papar
 	public function baca($nama, $noInclude = false)
 	{
 		//echo '<br>1.Anda berada di class Papar::' . $nama . '()<br>';
-
 		$cariNama = array ('index/index', 'index/login',
 		'index/login_automatik', 'index/salah');
 			
