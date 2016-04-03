@@ -16,9 +16,6 @@ class Mulakan
 		# 1. dapatkan fungsi dpt_url() dari fail fungsi.php
 		# dan masukkan dalam $url
 		$url = dpt_url();
-
-		//echo '<br>$url->'; print_r($url) . '';
-		//echo '<HR>KAWAL=' . KAWAL . '<BR>';
 		
 		/*
 		 * 2. semak sama ada $url[0] kosong
