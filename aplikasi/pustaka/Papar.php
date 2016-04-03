@@ -1,6 +1,6 @@
 <?php
-
-class Lihat 
+namespace aplikasi\pustaka; //echo __NAMESPACE__; 
+class Papar 
 {
 
 	function __construct() 
