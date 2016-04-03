@@ -11,6 +11,13 @@ class Kawal
 	
 	public function muatTanya($nama) 
 	{
+		$failTanya = GetMatchingFiles(GetContents(TANYA),$nama . '_tanya.php');
+		$tanya = $failTanya[0];
+		/*echo '<br> class Kawal :: $nama : ' . $nama . '|';
+		echo 'TANYA->' . TANYA . '';
+		echo '<pre>$failTanya->'; print_r($failTanya) . '</pre>';
+		echo '$tanya->' . $tanya . '<br>';
+		//*/
 		
 		if (file_exists($path)) 
 		{
@@ -24,7 +31,7 @@ class Kawal
 			else echo '<br>class ' . $tanyaNama . ' tak wujud<br>';
 			*/
 		}
-					
+		
 	}
 
 }
