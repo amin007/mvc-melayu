@@ -18,12 +18,35 @@ date_default_timezone_set('Asia/Kuala_Lumpur');
 // 3. setkan tatarajah sistem
 require 'tatarajah.php';
  
-// 4. masukkan semua fail class dari folder PUSTAKA
-//    Also spl_autoload_register (Take a look at it if you like)
-function __autoload($class) 
+/** 4. masukkan semua fail class dari folder PUSTAKA
+ * URL : http://www.php-fig.org/psr/psr-4/examples/
+ * An example of a project-specific implementation.
+ *      
+ * @param string $class The fully-qualified class name.
+ * @return void
+ */
+spl_autoload_register(function ($namaClass)
 {
-    require PUSTAKA . $class . '.php';
-}
- 
-// 5. istihar class Mulakan
-$aplikasi = new Mulakan();
+	# buat pecahan tatasusunan $namaClass
+	$class = explode('\\', $namaClass); //print_r($class) . '<br>';
+	# semak kewujudan class
+	echo '<hr>nama class:' . $class[count($class)-1] . ' | ';
+	$cariFail = GetMatchingFiles(GetContents('Aplikasi'),$class[count($class)-1] . '.php');
+	# jika fail wujud, masukkan 
+	foreach($cariFail as $kitabApa)
+	{	
+		echo '$kitabApa->' . $kitabApa . '<br>';
+		if (file_exists($kitabApa)) require $kitabApa;
+		//else echo 'tidak jumpa daa<br>';
+	}
+});
+/* 5. istihar class 
+ * After registering this autoload function with SPL, the following line
+ * would cause the function to attempt to load the \Foo\Bar\Baz\Qux class
+ * from /path/to/project/src/Baz/Qux.php:
+ * 
+ *      new \Foo\Bar\Baz\Qux;
+ */
+$aplikasi = //new \Aplikasi\Kitab\Route();
+			//new \Route();
+			new Mulakan();
