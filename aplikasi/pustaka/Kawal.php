@@ -19,12 +19,12 @@ class Kawal
 		echo '$tanya->' . $tanya . '<br>';
 		//*/
 		
-		if (file_exists($path)) 
+		if (file_exists($tanya)) 
 		{
 			$tanyaNama = ucfirst($nama) . '_Tanya';
 			//echo '<br>$tanyaNama->' . $tanyaNama . '<br>';
 			
-			require_once $path;
+			require_once $tanya;
 			$this->tanya = new $tanyaNama();
 			/*
 			if (class_exists($tanyaNama)) echo '<br>class ' . $tanyaNama . ' wujud<br>';
