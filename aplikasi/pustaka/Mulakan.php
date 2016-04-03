@@ -10,7 +10,7 @@
 namespace aplikasi\pustaka; //echo __NAMESPACE__; 
 class Mulakan 
 {
-
+#------------------------------------------------------------------------------------------------
 	function __construct() 
 	{
 		# 1. dapatkan fungsi dpt_url() dari fail fungsi.php
@@ -65,37 +65,6 @@ class Mulakan
         } //*/
 		
 	}
-	
-	function cari_pengawal($kawal, $url)
-	{
-		$kawal->muatTanya($url[0]);
-		// calling methods
-		if (isset($url[2])) 
-		{
-			if (method_exists($kawal, $url[1])) 
-				{ $kawal->{$url[1]}($url[2]); }
-			else 
-				{ $this->sesat(); }
-		} else {
-			if (isset($url[1])) 
-			{
-				if (method_exists($kawal, $url[1])) 
-					{ $kawal->{$url[1]}(); }
-				else 
-					{ $this->sesat(); }
-			} 
-			else 
-				{ $kawal->index(); }
-		}
-
-	}
-	
-	function sesat() 
-	{
-		require KAWAL . 'sesat.php';
-		$kawal = new Sesat();
-		$kawal->index();
-		return false;
-	}
-
+#------------------------------------------------------------------------------------------------
+#------------------------------------------------------------------------------------------------
 }
