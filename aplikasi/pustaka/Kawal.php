@@ -12,11 +12,6 @@ class Kawal
 	public function muatTanya($nama) 
 	{
 		
-		$path = TANYA . $nama . '_tanya.php';
-		//echo '<br>$path->' . $path . '<br>';
-		//$tanyaNAMA = ucfirst($nama) . '_Tanya';
-		//echo '<br>$tanyaNAMA->' . $tanyaNAMA . '<br>';
-		
 		if (file_exists($path)) 
 		{
 			$tanyaNama = ucfirst($nama) . '_Tanya';
