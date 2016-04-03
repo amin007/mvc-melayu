@@ -1,6 +1,5 @@
 <?php
-/*
- * Ini class untuk 
+/* Ini class untuk 
  * 1. membaca $url dari fungsi dpt_url() dari fail fungsi.php
  *    dan masukkan dalam $url
  * 2. semak sama ada nilai $url[0] kosong tak
@@ -14,8 +13,8 @@ class Mulakan
 
 	function __construct() 
 	{
-		// 1. dapatkan fungsi dpt_url() dari fail fungsi.php
-		// dan masukkan dalam $url
+		# 1. dapatkan fungsi dpt_url() dari fail fungsi.php
+		# dan masukkan dalam $url
 		$url = dpt_url();
 
 		//echo '<br>$url->'; print_r($url) . '';
