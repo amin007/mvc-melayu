@@ -1,12 +1,12 @@
 <?php
-namespace Aplikasi\Kitab; //echo __NAMESPACE__; 
+namespace aplikasi\pustaka; //echo __NAMESPACE__; 
 class Kawal 
 {
 #----------------------------------------------------------------------------------------------
 	function __construct() 
 	{
 		//echo '<br>class Kawal';
-		$this->papar = new Papar();
+		$this->papar = new \aplikasi\pustaka\Papar();
 	}
 #----------------------------------------------------------------------------------------------	
 	public function muatTanya($nama) 
