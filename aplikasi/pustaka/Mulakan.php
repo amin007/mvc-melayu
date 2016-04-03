@@ -25,14 +25,17 @@ class Mulakan
 		 * 2. semak sama ada $url[0] kosong
 		 * jika ya : $url[0] == 'index';
 		 * jika tak : $url[0] == $url[0];
-		 * 3. dapatkan fail dalam folder KAWAL yang serupa dengan $url[0] 
-		 * dan masukkan dalam $fail
 		 */
-		
+
 		$url[0]= (empty($url[0])) ? 'index' : $url[0];
 		$Url[0] = '\\Aplikasi\Kawal\\' . huruf('Besar', $url[0]);
-		$fail = KAWAL . $url[0] . '.php';
-		//echo '<hr>$fail->' . $fail . '<br>';
+		 
+        /* 3. dapatkan fail dalam folder KAWAL yang serupa dengan $url[0]
+         * dan masukkan dalam $fail
+         */
+ 
+		$failKawal = GetMatchingFiles(GetContents(KAWAL),$url[0] . '.php');
+		$fail = $failKawal[0];
 		
 		/*
 		 * 4. semak sama ada dalam folder KAWAL $fail benar2 wujud
