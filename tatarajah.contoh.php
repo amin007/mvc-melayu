@@ -1,15 +1,14 @@
 <?php
-
-// 4 folder utama
+# 4 folder utama
 define('KAWAL', 'aplikasi/kawal/');
-define('LIHAT', 'aplikasi/lihat/');
+define('PAPAR', 'aplikasi/papar/');
 define('TANYA', 'aplikasi/tanya/');
 define('PUSTAKA', 'aplikasi/pustaka/');
  
-// Fungsi Global
+# Fungsi Global
 require PUSTAKA . 'Fungsi.php';
  
-// Sentiasa menyediakan garis condong di belakang (/) pada hujung jalan
+# Sentiasa menyediakan garis condong di belakang (/) pada hujung jalan
 define('URL', dirname('http://' . $_SERVER['SERVER_NAME'] . $_SERVER['PHP_SELF']) . '/');
 define('Tajuk_Muka_Surat', '...');
 ############################################################################################
@@ -24,32 +23,32 @@ echo "<br>Alamat IP : <font color='red'>" . $ip . "</font> |
 //*/
  
 if ($server == 'laman.server.anda')
-{   // isytihar tatarajah mysql
-    define('DB_TYPE', 'mysql');
-    define('DB_HOST', 'localhost');
-    define('DB_NAME', '***');
-    define('DB_USER', '***');
-    define('DB_PASS', '***');
-    // isytihar lokasi folder js
-    define('JS', 'http://' . $_SERVER['SERVER_NAME'] . '/js/');
-    // buat gambar latarbelakang
-    define('GAMBAR', 'http://' . $_SERVER['SERVER_NAME']
-        . '/bg/' . gambar_latarbelakang('../../') );
-    //echo 'GAMBAR=<img src="' . GAMBAR . '">'; // semak gambar wujud tak...
+{	# isytihar tatarajah mysql
+	define('DB_TYPE', 'mysql');
+	define('DB_HOST', 'localhost');
+	define('DB_NAME', '***');
+	define('DB_USER', '***');
+	define('DB_PASS', '***');
+	# isytihar lokasi folder js
+	define('JS', 'http://' . $_SERVER['SERVER_NAME'] . '/js/');
+	# buat gambar latarbelakang
+	define('GAMBAR', 'http://' . $_SERVER['SERVER_NAME']
+		. '/bg/' . gambar_latarbelakang('../../') );
+	//echo 'GAMBAR=<img src="' . GAMBAR . '">'; // semak gambar wujud tak...
 }
 else
-{   // isytihar tatarajah mysql
-    define('DB_TYPE', 'mysql');
-    define('DB_HOST', 'localhost');
-    define('DB_NAME', '***');
-    define('DB_USER', '***');
-    define('DB_PASS', '***');
-    // isytihar lokasi folder js
-    define('JS', 'http://' . $_SERVER['SERVER_NAME'] . '/private/js/');
-    // buat gambar latarbelakang
-    define('GAMBAR', 'http://' . $_SERVER['SERVER_NAME']
-        . '/private/bg/' . gambar_latarbelakang('../../') );
-    //echo 'GAMBAR=<img src="' . GAMBAR . '">'; // semak gambar wujud tak...
+{	# isytihar tatarajah mysql
+	define('DB_TYPE', 'mysql');
+	define('DB_HOST', 'localhost');
+	define('DB_NAME', '***');
+	define('DB_USER', '***');
+	define('DB_PASS', '***');
+	# isytihar lokasi folder js
+	define('JS', 'http://' . $_SERVER['SERVER_NAME'] . '/private/js/');
+	# buat gambar latarbelakang
+	define('GAMBAR', 'http://' . $_SERVER['SERVER_NAME']
+		. '/private/bg/' . gambar_latarbelakang('../../') );
+	//echo 'GAMBAR=<img src="' . GAMBAR . '">'; // semak gambar wujud tak...
 }
 ############################################################################################
  
