@@ -15,39 +15,38 @@ class Mulakan
 	{
 		# 1. dapatkan fungsi dpt_url() dari fail fungsi.php
 		# dan masukkan dalam $url
-		$url = dpt_url();
-		
-		/*
-		 * 2. semak sama ada $url[0] kosong
+		$url = dpt_url(); //echo '<br>$url->'; print_r($url) . '';
+         
+		/* 2. semak sama ada $url[0] kosong
 		 * jika ya : $url[0] == 'index';
 		 * jika tak : $url[0] == $url[0];
 		 */
-
-		$url[0]= (empty($url[0])) ? 'index' : $url[0];
+         
+		$url[0] = (empty($url[0])) ? 'index' : $url[0];
 		$Url[0] = '\\Aplikasi\Kawal\\' . huruf('Besar', $url[0]);
-		 
-        /* 3. dapatkan fail dalam folder KAWAL yang serupa dengan $url[0]
-         * dan masukkan dalam $fail
-         */
+ 
+		/* 3. dapatkan fail dalam folder KAWAL yang serupa dengan $url[0]
+		 * dan masukkan dalam $fail
+		 */
  
 		$failKawal = GetMatchingFiles(GetContents(KAWAL),$url[0] . '.php');
 		$fail = $failKawal[0];
 
-        //echo '<hr>KAWAL=' . KAWAL . '<br>';
+		//echo '<hr>KAWAL=' . KAWAL . '<br>';
 		//echo '<pre>$failKawal='; print_r($failKawal) . '</pre>';
-        //echo '<hr>$fail->' . $fail . '<br>';
-        //echo '<hr>$url[0]->' . $Url[0] . '<br>';
+		//echo '<hr>$fail->' . $fail . '<br>';
+		//echo '<hr>$url[0]->' . $Url[0] . '<br>';
 		
 		/*
 		 * 4. semak sama ada dalam folder KAWAL $fail benar2 wujud
 		 * jika ya : masukkan $fail dan isytihar class tersebut
 		 * jika tak : cari fungsi sesat()
-		 */ 
-		if (file_exists($fail)) 
+		 */
+		if (file_exists($fail))
 		{
-			require $fail;
+			//require $fail;
 			$kawal = new $Url[0];
-			$kawal->muatTanya($url[0]);
+			/*$kawal->muatTanya($url[0]);
 			# jika $url[1] tak disetkan, bagi $method='index'
 			$method = (isset($url[1])) ? $url[1] : 'index';
 			# semak sama ada method ada dalam $kawal
@@ -55,11 +54,11 @@ class Mulakan
 				$this->parameter();			
 			else $this->cari_pengawal($kawal, $url);
 			//*/
-        }
-        else
-        {
-            $this->sesat();
-        } //*/
+		}
+		else
+		{
+			$this->sesat();
+		} //*/
 		
 	}
 #------------------------------------------------------------------------------------------------
