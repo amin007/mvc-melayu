@@ -38,7 +38,7 @@ spl_autoload_register(function ($namaClass)
 		echo '<div class="container">nama class:' . $class[count($class)-1] 
 		. ' | $failApa->' . $failApa . '</div><hr>';
 		if (file_exists($failApa)) require $failApa;
-		//else echo 'tidak jumpa daa<br>';
+		else echo 'tidak jumpa daa<br>';
 	}//*/
 	
 });
@@ -49,4 +49,4 @@ spl_autoload_register(function ($namaClass)
  * 
  *      new \Foo\Bar\Baz\Qux;
  */
-$aplikasi = new \Aplikasi\Pustaka\Mulakan();
+$aplikasi = new \Aplikasi\Pustaka\Mulakan;
