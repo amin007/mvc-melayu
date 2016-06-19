@@ -30,15 +30,17 @@ spl_autoload_register(function ($namaClass)
 	# buat pecahan tatasusunan $namaClass
 	$class = explode('\\', $namaClass); //print_r($class) . '<br>';
 	# semak kewujudan class
-	echo '<hr>nama class:' . $class[count($class)-1] . ' | ';
-	$cariFail = GetMatchingFiles(GetContents('Aplikasi'),$class[count($class)-1] . '.php');
+	//echo 'nama class:' . $class[count($class)-1] . ' | ';
+	$cariFail = GetMatchingFiles(GetContents('aplikasi'),$class[count($class)-1] . '.php');
 	# jika fail wujud, masukkan 
 	foreach($cariFail as $failApa)
 	{	
-		echo '$failApa->' . $failApa . '<br>';
+		echo '<div class="container">nama class:' . $class[count($class)-1] 
+		. ' | $failApa->' . $failApa . '</div><hr>';
 		if (file_exists($failApa)) require $failApa;
 		//else echo 'tidak jumpa daa<br>';
-	}
+	}//*/
+	
 });
 /* 5. istihar class 
  * After registering this autoload function with SPL, the following line
@@ -47,6 +49,4 @@ spl_autoload_register(function ($namaClass)
  * 
  *      new \Foo\Bar\Baz\Qux;
  */
-$aplikasi = //new \Aplikasi\Kitab\Route();
-			//new \Route();
-			new Mulakan();
+$aplikasi = new \Aplikasi\Pustaka\Mulakan();
