@@ -5,10 +5,10 @@ class Papar
 #----------------------------------------------------------------------------------------------
 	function __construct() 
 	{
-		//echo '<br>1. Anda berada di class Papar<br>';
+		echo '<br>1. Anda berada di class Papar<br>';
 	}
 #----------------------------------------------------------------------------------------------	
-	public function bacaan($nama, $noInclude = false)
+	/*public function bacaan($nama, $noInclude = false)
 	{
 		//echo '<br>1.Anda berada di class Papar::' . $nama . '()<br>';
 		if ($noInclude == true) 
@@ -36,16 +36,11 @@ class Papar
 		}
 		else 
 		{
-			/*if( in_array($nama,$cariNama) )
-				require PAPAR . $nama . '.php';	
-			else*/
 				require PAPAR . 'diatas.php';
 				require PAPAR . 'menu_atas.php';
 				require PAPAR . $nama . '.php';
 				require PAPAR . 'dibawah.php';	
-			
-			
 		}
-	}
+	}//*/
 #----------------------------------------------------------------------------------------------
 }
