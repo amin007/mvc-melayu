@@ -82,26 +82,6 @@ function tahunan($jenis, $t)
 	return $tahunan;
 }
 
-function senarai_kakitangan()
-{
-	$pegawai[]='adam';
-	$pegawai[]='ali';
-	$pegawai[]='amin';
-	$pegawai[]='ariff';
-	$pegawai[]='azim';
-	$pegawai[]='fendi';
-	$pegawai[]='ita';
-	$pegawai[]='khairi';
-	$pegawai[]='murad';
-	$pegawai[]='musa';
-	$pegawai[]='mustaffa';
-	$pegawai[]='shukor';
-	$pegawai[]='suhaida';
-	$pegawai[]='sujana';
-	
-	return $pegawai;
-}
-
 function lihat($tab,$kini,$papar,$pegawai) 
 {	/*	kawalan/semua/30/
 	( !isset($url[4]) ) ? null : $url[4];*/
@@ -230,13 +210,7 @@ function kira2($dulu,$kini)
 }
 
 function huruf($jenis , $papar) 
-{
-	/*
-	$_POST['mdt_rangka']['respon']=strtoupper($_POST['mdt_rangka']['respon']);
-	$_POST['mdt_rangka']['fe']=strtolower($_POST['mdt_rangka']['fe']);
-	$_POST['mdt_rangka']['responden']=mb_convert_case($_POST['mdt_rangka']['responden'], MB_CASE_TITLE);
-	*/
-	
+{	
 	switch ($jenis) 
 	{// mula - pilih $jenis
 	case 'BESAR':
@@ -267,7 +241,6 @@ function bersih($papar)
 	return $papar;
 }
 
-
 function sms_get_data($data)
 {
 	$dataGet = '';
@@ -278,22 +251,6 @@ function sms_get_data($data)
 	}
 
 	return $dataGet;
-}
-
-function gambar_latarbelakang($lokasi)
-{
-	$tmpt = $lokasi . 'bg/bg/';
-		//$_SERVER['SERVER_NAME'] . '/private_html/bg/bg/';
-		//'../../bg/bg/' ;
-		
-	foreach(scandir($tmpt) as $gambar) 
-	{
-		if (substr($gambar,-3) == 'jpg') 
-			$papar[]=$gambar;
-	}
-
-	$today = rand(0, count($papar)-1); 
-	return $papar[$today];
 }
 
 function cari_imej($ssm,$strDir)
