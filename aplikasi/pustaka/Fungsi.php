@@ -105,32 +105,32 @@ function lihat($tab,$kini,$papar,$pegawai)
 
 function pencamSqlLimit($bilSemua)
 {
-	// tentukan pembolehubah
-	$url = dpt_url(); // sepatutnya kawalan/semua/jan12/30/2
+	# tentukan pembolehubah
+	$url = dpt_url(); # sepatutnya kawalan/semua/jan12/30/2
 	$item = ( !isset($url[3]) ) ? null : $url[3];
 	$mukasurat= ( !isset($url[4]) ) ? null : $url[4];
-	// buat sql
+	# buat sql
 	#$semua = mysql_query($sql) or diehard4('sql1->',$sql); 
-	// Tentukan bilangan jumlah dalam DB:
+	# Tentukan bilangan jumlah dalam DB:
 	$jum['bil_semua'] = $bilSemua; //mysql_num_rows($semua);
-	// ambil halaman semasa, jika tiada, cipta satu! 
+	# ambil halaman semasa, jika tiada, cipta satu! 
 	$jum['page'] = ( !isset($mukasurat) )? 1: $mukasurat;
-	// berapa item dalam satu halaman
+	# berapa item dalam satu halaman
 	$jum['max'] = ( !isset($item) )? 100: $item;
-	// Tentukan had query berasaskan nombor halaman semasa.
+	# Tentukan had query berasaskan nombor halaman semasa.
 	$jum['dari'] = (($jum['page'] * $jum['max']) - $jum['max']); 
-	// Tentukan bilangan halaman. 
+	# Tentukan bilangan halaman. 
 	$jum['muka_surat'] = ceil($jum['bil_semua'] / $jum['max']);
-	// nak tentukan berapa bil jumlah dlm satu muka surat
+	# nak tentukan berapa bil jumlah dlm satu muka surat
 	$jum['bil'] = $jum['dari']+1; 
-	//sql kedua
+	# sql kedua
 	//$query = $sql . ' LIMIT ' . $jum['dari'] . ', ' . $jum['max']; 
 	
 	return $jum;
 }
 
 function halaman($jum)
-{// function halaman() - mula
+{# function halaman() - mula
 	$mula = '<span style="background-color: #fffaf0; color:black">';
 	$tamat  = '</span>';
 	$page = $jum['page'];
@@ -138,7 +138,7 @@ function halaman($jum)
 	$bil_semua = $jum['bil_semua'];
 	$baris_max = $jum['max'];
 			
-	$url = dpt_url(); // sepatutnya kawalan/semua/jan12/30/2
+	$url = dpt_url(); # sepatutnya kawalan/semua/jan12/30/2
 	$class = ( !isset($url[0]) ) ? null : $url[0]; //'kawalan'; 
 	$fungsi = ( !isset($url[1]) ) ? null : $url[1]; //'semua'; 
 	$bln = ( !isset($url[2]) ) ? null : $url[2]; //'jan12'; 
@@ -151,17 +151,17 @@ function halaman($jum)
 	$halaman = "\nBil Kes:($bil_semua)- Papar halaman " .
 		'<div class="pagination"><ul>'; 
 		
-	if($page > 1) // Bina halaman sebelum
+	if($page > 1) # Bina halaman sebelum
 		$halaman .= "\r<li><a href='$senarai" . ($page-1) . "/$fe'>Sebelum</a></li>";
-	for($i = 1; $i <= $muka_surat; $i++) // Bina halaman terkini
+	for($i = 1; $i <= $muka_surat; $i++) # Bina halaman terkini
 		{$halaman .= ($page==$i)? "<li><a>($i)</a></li>" : "\r<li><a href='$senarai$i/$fe'>$i</a></li>";}
-	if($page < $muka_surat) // Bina halaman akhir
+	if($page < $muka_surat) # Bina halaman akhir
 		$halaman .= "\r<li><a href='$senarai" . ($page+1) . "/$fe'>Lagi</a></li>";
 		
 	$halaman .= "\n</ul></div>\n";
 
 	return $halaman;
-}// function halaman() - tamat
+}# function halaman() - tamat
 
 function cariMedanInput($ubah,$f,$row,$nama) 
 {/* mula -
@@ -181,7 +181,7 @@ function cariMedanInput($ubah,$f,$row,$nama)
 	$cariMsic = array(8); // papar input text msic sahaja 
 	$namaM = $ubah .'[' . $nama . ']';
 		
-	// tentukan medan yang ada input
+	# tentukan medan yang ada input
 	$input=in_array($f,$cariMedan)? 
 	(@in_array($f,$cariMsic)? // tentukan medan yang ada msic
 		'<input type="text" name="' . $namaM . '" value="' . $row[$f] . '" size=6>'
@@ -198,13 +198,13 @@ function cariMedanInput($ubah,$f,$row,$nama)
 
 function kira($kiraan)
 {
-	// pecahan kepada ratus
+	# pecahan kepada ratus
 	return number_format($kiraan,0,'.',',');
 } 
 
 function kira2($dulu,$kini)
 {
-	// buat bandingan dan pecahan kepada ratus
+	# buat bandingan dan pecahan kepada ratus
 	return @number_format((($kini-$dulu)/$dulu)*100,0,'.',',');
 	//@$kiraan=(($kini-$dulu)/$dulu)*100;
 }
@@ -212,7 +212,7 @@ function kira2($dulu,$kini)
 function huruf($jenis , $papar) 
 {	
 	switch ($jenis) 
-	{// mula - pilih $jenis
+	{# mula - pilih $jenis
 	case 'BESAR':
 		$papar = strtoupper($papar);
 		break;
@@ -225,7 +225,7 @@ function huruf($jenis , $papar)
 	case 'Besar_Depan':
 		$papar = mb_convert_case($papar, MB_CASE_TITLE);
 		break;
-	}// tamat - pilih $jenis
+	}# tamat - pilih $jenis
 	
 	return $papar;
 
@@ -263,10 +263,10 @@ function cari_imej($ssm,$strDir)
 	}
 	else
 	{
-		// You can modify this in case you need a different extension
+		# You can modify this in case you need a different extension
 		$strExt = "tif";
 
-		// This is the full match pattern based upon your selections above
+		# This is the full match pattern based upon your selections above
 		$pattern = "*" . $ssm . "*." . $strExt;
 		$cariImej = GetMatchingFiles(GetContents($strDir),$pattern);
 	}
@@ -277,7 +277,7 @@ function cari_imej($ssm,$strDir)
 // lisfile2 - mula
 function GetMatchingFiles($files, $search) 
 {
-	// Split to name and filetype
+	# Split to name and filetype
 	if(strpos($search,".")) 
 	{
 		$baseexp=substr($search,0,strpos($search,"."));
@@ -289,15 +289,15 @@ function GetMatchingFiles($files, $search)
 		$typeexp="";
 	} 
 		
-	// Escape all regexp Characters 
+	# Escape all regexp Characters 
 	$baseexp=preg_quote($baseexp); 
 	$typeexp=preg_quote($typeexp); 
 		
-	// Allow ? and *
+	# Allow ? and *
 	$baseexp=str_replace(array("\*","\?"), array(".*","."), $baseexp);
 	$typeexp=str_replace(array("\*","\?"), array(".*","."), $typeexp);
 		   
-	// Search for Matches
+	# Search for Matches
 	$i=0;
 	$matches=null; // $matches adalah array()
 	foreach($files as $file) 
