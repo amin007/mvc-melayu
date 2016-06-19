@@ -1,5 +1,5 @@
 <?php
-
+namespace aplikasi\pustaka; //echo __NAMESPACE__; 
 class Hash
 {
 	/**
