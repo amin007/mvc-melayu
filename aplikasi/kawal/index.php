@@ -1,5 +1,5 @@
 <?php
-namespace aplikasi\pustaka; //echo __NAMESPACE__; 
+namespace aplikasi\kawal; //echo __NAMESPACE__; 
 class Index extends \aplikasi\pustaka\Kawal 
 {
 #--------------------------------------------------------------------------------------------
@@ -14,7 +14,7 @@ class Index extends \aplikasi\pustaka\Kawal
 		$this->papar->Tajuk_Muka_Surat = 'SEMAK';
 		
 		# pergi papar kandungan
-		$this->papar->baca('index/index');
+		$this->papar->baca('index/index2');
 	}
 #--------------------------------------------------------------------------------------------	
 }
