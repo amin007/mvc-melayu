@@ -49,7 +49,7 @@ function dpt_senarai($namajadual)
 	return $jadual;
 }
 
-function pecah_post($_POST)
+function pecah_post()
 {
 	$papar['pilih'] = isset($_POST['pilih']) ? $_POST['pilih'] : null;
 	$papar['cari'] = isset($_POST['cari']) ? $_POST['cari'] : null;
