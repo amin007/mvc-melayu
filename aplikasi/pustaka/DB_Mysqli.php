@@ -47,7 +47,7 @@
  		What you do with displaying the array result is up to you!
   		----------------------------------------
  */
-
+namespace aplikasi\pustaka; //echo __NAMESPACE__; 
 class DB_Mysqli
 {
 
