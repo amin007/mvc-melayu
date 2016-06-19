@@ -1,12 +1,12 @@
 <?php
-namespace aplikasi\pustaka; //echo __NAMESPACE__; 
+namespace Aplikasi\Pustaka; //echo __NAMESPACE__; 
 class Kawal 
 {
 #----------------------------------------------------------------------------------------------
 	function __construct() 
 	{
 		//echo '<br>class Kawal';
-		$this->papar = new \aplikasi\pustaka\Papar();
+		$this->papar = new \Aplikasi\Pustaka\Papar();
 	}
 #----------------------------------------------------------------------------------------------	
 	public function muatTanya($nama) 
@@ -20,7 +20,7 @@ class Kawal
 		
 		if (file_exists($tanya)) 
 		{
-			$tanyaNama = '\\Aplikasi\Tanya\\' . huruf('Besar', $nama) . '_Tanya';
+			$tanyaNama = '\\Aplikasi\Tanya\\' . huruf('Besar_Depan', $nama) . '_Tanya';
 			//echo '<br>$tanyaNama->' . $tanyaNama . '<br>';
 			
 			//require_once $tanya;
