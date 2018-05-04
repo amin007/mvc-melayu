@@ -29,11 +29,6 @@ fikir => controller, bayan => view, kitab => library dan taskil => model.
 Jadi antara cadangan kita tukar istilah 4 folder utama adalah
 dun => controller, copmohor => view, perlembagaan => library dan ??? => model. 
 
-##tun-mahadir
-
-Jadi antara cadangan kita tukar istilah 4 folder utama adalah
-??? => controller, tulis => view, buku => library dan ??? => model. 
-
 #konsep-asal 
 Tujuan guna verb (kata kerja) hanya pendek kata. Jadikan 5 huruf bagi setiap konsep mvc. 
 Asalnya cuba hendak terjemahkan konsep mvc semudah mungkin dalam bahasa melayu. 
