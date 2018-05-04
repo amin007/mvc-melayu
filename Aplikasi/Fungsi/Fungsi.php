@@ -73,27 +73,27 @@ function dpt_ip()
 function dpt_senarai($pilih)
 {
 	# define('MSICBARU', serialize (array()) );
-	if ($pilih == 'msicbaru') : 
+	if ($pilih == 'msicbaru') :
 		$jadual = unserialize(MSICBARU);
-	elseif ($pilih == 'produk') : 
+	elseif ($pilih == 'produk') :
 		$jadual = unserialize(PRODUK);
+	elseif ($pilih == 'jadual_login') :
 		$jadual = unserialize(JADUAL_LOGIN);
-	elseif ($pilih == 'jadual_biodata') : 
+	elseif ($pilih == 'jadual_biodata') :
 		$jadual = unserialize(JADUAL_BIODATA);
-	elseif ($pilih == 'jadual_biodata2') : 
+	elseif ($pilih == 'jadual_biodata2') :
 		$jadual = unserialize(JADUAL_BIODATA2);
-	elseif ($pilih == 'jadual_biodata3') : 
+	elseif ($pilih == 'jadual_biodata3') :
 		$jadual = unserialize(JADUAL_BIODATA3);
-	elseif ($pilih == 'staf_prosesan') : 
+	elseif ($pilih == 'staf_prosesan') :
 		$jadual = unserialize(PROSESAN);
-	elseif ($pilih == 'staf_biasa') : 
+	elseif ($pilih == 'staf_biasa') :
 		$jadual = unserialize(PEGAWAI);
-	elseif ($pilih == 'jadual_login') : 
-	elseif ($pilih == 'jadual_kawalan') : 
+	elseif ($pilih == 'jadual_kawalan') :
 		$jadual = unserialize(JADUAL_KAWALAN);
-	elseif ($pilih == 'jadual_kawalan2') : 
+	elseif ($pilih == 'jadual_kawalan2') :
 		$jadual = unserialize(JADUAL_KAWALAN2);
-	elseif ($pilih == 'jadual_rangka') : 
+	elseif ($pilih == 'jadual_rangka') :
 		$jadual = unserialize(JADUAL_RANGKA);
 	else : $jadual = array(); //unserialize()
 	endif;
