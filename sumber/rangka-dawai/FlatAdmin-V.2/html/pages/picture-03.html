@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js" type="text/javascript"></script>  
+
+
+<title>Background image cycler | Simon Battersby</title>
+<style type="text/css">
+body{color:white;font-family:Arial,Helmet,sans-serif;background-color:#000020;}
+#outer_wrap{width:80%;margin:50px auto;}
+#wrap{width:550px;height:250px;position:relative;z-index:1;padding:100px 20px}
+#wrap_background{position:absolute;top:0;left:0;width:590px;height:450px;background-color:#000010;z-index:-1;opacity:0.6;filter: alpha(opacity = 60);border-radius:10px;-moz-border-radius:10px}
+h1{margin:0 0 30px}
+a{color:white}
+#background_cycler{padding:0;margin:0;width:100%;position:absolute;top:0;left:0;z-index:-1;}
+#background_cycler img{position:absolute;left:0;top:0;width:100%;z-index:1;background-color:white}
+#background_cycler img.active{z-index:3}
+</style>
+</head>
+
+<body>
+
+<div id="background_cycler" >
+	<script type="text/javascript">
+	$('#background_cycler').hide();//comment
+	</script>
+	<img class="active" src="http://www.simonbattersby.com/images/misc/backgrounds/background_1.jpg" alt=""/>
+	<img src="http://www.simonbattersby.com/images/misc/backgrounds/background_2.jpg" alt=""   />
+	<img src="http://www.simonbattersby.com/images/misc/backgrounds/background_3.jpg" alt=""  />
+	<img src="http://www.simonbattersby.com/images/misc/backgrounds/background_4.jpg" alt=""/>		
+	<img src="http://www.simonbattersby.com/images/misc/backgrounds/background_5.jpg" alt=""  />
+</div>
+<script type="text/javascript" src="http://www.simonbattersby.com/javascript/crossfade_images2.js"></script>
+
+<div id="outer_wrap">
+<div id="wrap">
+<div id="wrap_background"></div>
+<h1>Background image cycler</h1>
+<p>A simple jQuery script rotates the images, which are positioned absolutely, with a z-index behind the page content to give the appearance of a background image.</p>
+<p>For this page, the text itself is positioned within another div to which a semi-transparent absolutely positioned "background" - actually another div with the opacity set to 0.6 - has been applied.</p>
+<p><a href="/blog/cycling-a-background-image-with-jquery/">Return to description</a>.</p>
+</div>
+</div>
+
+</body>
+
+</html>

@@ -1,0 +1,57 @@
+@charset "utf-8";
+/* CSS Document */
+body {
+  /*background:url(../img/bg.jpg) repeat top left;
+ */
+background: #6e7482; /* Old browsers */
+background: -moz-linear-gradient(left, #6e7482 0%, #6e7482 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, right top, color-stop(0%,#6e7482), color-stop(100%,#6e7482)); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(left, #6e7482 0%,#6e7482 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(left, #6e7482 0%,#6e7482 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(left, #6e7482 0%,#6e7482 100%); /* IE10+ */
+background: linear-gradient(to right, #6e7482 0%,#6e7482 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#6e7482', endColorstr='#6e7482',GradientType=1 ); /* IE6-9 */
+
+
+/*   background:#28343b repeat-x;
+background: linear-gradient(93deg, rgba(56, 172, 209, 1)51%, rgba(235, 255, 255, 0.8)100%); 
+background: -moz-linear-gradient(93deg, rgba(56, 172, 209, 1)51%, rgba(235, 255, 255, 0.8)100%); 
+background: -webkit-linear-gradient(93deg, rgba(56, 172, 209, 1)51%, rgba(235, 255, 255, 0.8)100%); 
+background: -o-linear-gradient(93deg, rgba(56, 172, 209, 1)51%, rgba(235, 255, 255, 0.8)100%);*/ 
+  /*background:url(../../img/body1.jpg) #054257 repeat-x; */
+  
+  
+  color: #333;
+  font-size: 11px;
+  height: auto;
+  padding-bottom: 20px;
+}
+#banner{
+background:url(../../img/bannerBM_2.png) no-repeat;
+height:100px;
+border-bottom:solid 1px #33CCFF;
+}
+#banner_bi{
+background:url(../../img/bannerBI_1.png);
+height:100px;
+border-bottom:solid 1px #33CCFF;
+}
+#footer{
+background:url(../../img/footerBM_2.png);
+height:90px;
+border-top:solid 1px #33CCFF;
+}
+.container_12 {
+  /*background:url(../img/body.png) repeat-x;*/
+  background:url(../../img/bg.jpg) repeat top left;
+  border:solid 1px white;
+-webkit-box-shadow: 0px 0px 14px rgba(50, 50, 50, 0.75);
+-moz-box-shadow:    0px 0px 14px rgba(50, 50, 50, 0.75);
+box-shadow:         0px 0px 14px rgba(50, 50, 50, 0.75);
+}
+
+
+
+
+
+

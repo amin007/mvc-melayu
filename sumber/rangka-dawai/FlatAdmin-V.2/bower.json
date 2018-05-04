@@ -1,0 +1,79 @@
+{
+  "name": "flat-admin-bootstrap-templates",
+  "dependencies": {
+    "jquery": "latest",
+    "bootstrap": "latest",
+    "font-awesome": "latest",
+    "datatables": "latest",
+    "Chart.js": "latest",
+    "bootstrap-switch": "latest",
+    "matchHeight": "latest",
+    "select2": "latest",
+    "animate.css": "latest",
+    "ace-builds": "~1.2.2",
+    "checkbox3": "~0.1.1"
+  },
+  "private": true,
+  "overrides": {
+    "jquery": {
+      "main": [
+        "dist/jquery.min.js"
+      ]
+    },
+    "bootstrap": {
+      "main": [
+        "dist/js/bootstrap.min.js",
+        "dist/css/bootstrap.min.css",
+        "fonts/*"
+      ]
+    },
+    "font-awesome": {
+      "main": [
+        "css/font-awesome.min.css",
+        "fonts/*"
+      ]
+    },
+    "animate.css": {
+      "main": [
+        "animate.min.css"
+      ]
+    },
+    "bootstrap-switch": {
+      "main": [
+        "dist/css/bootstrap3/bootstrap-switch.min.css",
+        "dist/js/bootstrap-switch.min.js"
+      ]
+    },
+    "checkbox3": {
+      "main": [
+        "dist/checkbox3.min.css"
+      ]
+    },
+    "datatables": {
+      "main": [
+        "media/css/jquery.dataTables.min.css",
+        "media/css/dataTables.bootstrap.css",
+        "media/js/jquery.dataTables.min.js",
+        "media/js/dataTables.bootstrap.min.js"
+      ]
+    },
+    "ace-builds": {
+      "main": [
+        "src/ace.js",
+        "src/mode-html.js",
+        "src/theme-github.js"
+      ]
+    },
+    "Chart.js": {
+      "main": [
+        "Chart.min.js"
+      ]
+    },
+    "select2": {
+      "main": [
+        "dist/js/select2.full.min.js",
+        "dist/css/select2.min.css"
+      ]
+    }
+  }
+}
