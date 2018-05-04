@@ -1,0 +1,1 @@
+<?php echo "\r"; ?><!-- menu tengah atas --><?php echo "\r"; ?>
