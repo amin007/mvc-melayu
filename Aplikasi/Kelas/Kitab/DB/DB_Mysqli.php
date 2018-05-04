@@ -47,10 +47,9 @@
  		What you do with displaying the array result is up to you!
   		----------------------------------------
  */
-namespace aplikasi\pustaka; //echo __NAMESPACE__; 
+namespace Aplikasi\Kitab; //echo __NAMESPACE__; 
 class DB_Mysqli
 {
-
 	/**
 	* @var <str> The mode to return results, defualt is MYSQLI_BOTH, use setFetchMode() to change.
 	*/
@@ -63,37 +62,26 @@ class DB_Mysqli
 	*/
 	public function  __construct($DB_TYPE, $DB_HOST, $DB_NAME, $DB_USER, $DB_PASS) 
 	{
-		//$this->mysqli = new mysqli($db['host'], $db['user'], $db['pass'], $db['table']);
-		$this->mysqli = new mysqli($DB_HOST, $DB_USER, $DB_PASS, $DB_NAME);
-
-		if (mysqli_connect_errno()) 
+		try
 		{
-			printf("<b>Connection failed:</b> %s\n", mysqli_connect_error());
+			$this->mysqli = new \mysqli($DB_HOST, $DB_USER, $DB_PASS, $DB_NAME);
+			//parent::__construct($DB_HOST, $DB_USER, $DB_PASS, $DB_NAME);
+			//parent::__construct($DB_TYPE.':host='.$DB_HOST.';dbname='.$DB_NAME, $DB_USER, $DB_PASS);
+		}
+		catch (PDOException $e) 
+		{
+			echo $e->getMessage();
+			echo '<br><a href="' . URL . 'ruangtamu/logout">Keluar</a>';
 			exit;
 		}
 	}
 	
 	/**
-	 * select
-	 * @param string $sql An SQL string
-	 * @param array $array Paramters to bind
-	 * @param constant $fetchMode A PDO Fetch mode
-	 * @return mixed
-	 */
-
-	public function select($sql, $fetchMode = 2)
-	{
-		//echo '<hr><pre>'; print_r($sql) . '</pre><hr>';
-		$this->query($sql, $fetchMode);
-		return $this->dpt_data($fetchMode);
-	}
-
-	/**
 	 * insert
 	 * @param string $table A name of table to insert into
 	 * @param string $data An associative array
 	 */
-	public function insert($table, $data)
+	public function insert_lama($table, $data)
 	{
 		/*
 		ksort($data);
@@ -107,10 +95,20 @@ class DB_Mysqli
 
 		$sql=("INSERT INTO $table (`$fieldNames`) VALUES ($fieldValues)");
 
+		echo '<hr><pre>'; print_r($sql) . '</pre><hr>';
+		//return $this->query($sql );
+	}
+
+	/**
+	 * insert
+	 * @param string $table A name of table to insert into
+	 * @param string $data An associative array
+	 */
+	public function insert($sql, $array = array(), $fetchMode = 2)
+	{
 		//echo '<hr><pre>'; print_r($sql) . '</pre><hr>';
-		return $this->query($sql);
+		return $this->query($sql, $fetchMode);
 		//return $this->dpt_data($fetchMode);
-		
 	}
 	
 	/**
@@ -120,13 +118,13 @@ class DB_Mysqli
 	 * @param constant $fetchMode A PDO Fetch mode
 	 * @return mixed
 	 */
-	 
 	public function update($sql, $array = array(), $fetchMode = 2)
 	{
 		//echo '<hr><pre>'; print_r($sql) . '</pre><hr>';
-		return $this->query($sql, $fetchmode);
+		return $this->query($sql, $fetchMode);
 		//return $this->dpt_data($fetchMode);
 	}
+	
 	/**
 	 * delete
 	 * 
@@ -139,7 +137,7 @@ class DB_Mysqli
 	{
 		$sql = "DELETE FROM $table WHERE $where LIMIT $limit";
 		//echo '<hr><pre>'; print_r($sql) . '</pre><hr>';
-		return $this->query($sql, $fetchmode = 2);
+		return $this->query($sql, $fetchMode = 2);
 	}
 
 	/**
@@ -149,13 +147,26 @@ class DB_Mysqli
 	 * @param constant $fetchMode A PDO Fetch mode
 	 * @return mixed
 	 */
-
-	public function rowcount($sql, $fetchMode = 2)
+	public function rowCount($SQL, $fetchMode = 2)
 	{
+		//echo '<hr><pre>'; print_r($SQL) . '</pre><hr>';
 		$this->SQL = $this->mysqli->real_escape_string($SQL);
-		//echo '<hr><pre>'; print_r($sql) . '</pre><hr>';
 		$result = $this->mysqli->query($SQL);
 		return $result->num_rows;
+	}
+
+	/**
+	 * select
+	 * @param string $sql An SQL string
+	 * @param array $array Paramters to bind
+	 * @param constant $fetchMode A PDO Fetch mode
+	 * @return mixed
+	 */
+	public function selectAll($sql, $fetchMode = 2)
+	{
+		//echo '<hr><pre>'; print_r($sql) . '</pre><hr>';
+		$this->query($sql);
+		return $this->dpt_data($fetchMode);
 	}
 
 	/**
@@ -164,50 +175,82 @@ class DB_Mysqli
 	 * @param	<str> SQL statement
 	 * @return	<bln|null>
 	 */
-	public function query($SQL, $fetchmode)
+	public function query($SQL)
 	{
+		//echo '<hr><pre>'; print_r($SQL) . '</pre><hr>';
 		$this->SQL = $this->mysqli->real_escape_string($SQL);
 		$this->result = $this->mysqli->query($SQL);
-
+				
 		if ($this->result == true)
 		{
-			return true;
+			return $this->result;
 		}
 		else
 		{
-			printf("<b>Problem with SQL:</b> %s\n", $this->SQL);
+			printf("Masalah pada : <pre>%s.\n%s</pre>", 
+				$this->mysqli->error,
+				$this->SQL);
 			exit;
 		}
+		
 	}
 
 	/**
 	 * @desc	Get the results
 	 * @return	<mixed>
 	 */
-	public function dpt_data($jenis = 2)
+	public function dpt_data($jenis)
 	{
-
-		switch($jenis)
-		{			
-			case 1:
-			$this->fetchMode = MYSQLI_NUM;
-			break;
-			
-			case 2:
-			$this->fetchMode = MYSQLI_ASSOC;
-			break;
-			
-			default:
-			$this->fetchMode = MYSQLI_BOTH;
-			break;
-		}
-
 		/** Grab all the data */
+		$this->fetchMode = $this->setFetchMode($jenis); // tentukan jenis data
+		/*echo '<pre>$jenis:' . $jenis . '</pre><hr>'
+		   . '<pre>$this->fetchMode:' . $this->fetchMode . '</pre><hr>';*/
 		$data = array();
 
 		while ($row = $this->result->fetch_array($this->fetchMode))
 		{
+			//echo '<hr><pre>$row:'; print_r($row) . '</pre><hr>';
 			$data[] = $row;
+		}
+
+		/** Make sure to close the result Set */
+		$this->result->close();
+
+		return $data;
+
+	}
+
+	/**
+	 * select
+	 * @param string $sql An SQL string
+	 * @param array $array Paramters to bind
+	 * @param constant $fetchMode A PDO Fetch mode
+	 * @return mixed
+	 */
+	public function select($sql, $fetchMode = 2)
+	{
+		//echo '<hr><pre>'; print_r($sql) . '</pre><hr>';
+		$this->query($sql, $fetchMode);
+		return $this->dpt1data($fetchMode);
+	}
+
+	/**
+	 * @desc	Get the results
+	 * @return	<mixed>
+	 */
+	public function dpt1data($jenis = 2)
+	{
+		/** Grab all the data */
+		$this->fetchMode = $this->setFetchMode($jenis); // tentukan jenis data
+		$data = array();
+
+		while ($row = $this->result->fetch_array($this->fetchMode))
+		{
+			//echo '<hr><pre>$row:'; print_r($row) . '</pre><hr>';
+	       foreach ($row as $key => $value) 
+	        {
+	            $data[$key] = $value;
+	        }
 		}
 
 		/** Make sure to close the result Set */
@@ -238,6 +281,8 @@ class DB_Mysqli
 			$this->fetchMode = MYSQLI_BOTH;
 			break;
 		}
+		
+		return $this->fetchMode;
 	}
 
 	/**
