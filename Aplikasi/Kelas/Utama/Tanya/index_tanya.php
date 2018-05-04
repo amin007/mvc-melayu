@@ -1,27 +1,23 @@
 <?php
-
-class Index_Tanya extends Tanya
-{
-
-	public function __construct() 
+namespace Aplikasi\Tanya; //echo __NAMESPACE__;
+class Index_Tanya extends \Aplikasi\Kitab\Tanya
+#=====================================================================================================
+	public function __construct()
 	{
 		parent::__construct();
-		//echo '<br>Dalam function __construct() class Index_Tanya extends Tanya<br>';
 	}
-
-	public function paparMedan($myTable)
+#---------------------------------------------------------------------------------------------------#
+	function data_contoh($pilih)
 	{
-		//echo '<br>Dalam function paparMedan($myTable) class Index_Tanya extends Tanya<br>';
-		return $this->db->select('SHOW COLUMNS FROM ' . $myTable);
-	}
-	
-	public function paparDataJadual($myTable)
-	{
-		$sql = 'SELECT * FROM ' . 	$myTable;
-		
-		//echo $sql . '<br>';
-		
-		return $this->db->select($sql);
-	}
+		$data = array(
+			'namaPendek' => 'james007',
+			'namaPenuh' => 'Polan Bin Polan',
+			'level' => 'pelawat'
+		); # dapatkan medan terlibat
+		$kira = 1; # kira jumlah data
 
+		return ($pilih==1) ? $kira : $data; # pulangkan nilai
+	}
+#---------------------------------------------------------------------------------------------------#
+#=====================================================================================================
 }

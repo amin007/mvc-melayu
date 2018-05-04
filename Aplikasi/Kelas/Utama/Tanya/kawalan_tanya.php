@@ -1,195 +1,90 @@
 <?php
-
-class Kawalan_Tanya extends Tanya 
+namespace Aplikasi\Tanya; //echo __NAMESPACE__; 
+class Kawalan_Tanya extends \Aplikasi\Kitab\Tanya
 {
-
-	public function __construct() 
+#=====================================================================================================
+	public function __construct()
 	{
 		parent::__construct();
 	}
+#---------------------------------------------------------------------------------------------------#
+	function data_contoh($pilih)
+	{
+		$data = array(
+			'namaPendek' => 'james007',
+			'namaPenuh' => 'Polan Bin Polan',
+			'level' => 'pelawat'
+		); # dapatkan medan terlibat
+		$kira = 1; # kira jumlah data
 
-	public function kiraKes($myTable, $medan, $cari)
-	{
-		$fe = ( !isset($cari['fe']) ) ? '' : ' WHERE fe = "' . $cari['fe'] . '"';
-		$kp = ( !isset($cari['kp']) ) ? '' : ' and kp = "' . $cari['kp'] . '"';
-		$carian = $fe . $kp;
-		return $this->db->rowcount('SELECT ' . $medan . ' FROM ' .
-		$myTable . $carian);
+		return ($pilih==1) ? $kira : $data; # pulangkan nilai
 	}
+#---------------------------------------------------------------------------------------------------#
+	function alihMedan()
+	{
+		//ALTER TABLE Employees MODIFY COLUMN empName VARCHAR(50) AFTER department;
+	}
+#---------------------------------------------------------------------------------------------------#
+	public function semakPosmen($myTable, $posmen, $pass)
+	{
+		if(isset($posmen[$myTable][$pass])):
+			if($posmen[$myTable][$pass] == null):
+				//echo '<br> buang ' . $pass;
+				unset($posmen[$myTable][$pass]);
+			else:
+				$posmen[$myTable][$pass] = 
+					\Aplikasi\Kitab\RahsiaHash::rahsia('md5', 
+					$posmen[$myTable][$pass]);
+			endif;
+		endif;
 
-	public function kesSemua($myTable, $medan, $cari, $jum)
-	{
-		//$jum['dari'] . ', ' . $jum['max']
-		$fe = ( !isset($cari['fe']) ) ? '' : ' WHERE fe = "' . $cari['fe'] . '"';
-		$kp = ( !isset($cari['kp']) ) ? '' : ' and kp = "' . $cari['kp'] . '"';
-		$susun = ( !isset($cari['susun']) ) ? '' : ' ORDER BY ' . $cari['susun'];
-		$carian = $fe . $kp;
-		$sql = 'SELECT ' . $medan . ' FROM ' . $myTable . $carian .
-			//'ORDER BY 14 desc,1' .
-			$susun . ' LIMIT ' . $jum['dari'] . ', ' . $jum['max'];
-		
-		//echo $sql . '<br>';
-		$result = $this->db->select($sql);
-		//echo json_encode($result);
-		
-		return $result;
+		return $posmen;
 	}
-
-	public function kesSelesai($myTable, $medan, $cari, $jum)
-	{
-		//$jum['dari'] . ', ' . $jum['max']
-		$fe = ( !isset($cari['fe']) ) ? '' : ' and fe = "' . $cari['fe'] . '"';
-		$kp = ( !isset($cari['kp']) ) ? '' : ' and kp = "' . $cari['kp'] . '"';
-		$susun = ( !isset($cari['susun']) ) ? '' : ' ORDER BY ' . $cari['susun'];
-		$carian = $fe . $kp;
-		$sql = 'SELECT ' . $medan . ' FROM ' . $myTable . 
-			' WHERE terima is not null ' .	$carian .
-			$susun . ' LIMIT ' . $jum['dari'] . ', ' . $jum['max'];
-		
-		//echo $sql . '<br>';
-		$result = $this->db->select($sql);
-		//echo json_encode($result);
-		
-		return $result;
+#---------------------------------------------------------------------------------------------------#
+	public function medanKawalan($cariID) 
+	{ 
+		$news1 = 'http://sidapmuar/ekonomi/ckawalan/ubah/' . $cariID;
+		$news2 = 'http://sidapmuar/ekonomi/cprosesan/ubah/000/'.$cariID.'/2010/2015/'; 
+		$news3 = 'http://sidapmuar/ekonomi/semakan/ubah/",kp,"/'.$cariID.'/2010/2015/'; 
+		$url1 = '" <a target=_blank href=' . $news1 . '>SEMAK 1</a>"' . "\r";
+		$url2 = '" <a target=_blank href=' . $news2 . '>SEMAK 2</a>"' . "\r";
+		$url3 = 'concat("<a target=_blank href=' . $news3 . '>SEMAK 3</a>")' . "\r";
+        $medanKawalan = 'newss,'
+			//. '( if (hasil is null, "", '
+			. 'concat_ws("|",nama,operator,'.$url1 . ',' . $url3 .') nama,'
+			/*. ' concat_ws("|",' . "\r"
+			. ' 	concat_ws("="," hasil",format(hasil,0)),' . "\r"
+			. ' 	concat_ws("="," belanja",format(belanja,0)),' . "\r"
+			. ' 	concat_ws("="," gaji",format(gaji,0)),' . "\r"
+			. ' 	concat_ws("="," aset",format(aset,0)),' . "\r"
+			. ' 	concat_ws("="," staf",format(staf,0)),' . "\r"
+			. ' 	concat_ws("="," stok akhir",format(stok,0))' . "\r"
+ 			. ' ) as data5P,' . "\r"//*/
+			. ' concat_ws("|",' . "\r"
+			. ' 	concat_ws("="," responden",responden),' . "\r"
+			. ' 	concat_ws("="," notel",notel),' . "\r"
+			. ' 	concat_ws("="," nofax",nofax),' . "\r"
+			. ' 	concat_ws("="," orang_",orang_a),' . "\r"
+			. ' 	concat_ws("="," notel_a",notel_a),' . "\r"
+			. ' 	concat_ws("="," nofax_a",nofax_a)' . "\r"
+ 			. ' ) as dataHubungi,' . "\r"
+			. 'concat_ws(" | ",nossm,kp) as nossm,fe,po,' . "\r"
+			//. 'mko,respon,nota,nota_prosesan,' . "\r"
+			. 'concat_ws(" ",alamat1,alamat2,poskod,bandar,daerah,ngdbbp) as alamat,' . "\r"
+			//. 'no,batu,jalan,tmn_kg,dp_baru,' . "\r"
+			//. 'concat_ws(" ",no,batu,'
+			//. '( if (jalan is null, "", concat("JALAN ",jalan) ) ),
+			//. 'tmn_kg,poskod,dp_baru) alamat_baru,' . "\r"
+			. 'concat_ws("-",kp,msic2008) msic2008,' 
+			. 'concat_ws("-",kp,msic2008) keterangan,' . "\r"
+			//. 'concat_ws("=>ngdbbp baru=",ngdbbp,ngdbbp_baru) ngdbbp,ngdbbp_baru,' . "\r"
+			//. 'batchAwal,dsk,mko,batchProses,'
+			. 'lawat,terima,hantar,hantar_prosesan,' . "\r" 
+			. '"" as pecah5P,hasil,belanja,gaji,aset,staf,stok' . "\r" 
+			. '';	
+		return $medanKawalan;
 	}
-
-	public function kesJanji($myTable, $medan, $cari, $jum)
-	{
-		//$jum['dari'] . ', ' . $jum['max'] 
-		$fe = ( !isset($cari['fe']) ) ? '' : ' and fe = "' . $cari['fe'] . '"';
-		$kp = ( !isset($cari['kp']) ) ? '' : ' and kp = "' . $cari['kp'] . '"';
-		$susun = ( !isset($cari['susun']) ) ? '' : ' ORDER BY ' . $cari['susun'];
-		$janji = '"B1","B2","B3","B4","B5","B7"';
-		$carian = $fe . $kp;
-		$sql = 'SELECT ' . $medan . ' FROM ' . $myTable . 
-			' WHERE respon in (' . $janji . ') ' . $carian . 
-			$susun . ' LIMIT ' . $jum['dari'] . ', ' . $jum['max'];
-		
-		//echo $sql . '<br>';
-		$result = $this->db->select($sql);
-		//echo json_encode($result);
-		
-		return $result;
-	}
-	public function kesBelum($myTable, $medan, $cari, $jum)
-	{
-		//$jum['dari'] . ', ' . $jum['max']
-		$fe = ( !isset($cari['fe']) ) ? '' : ' and fe = "' . $cari['fe'] . '"';
-		$kp = ( !isset($cari['kp']) ) ? '' : ' and kp = "' . $cari['kp'] . '"';
-		$susun = ( !isset($cari['susun']) ) ? '' : ' ORDER BY ' . $cari['susun'];
-		$carian = $fe . $kp;
-		$sql = 'SELECT ' . $medan . ' FROM ' . $myTable . 
-			' WHERE (terima is null ' .
-			'or terima like "0000%") ' . $carian .
-			$susun . ' LIMIT ' . $jum['dari'] . ', ' . $jum['max'];
-		
-		//echo $sql . '<br>';
-		$result = $this->db->select($sql);
-		//echo json_encode($result);
-		
-		return $result;
-	}
-
-	public function kesTegar($myTable, $medan, $cari, $jum)
-	{
-		//$jum['dari'] . ', ' . $jum['max']
-		$fe = ( !isset($cari['fe']) ) ? '' : ' and fe = "' . $cari['fe'] . '"';
-		$kp = ( !isset($cari['kp']) ) ? '' : ' and kp = "' . $cari['kp'] . '"';
-		$susun = ( !isset($cari['susun']) ) ? '' : ' ORDER BY ' . $cari['susun'];
-		$carian = $fe . $kp;
-		$sql = 'SELECT ' . $medan . ' FROM ' . $myTable . 
-			' WHERE (`respon` not like "A1" ' .
-			'and `respon` not like "B%") ' . $carian .
-			$susun . ' LIMIT ' . $jum['dari'] . ', ' . $jum['max'];
-		
-		//echo $sql . '<br>';
-		$result = $this->db->select($sql);
-		//echo json_encode($result);
-		
-		return $result;
-	}
-	
-	public function cariMedan($myTable, $medan, $cariMedan, $cariID)
-	{
-		return //$result =
-		$this->db->select('SELECT ' . $medan . ' FROM ' . $myTable .
-		' WHERE ' . $cariMedan . ' like "%' . $cariID . '%" ');
-		//' WHERE ' . $medan . ' like %:cariID% ', array(':cariID' => $cariID));
-		//echo json_encode($result);
-	}
-	
-	public function cariSemuaMedan($myTable, $medan, $cariMedan, $cariID)
-	{
-		return //$result =
-		$this->db->select('SELECT ' . $medan . ' FROM ' . $myTable .
-		' WHERE ' . $cariMedan . ' like "%' . $cariID . '%" ');
-		//' WHERE ' . $medan . ' like %:cariID% ', array(':cariID' => $cariID));
-		//echo json_encode($result);
-	}
-
-	public function cariSatuSahaja($myTable, $medan, $cari)
-	{
-	
-		//$fe = ( !isset($cari['fe']) ) ? '' : ' and fe = "' . $cari['fe'] . '"';
-		
-		$cariMedan = ( !isset($cari['medan']) ) ? '' : $cari['medan'];
-		$cariID = ( !isset($cari['id']) ) ? '' : $cari['id'];
-		
-		$sql = 'SELECT ' . $medan . ' FROM ' . 	$myTable . 
-			' WHERE ' . $cariMedan . ' = "' . $cariID . '" ';
-		
-		//echo $sql . '<br>';
-		$result = $this->db->select($sql);
-		//echo json_encode($result);
-		
-		return $result;
-	}
-
-	public function ubahSimpan($data, $myTable)
-	{
-		//echo '<pre>$sql->', print_r($data, 1) . '</pre>';
-		$senarai = null;
-		$medanID = 'newss';
-		
-		foreach ($data as $medan => $nilai)
-		{
-			//$postData[$medan] = $nilai;
-			if ($medan == $medanID)
-				$cariID = $medan;
-			elseif ($medan != $medanID)
-				$senarai[] = ($nilai==null) ? " $medan=null" : " $medan='$nilai'"; 
-			if(($medan == 'fe'))
-				$fe = ($nilai==null) ? " $medan=null" : " $medan='$nilai'"; 
-		}
-		
-		$senaraiData = implode(",\r",$senarai);
-		$where = "`$cariID` = '{$data[$cariID]}' ";
-		
-		// set sql
-		$sql = " UPDATE $myTable SET \r$senaraiData\r WHERE $where";
-		//echo '<pre>$sql->', print_r($sql, 1) . '</pre>';
-		$this->db->update($sql);
-	}
-
-	function xhrInsert($data, $myTable) 
-	{
-		$text = $_POST['text'];
-		$this->db->insert('data', array('text' => $text));
-		$data = array('text' => $text, 'id' => $this->db->lastInsertId());
-		echo json_encode($data);
-	}
-	
-	function xhrGetListings($data, $myTable)
-	{
-		$result = $this->db->select("SELECT * FROM data");
-		//echo $result;
-		echo json_encode($result);
-	}
-	
-	function xhrDeleteListing($data, $myTable)
-	{
-		$id = (int) $_POST['id'];
-		$this->db->delete('data', "id = '$id'");
-	}
-
+#---------------------------------------------------------------------------------------------------#
+#---------------------------------------------------------------------------------------------------#
+#=====================================================================================================
 }
