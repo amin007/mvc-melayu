@@ -1,5 +1,5 @@
 <?php
-
+//namespace Aplikasi\Kitab; //echo __NAMESPACE__; 
 function dpt_url()
 {
 	$url = isset($_GET['url']) ? $_GET['url'] : null;
@@ -13,194 +13,178 @@ function dpt_url()
 function dpt_url_xfilter()
 {
 	$url = isset($_GET['url']) ? $_GET['url'] : null;
-	//$url = rtrim($url, '/');
+	$url = rtrim($url, '/');
 	//$url = filter_var($url, FILTER_SANITIZE_URL);
 	$url = explode('/', $url);
 
 	return $url;
 }
 
+function namaClass($ini)
+{	# $ini merujuk kepada $this->
+	$class = explode('\\',get_class($ini));
+
+	return $class[2];
+}
+
+function PrintTrace() 
+{
+	$trace = debug_backtrace();
+	echo '<pre>';
+	print_r($trace);
+	/*$sb = array();
+	foreach($trace as $item) 
+	{
+		if(isset($item['file'])) {
+			$sb[] = htmlspecialchars("$item[file]:$item[line]");
+		} else {
+			$sb[] = htmlspecialchars("$item[class]:$item[function]");
+		}
+	}
+	echo implode("\n",$sb);//*/
+	echo '</pre>';
+}
+
+function pecah_url($ulang)
+{
+	$pecah  = explode("/", $_SERVER['REQUEST_URI']);
+	$tambah = ($ulang+1);
+	$buang  = ($ulang-1==0) ? 1 : ($ulang-1);
+	$papar  = '<a href="' . URL . $pecah[2] 
+			. '/' . $pecah[3] 
+			. '/' . $pecah[4]
+		    . '/' . $tambah . '">Tambah</a>|'
+			. '<a href="' . URL . $pecah[2] 
+			. '/' . $pecah[3] 
+			. '/' . $pecah[4]
+		    . '/' . $buang . '">Kurang</a>';
+
+	return $papar;
+}
+
 function dpt_ip()
 {
-	$IP = array('192.168.1.', '10.69.112.', 
-		'127.0.0.1', '10.72.112.');
+	# define('ALAMAT_IP', serialize (array()) );
+	$IP = unserialize(ALAMAT_IP);
 
 	return $IP;
 }
 
-function dpt_senarai($namajadual)
+function dpt_senarai($pilih)
 {
-	if ($namajadual=='msiclama')
-		$jadual = array('msic08','msic2008',
-		'msic_v1','msic_bandingan',
-		'msic','msic_nota_kaki');
-	elseif ($namajadual=='msicbaru')
-		$jadual = array('msic2008','msic2008_asas',
-		'msic_v1','msic_bandingan',
-		'msic2000','msic2000_notakaki');
-	elseif ($namajadual=='produk')
-		$jadual = array('a_someplace',
-		'b__someplace',
-		'c__someplace');
-	elseif ($namajadual=='johor')
-		$jadual = array('johor');
-	
-	
+	# define('MSICBARU', serialize (array()) );
+	if ($pilih == 'msicbaru') : 
+		$jadual = unserialize(MSICBARU);
+	elseif ($pilih == 'produk') : 
+		$jadual = unserialize(PRODUK);
+		$jadual = unserialize(JADUAL_LOGIN);
+	elseif ($pilih == 'jadual_biodata') : 
+		$jadual = unserialize(JADUAL_BIODATA);
+	elseif ($pilih == 'jadual_biodata2') : 
+		$jadual = unserialize(JADUAL_BIODATA2);
+	elseif ($pilih == 'jadual_biodata3') : 
+		$jadual = unserialize(JADUAL_BIODATA3);
+	elseif ($pilih == 'staf_prosesan') : 
+		$jadual = unserialize(PROSESAN);
+	elseif ($pilih == 'staf_biasa') : 
+		$jadual = unserialize(PEGAWAI);
+	elseif ($pilih == 'jadual_login') : 
+	elseif ($pilih == 'jadual_kawalan') : 
+		$jadual = unserialize(JADUAL_KAWALAN);
+	elseif ($pilih == 'jadual_kawalan2') : 
+		$jadual = unserialize(JADUAL_KAWALAN2);
+	elseif ($pilih == 'jadual_rangka') : 
+		$jadual = unserialize(JADUAL_RANGKA);
+	else : $jadual = array(); //unserialize()
+	endif;
+
+	//echo 'dpt_senarai($pilih = ' . $pilih . ')<hr>';
+	//echo '<pre>$jadual =>'; print_r($jadual); echo '</pre><hr>';
+
 	return $jadual;
 }
 
-function pecah_post()
+# semak data
+function semakDataPOST($semua)
 {
-	$papar['pilih'] = isset($_POST['pilih']) ? $_POST['pilih'] : null;
-	$papar['cari'] = isset($_POST['cari']) ? $_POST['cari'] : null;
-	$papar['fix'] = isset($_POST['fix']) ? $_POST['fix'] : null;
-	$papar['atau'] = isset($_POST['atau']) ? $_POST['atau'] : null;
-	
-	$kira['pilih'] = count($papar['pilih']);
-	$kira['cari'] = count($papar['cari']);
-	$kira['fix'] = count($papar['fix']);
-	$kira['atau'] = count($papar['atau']);
-	
-	return $kira;
-	//echo '<pre>'; print_r($kira) . '</pre>';
-}
+	foreach ($_POST as $myTable => $value)
+	{	
+		if ( in_array($myTable,$semua) ):
+			//echo "myTable : $myTable <br>";
+			foreach ($value as $kekunci => $papar):
+				$ubahMedan = $_POST['medan'][$myTable][$kekunci];
+				if ($kekunci != $ubahMedan)
+				{	/*echo "$myTable - $kekunci = $ubahMedan | berubah :"
+					. '$posmen['.$myTable.']['.$ubahMedan.'] '
+					. '<= $posmen['.$myTable.']['.$kekunci.']='
+					. bersih($papar) . '<br>';*/
 
-function tahunan($jenis, $t)
-{	
+					$posmen[$myTable][$ubahMedan] = bersih($papar);
+					unset($posmen[$myTable][$kekunci]);
+				}
+				elseif ($papar == null || $papar == '0')
+					unset($posmen[$myTable][$kekunci]);
+				else 
+					$posmen[$myTable][$kekunci] = bersih($papar);
 
-	if ($jenis=='kawalan') 
-		$tahunan = array('kawal_icdt'.$t,'5p_icdt'.$t,'rangka_icdt'.$t,'alamat_icdt'.$t);
-	//elseif ($jenis=='prosesan')
-	elseif ($jenis=='semuakawalan')
-		$tahunan = array('kawal_ppmas09','kawal_rpe09','kawal_tani09',
-		'sse08_rangka','sse09_buat','sse09_ppt','sse10_kawal');
-	elseif ($jenis=='bulan_penuh')
-		$bulan = array('Januari', 'Februari', 'Mac', 'April', 
-		'Mei', 'Jun', 'Julai', 'Ogos', 
-		'September', 'Oktober', 'November', 'Disember');
-	
-	return $tahunan;
-}
-
-function lihat($tab,$kini,$papar,$pegawai) 
-{	/*	kawalan/semua/30/
-	( !isset($url[4]) ) ? null : $url[4];*/
-	$selit = null;
-	$p = dpt_url();
-	//echo '<pre>$p->', print_r($p, 1) . '</pre>';
-	 $bln = ( !isset($p[2]) ) ? 'rangka/' : $p[2] . '/'; //'jan12'; 
-	$item = ( !isset($p[3]) ) ? '20/' : $p[3] . '/'; //'30'; 
-	  $ms = ( !isset($p[4]) ) ? '1/' : $p[4] . '/'; //'2'; 
-
-	$url = $bln . $item . $ms;
-		
-	$i=1;foreach ($pegawai as $fe) 
-	{
-		$selit .= $tab . '<li><a href="' . URL . $papar . 
-		$url . $fe .
-		'">' . $i++ . ' ' . $fe . '</a></li>' . "\r";
+			endforeach;
+		endif;
 	}
-	echo "\r" . $selit . $tab;
+
+	return $posmen;
 }
 
-function pencamSqlLimit($bilSemua)
+# sql limit
+function pencamSqlLimit($bilSemua, $item, $ms)
 {
-	# tentukan pembolehubah
-	$url = dpt_url(); # sepatutnya kawalan/semua/jan12/30/2
-	$item = ( !isset($url[3]) ) ? null : $url[3];
-	$mukasurat= ( !isset($url[4]) ) ? null : $url[4];
-	# buat sql
-	#$semua = mysql_query($sql) or diehard4('sql1->',$sql); 
-	# Tentukan bilangan jumlah dalam DB:
-	$jum['bil_semua'] = $bilSemua; //mysql_num_rows($semua);
-	# ambil halaman semasa, jika tiada, cipta satu! 
-	$jum['page'] = ( !isset($mukasurat) )? 1: $mukasurat;
-	# berapa item dalam satu halaman
-	$jum['max'] = ( !isset($item) )? 100: $item;
-	# Tentukan had query berasaskan nombor halaman semasa.
-	$jum['dari'] = (($jum['page'] * $jum['max']) - $jum['max']); 
-	# Tentukan bilangan halaman. 
-	$jum['muka_surat'] = ceil($jum['bil_semua'] / $jum['max']);
-	# nak tentukan berapa bil jumlah dlm satu muka surat
-	$jum['bil'] = $jum['dari']+1; 
-	# sql kedua
-	//$query = $sql . ' LIMIT ' . $jum['dari'] . ', ' . $jum['max']; 
-	
-	return $jum;
+    # Tentukan bilangan jumlah dalam DB:
+    $jum['bil_semua'] = $bilSemua;
+    # ambil halaman semasa, jika tiada, cipta satu! 
+    $jum['page'] = ( !isset($ms) ) ? 1 : $ms; # mukasurat
+    # berapa item dalam satu halaman
+    $jum['max'] = ( !isset($item) ) ? 30 : $item; # item
+    # Tentukan had query berasaskan nombor halaman semasa.
+    $dari = (($jum['page'] * $jum['max']) - $jum['max']); 
+    $jum['dari'] = ( !isset($dari) ) ? 0 : $dari; # dari
+    # Tentukan bilangan halaman. 
+    $jum['muka_surat'] = ceil($jum['bil_semua'] / $jum['max']);
+    # nak tentukan berapa bil jumlah dlm satu muka surat
+    $jum['bil'] = $jum['dari']+1; 
+
+    return $jum;
 }
 
-function halaman($jum)
-{# function halaman() - mula
-	$mula = '<span style="background-color: #fffaf0; color:black">';
-	$tamat  = '</span>';
-	$page = $jum['page'];
-	$muka_surat = $jum['muka_surat'];
-	$bil_semua = $jum['bil_semua'];
-	$baris_max = $jum['max'];
-			
-	$url = dpt_url(); # sepatutnya kawalan/semua/jan12/30/2
-	$class = ( !isset($url[0]) ) ? null : $url[0]; //'kawalan'; 
-	$fungsi = ( !isset($url[1]) ) ? null : $url[1]; //'semua'; 
-	$bln = ( !isset($url[2]) ) ? null : $url[2]; //'jan12'; 
-	$item = ( !isset($url[3]) ) ? null : $url[3]; //'30'; 
-	$ms = ( !isset($url[4]) ) ? null : $url[4]; //'2'; 
-	$fe = ( !isset($url[5]) ) ? null : $url[5]; //'amin'; 
-
-	
-	$senarai = URL . "$class/$fungsi/$bln/$baris_max/";
-	$halaman = "\nBil Kes:($bil_semua)- Papar halaman " .
-		'<div class="pagination"><ul>'; 
-		
-	if($page > 1) # Bina halaman sebelum
-		$halaman .= "\r<li><a href='$senarai" . ($page-1) . "/$fe'>Sebelum</a></li>";
-	for($i = 1; $i <= $muka_surat; $i++) # Bina halaman terkini
-		{$halaman .= ($page==$i)? "<li><a>($i)</a></li>" : "\r<li><a href='$senarai$i/$fe'>$i</a></li>";}
-	if($page < $muka_surat) # Bina halaman akhir
-		$halaman .= "\r<li><a href='$senarai" . ($page+1) . "/$fe'>Lagi</a></li>";
-		
-	$halaman .= "\n</ul></div>\n";
-
-	return $halaman;
-}# function halaman() - tamat
-
-function cariMedanInput($ubah,$f,$row,$nama) 
-{/* mula -
-	$ubah = nama jadual
-	$f = nombor medan
-	$row = data medan
-	$nama = nama medan
-	
-	senarai nama medan
-	0-nota,1-respon,2-fe,3-tel,4-fax,		
-	5-responden,6-email,7-msic,8-msic08,
-	9-`id U M`,10-nama,11-sidap,12-status 
- */// papar medan yang terlibat
- 
-	$cariMedan = array(0,1,2,3,4,5,6,8);
-	$cariText = array(0); // papar jika nota ada
-	$cariMsic = array(8); // papar input text msic sahaja 
-	$namaM = $ubah .'[' . $nama . ']';
-		
-	# tentukan medan yang ada input
-	$input=in_array($f,$cariMedan)? 
-	(@in_array($f,$cariMsic)? // tentukan medan yang ada msic
-		'<input type="text" name="' . $namaM . '" value="' . $row[$f] . '" size=6>'
-		:(@in_array($f,$cariText)? // tentukan medan yang ada input textarea
-			'<textarea name="' . $namaM . '" rows=2 cols=23>' . $row[$f] . '</textarea>'
-			: // tentukan medan yang bukan input textarea
-			'<input type="text" name="' . $namaM . '" value="' . $row[$f] . '" size=30>'
-		)
-	):'<label class="papan">' . $row[$f] . '</label>';
-	
-	return $input;
-
+/**
+ * Returns the type of the var passed.
+ *
+ * @param mixed $var Variable
+ * @return string Type of variable
+ */
+function myGetType($var)
+{
+	if (is_array($var)) return "array";
+	if (is_bool($var)) return "boolean";
+	if (is_float($var)) return "float";
+	if (is_int($var)) return "integer";
+	if (is_null($var)) return "NULL";
+	if (is_numeric($var)) return "numeric";
+	if (is_object($var)) return "object";
+	if (is_resource($var)) return "resource";
+	if (is_string($var)) return "string";
+	return "unknown type";
+}
+# format perpuluhan
+function kiraPerpuluhan($kiraan, $perpuluhan = 1)
+{
+	# pecahan kepada ratus
+	return number_format($kiraan,$perpuluhan,'.',',');
 }
 
 function kira($kiraan)
 {
 	# pecahan kepada ratus
 	return number_format($kiraan,0,'.',',');
-} 
+}
 
 function kira2($dulu,$kini)
 {
@@ -209,26 +193,53 @@ function kira2($dulu,$kini)
 	//@$kiraan=(($kini-$dulu)/$dulu)*100;
 }
 
+function kira3($kira,$n)
+{
+	return str_pad($kira,$n,"0",STR_PAD_LEFT);
+}
+
+function pilihKeyData($key,$keyData,$data)
+{
+	//echo '$key:' . $key; 
+	//echo '$keyData:[' . $keyData[$key] . ']';
+	//echo '$data:[' . $data[$keyData[$key]]  . ']';
+	return $keyData[$key];
+}
+
+function pilihValueData($key,$keyData,$data)
+{
+	//echo '$key:' . $key; 
+	//echo '$keyData:[' . $keyData[$key] . ']';
+	//echo '$data:[' . $data[$keyData[$key]]  . ']';
+	return $data[$keyData[$key]];
+}
+
 function huruf($jenis , $papar) 
-{	
+{
+	/*
+	$_POST=strtoupper($_POST['']['']);
+	$_POST=strtolower($_POST['']['']);
+	$_POST=mb_convert_case($_POST[''][''], MB_CASE_TITLE);
+	ucfirst
+	*/
+
 	switch ($jenis) 
 	{# mula - pilih $jenis
-	case 'BESAR':
+	case "BESAR": # huruf('BESAR', )
 		$papar = strtoupper($papar);
 		break;
-	case 'kecil':
+	case "kecil": # huruf('kecil', )
 		$papar = strtolower($papar);
 		break;
-	case 'Depan':
-		$papar = ucfrist($papar);
+	case "Besar": # huruf('Besar', )
+		$papar = ucfirst($papar);
 		break;
-	case 'Besar_Depan':
+	case "Besar_Depan": # huruf('Besar_Depan', )
 		$papar = mb_convert_case($papar, MB_CASE_TITLE);
 		break;
 	}# tamat - pilih $jenis
-	
-	return $papar;
 
+	return $papar;
 }
 
 function bersih($papar) 
@@ -237,105 +248,152 @@ function bersih($papar)
 	//$papar = mysql_real_escape_string($papar);
 	# buang ruang kosong (atau aksara lain) dari mula & akhir 
 	$papar = trim($papar);
-	
+
 	return $papar;
 }
 
-function sms_get_data($data)
+function bersihGET($papar) 
 {
-	$dataGet = '';
-	foreach($data as $key=>$val)
-	{
-		if (!empty($dataGet)) $dataGet .= '&';
-		$dataGet .= $key . '=' . urlencode($val);
-	}
-
-	return $dataGet;
-}
-
-function cari_imej($ssm,$strDir)
-{
-	//require_once ('public/skrip/listfiles2/dir_functions.php');
-
-	if ( isset($ssm) && empty($ssm) )
-	{
-		$cariImej = null;
-	}
-	else
-	{
-		# You can modify this in case you need a different extension
-		$strExt = "tif";
-
-		# This is the full match pattern based upon your selections above
-		$pattern = "*" . $ssm . "*." . $strExt;
-		$cariImej = GetMatchingFiles(GetContents($strDir),$pattern);
-	}
+	# bersih untuk $_GET sahaja
+	$paparHTML = filter_input(INPUT_GET, $papar, FILTER_SANITIZE_SPECIAL_CHARS);
+	$paparURL = filter_input(INPUT_GET, $papar, FILTER_SANITIZE_ENCODED);
+	//$papar = filter_var($_GET[$papar], FILTER_SANITIZE_URL);
 	
-	//print_r($cariImej);
-	return $cariImej;
+	//echo "You have searched for $paparHTML.\n";
+	//echo "<a href='?search=$paparURL'>Search again.</a>";
+    
+    //return $papar;
+    return $paparHTML;
 }
-// lisfile2 - mula
+
+function bersihGET_nama($papar) 
+{
+	# bersih untuk $_GET sahaja
+	$paparHTML = filter_input(INPUT_GET, $papar, FILTER_SANITIZE_SPECIAL_CHARS);
+	$paparURL = filter_input(INPUT_GET, $papar, FILTER_SANITIZE_ENCODED);
+	$paparHTML = str_replace(' ', '-', $paparHTML);
+	    
+    //return $papar;
+    return $paparHTML;
+}
+
+function tukarHuruf($asal)
+{
+	$asal = str_replace('_','&nbsp;', $asal);
+	$asal = huruf('kecil', $asal);
+	$asal = huruf('Besar_Depan', $asal);
+	//$asal = preg_replace('/[^a-zA-Z0-9-]/', '&nbsp;', $asal;
+	//$asal = str_replace(array(' ', '<', '>', '&', '{', '}', '*'), array('&nbsp;'), $asal);
+
+	return $asal;
+}
+
+function gambar_latarbelakang($lokasi)
+{
+    $dh = opendir($lokasi);
+    $i=1;
+    while (($file = readdir($dh)) !== false)
+    {
+        if($file != "."
+            && $file != ".."
+            && $file != "Thumbs.db"
+            && $file != "index.html"
+            && $file != "index.php")
+        {
+            if ($file=='index.php') {echo "";}
+            elseif (is_dir($file)==false) 
+            {
+                //echo "\n" . $i++ . ")" . $file . "<br>";
+                $gambar = $file;
+                if (substr($gambar,-3) == 'jpg') 
+                    $papar[]=$gambar;
+            }
+        }
+
+    }
+    closedir($dh);
+
+    /*
+    foreach(scandir($tmpt) as $gambar) 
+    {
+        if (substr($gambar,-3) == 'jpg') 
+            $papar[]=$gambar;
+    }
+    */
+
+    $today = rand(0, count($papar)-1); 
+    return $papar[$today];
+}
+
+# lisfile2 - mula
 function GetMatchingFiles($files, $search) 
 {
-	# Split to name and filetype
-	if(strpos($search,".")) 
-	{
-		$baseexp=substr($search,0,strpos($search,"."));
-		$typeexp=substr($search,strpos($search,".")+1,strlen($search));
-	} 
-	else 
-	{ 
-		$baseexp=$search;
-		$typeexp="";
-	} 
-		
-	# Escape all regexp Characters 
-	$baseexp=preg_quote($baseexp); 
-	$typeexp=preg_quote($typeexp); 
-		
-	# Allow ? and *
-	$baseexp=str_replace(array("\*","\?"), array(".*","."), $baseexp);
-	$typeexp=str_replace(array("\*","\?"), array(".*","."), $typeexp);
-		   
-	# Search for Matches
-	$i=0;
-	$matches=null; // $matches adalah array()
-	foreach($files as $file) 
-	{
-		$filename=basename($file);
-			  
-		if(strpos($filename,".")) 
+	if($files==false):
+		return false;
+	else:
+		# Split to name and filetype
+		if(strpos($search,".")) 
 		{
-			$base=substr($filename,0,strpos($filename,"."));
-			$type=substr($filename,strpos($filename,".")+1,strlen($filename));
+			$baseexp = substr($search,0,strpos($search,"."));
+			$typeexp = substr($search,strpos($search,".")+1,strlen($search));
 		} 
 		else 
 		{ 
-			$base=$filename;
-			$type="";
+			$baseexp = $search;
+			$typeexp = "";
+		} 
+
+		# Escape all regexp Characters 
+		$baseexp = preg_quote($baseexp); 
+		$typeexp = preg_quote($typeexp); 
+
+		# Allow ? and *
+		$baseexp = str_replace(array("\*","\?"), array(".*","."), $baseexp);
+		$typeexp = str_replace(array("\*","\?"), array(".*","."), $typeexp);
+
+		# Search for Matches
+		$i = 0;
+		$matches = null; # $matches adalah array()
+		foreach($files as $file) 
+		{
+			$filename = basename($file);
+				  
+			if(strpos($filename,".")) 
+			{
+				$base = substr($filename,0,strpos($filename,"."));
+				$type = substr($filename,strpos($filename,".")+1,strlen($filename));
+			} 
+			else 
+			{ 
+				$base = $filename;
+				$type = "";
+			}
+
+			if(preg_match("/^".$baseexp."$/i",$base) && preg_match("/^".$typeexp."$/i",$type))  
+			{
+				$matches[$i]=$file;
+				$i++;
+			}
 		}
 
-		if(preg_match("/^".$baseexp."$/i",$base) && preg_match("/^".$typeexp."$/i",$type))  
-		{
-			$matches[$i]=$file;
-			$i++;
-		}
-	}
-	
-	return $matches;
-	//return $matches;
+		return $matches;
+	endif;
 }
 
-// Returns all Files contained in given dir, including subdirs
+# Returns all Files contained in given dir, including subdirs
 function GetContents($dir,$files=array()) 
 {
-	if(!($res=opendir($dir))) exit("$dir doesn't exist!");
+	//if(!($res=opendir($dir))): exit("folder $dir tidak wujud!!!");
+	if(!($res=@opendir($dir))): exit(\Aplikasi\Kelas\Kitab\Peta::folderPaparTidakWujud());
+	else:
 		while(($file=readdir($res))==TRUE) 
 		if($file!="." && $file!="..")
-			if(is_dir("$dir/$file")) $files=GetContents("$dir/$file",$files);
-				else array_push($files,"$dir/$file");
-		 
-	closedir($res);
-	return $files;
+			if(is_dir("$dir/$file")) 
+				$files=GetContents("$dir/$file",$files);
+			else array_push($files,"$dir/$file");
+
+		closedir($res);
+		return $files;
+	endif;
 }
-// listfile2 - tamat
+# listfile2 - tamat
