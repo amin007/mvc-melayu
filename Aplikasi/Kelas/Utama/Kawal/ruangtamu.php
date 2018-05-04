@@ -1,47 +1,81 @@
 <?php
-
-class Ruangtamu extends Kawal 
+namespace Aplikasi\Kawal; //echo __NAMESPACE__;
+class Ruangtamu extends \Aplikasi\Kitab\Kawal
 {
-
-	function __construct() 
+#==========================================================================================
+	function __construct()
 	{
 		parent::__construct();
-		Kebenaran::kawalKeluar();	
-		//$this->lihat->js = array('ruangtamu/js/default.js');
-		
-	}
-	
-	function index() 
-	{	
-		// set latarbelakang //
-		$this->lihat->gambar=gambar_latarbelakang('../../');
-		// Set pemboleubah utama
-		$this->lihat->pegawai = senarai_kakitangan();
-		$this->lihat->Tajuk_Muka_Surat='ICDT 2012';
-		// pergi papar kandungan
-		$this->lihat->baca('ruangtamu/index');
-	}
-	
-	function logout()
-	{
-		Sesi::destroy();
-		header('location: ' . URL);
-		exit;
-	}
-	
-	function xhrInsert()
-	{
-		$this->tanya->xhrInsert();
-	}
-	
-	function xhrGetListings()
-	{
-		$this->tanya->xhrGetListings();
-	}
-	
-	function xhrDeleteListing()
-	{
-		$this->tanya->xhrDeleteListing();
+		//\Aplikasi\Kitab\Kebenaran::kawalMasuk();
+		\Aplikasi\Kitab\Kebenaran::kawalKeluar();
+		$this->_folder = huruf('kecil', namaClass($this));
 	}
 
+	public function index()
+	{
+		# Set pemboleubah utama
+		$this->papar->tajuk = namaClass($this);
+		//echo '<hr> Nama class : ' . namaClass($this) . '<hr>';
+
+		# Pergi papar kandungan
+		//$this->semakPembolehubah($this->papar->senarai); # Semak data dulu
+		$this->paparKandungan($this->_folder, 'index', $noInclude=0);
+	}
+
+	public function paparKandungan($folder, $fail, $noInclude)
+	{	# Pergi papar kandungan
+		$jenis = $this->papar->pilihTemplate($template=0);
+		$this->papar->bacaTemplate(
+		//$this->papar->paparTemplate(
+			$this->_folder . '/' . $fail, $jenis, $noInclude); # $noInclude=0
+			//'mobile/mobile',$jenis,0); # $noInclude=0
+		//*/
+	}
+
+	public function semakPembolehubah($senarai)
+	{
+		echo '<pre>$senarai:<br>';
+		print_r($senarai);
+		echo '</pre>|';//*/
+	}
+#==========================================================================================
+	public function pelawat()
+	{
+		# Set pemboleubah utama
+		$this->papar->tajuk = 'Ruangtamu';
+		$this->papar->senarai['modul'] = $this->tanya->jadualModul();
+
+		# Pergi papar kandungan
+		//$this->semakPembolehubah($this->papar->senarai); # Semak data dulu
+		$this->paparKandungan('pelawat');
+	}
+#-------------------------------------------------------------------------------------------
+	function semaknama($nama)
+	{
+		# Semak data $_POST
+		echo '<pre>$_POST->'; print_r($_POST) . '</pre>| ';
+		echo '<pre>$nama->'; print_r($nama) . '</pre>| ';
+		echo 'Kod:' . \Aplikasi\Kitab\RahsiaHash::rahsia('md5', $nama) . ': ';
+		//echo 'Kod:' . RahsiaHash::create('sha256', $_POST['password'], HASH_PASSWORD_KEY) . ': ';
+	}
+#-------------------------------------------------------------------------------------------
+	function menu()
+	{
+		# Set pemboleubah utama
+		$this->papar->pegawai = senarai_kakitangan();
+		$this->papar->tajuk = 'Menu';
+
+		# Pergi papar kandungan
+		$this->papar->baca('mobile/mobile');
+	}
+#-------------------------------------------------------------------------------------------
+	function logout()
+	{
+		//echo '<pre>sebelum:'; print_r($_SESSION) . '</pre>';
+		\Aplikasi\Kitab\Sesi::destroy();
+		header('location: ' . URL);
+		//exit;
+	}
+#-------------------------------------------------------------------------------------------
+#==========================================================================================
 }
