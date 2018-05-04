@@ -12,7 +12,7 @@ class Cari extends \Aplikasi\Kitab\Kawal
 		$this->_namaClass = '<hr>Nama class :' . __METHOD__ . '<hr>';
 		$this->_namaFunction = '<hr>Nama function :' .__FUNCTION__ . '<hr>';
 	}
-
+##-----------------------------------------------------------------------------------------
 	public function index()
 	{
 		# Set pemboleubah utama
@@ -23,7 +23,7 @@ class Cari extends \Aplikasi\Kitab\Kawal
 		//$this->semakPembolehubah($this->papar->senarai); # Semak data dulu
 		$this->paparKandungan($this->_folder, 'index', $noInclude=0);
 	}
-
+##-----------------------------------------------------------------------------------------
 	public function paparKandungan($folder, $fail, $noInclude)
 	{	# Pergi papar kandungan
 		$jenis = $this->papar->pilihTemplate($template=0);
@@ -33,21 +33,21 @@ class Cari extends \Aplikasi\Kitab\Kawal
 			//'mobile/mobile',$jenis,0); # $noInclude=0
 		//*/
 	}
-
+##-----------------------------------------------------------------------------------------
 	public function semakPembolehubah($senarai)
 	{
 		echo '<pre>$senarai:<br>';
 		print_r($senarai);
 		echo '</pre>|';//*/
 	}
-
+##-----------------------------------------------------------------------------------------
 	public function semakRujuk($senarai)
 	{
 		//echo '<pre>$senarai:<br>';
 		print_r($senarai);
 		//echo '</pre>|';//*/
 	}
-
+##-----------------------------------------------------------------------------------------
 	function logout()
 	{
 		//echo '<pre>sebelum:'; print_r($_SESSION); echo '</pre>';

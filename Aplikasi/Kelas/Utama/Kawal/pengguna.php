@@ -1,84 +1,63 @@
 <?php
-
-class Pengguna extends Kawal 
+namespace Aplikasi\Kawal; //echo __NAMESPACE__;
+class Ruangtamu extends \Aplikasi\Kitab\Kawal
 {
-
-	public function __construct() 
+#==========================================================================================
+	function __construct()
 	{
 		parent::__construct();
-		Kebenaran::kawalKeluar();
+		//\Aplikasi\Kitab\Kebenaran::kawalMasuk();
+		\Aplikasi\Kitab\Kebenaran::kawalKeluar();
+		$this->_folder = huruf('kecil', namaClass($this));
+		$this->_namaClass = '<hr>Nama class :' . __METHOD__ . '<hr>';
+		$this->_namaFunction = '<hr>Nama function :' .__FUNCTION__ . '<hr>';
 	}
-	
-	public function index() 
-	{	
-		$this->lihat->senaraiPengguna = $this->tanya->senaraiPengguna();
-		$this->lihat->baca('pengguna/index');
-	}
-	
-	public function create() 
+##-----------------------------------------------------------------------------------------
+	public function index()
 	{
-		$data = array();
-		$data['login'] = $_POST['login'];
-		$data['password'] = $_POST['password'];
-		$data['role'] = $_POST['role'];
-		
-		// @TODO: Do your error checking!
-		
-		$this->tanya->create($data);
-		header('location: ' . URL . 'pengguna');
-	}
-	
-	public function edit($id) 
-	{
-		$this->lihat->user = $this->tanya->userSingleList($id);
-		$this->lihat->baca('pengguna/edit');
-	}
-	
-	public function editSave($id)
-	{
-		$data = array();
-		$data['id'] = $id;
-		$data['login'] = $_POST['login'];
-		$data['password'] = $_POST['password'];
-		$data['role'] = $_POST['role'];
-		
-		// @TODO: Do your error checking!
-		
-		$this->tanya->editSave($data);
-		header('location: ' . URL . 'pengguna');
-	}
-	
-	public function delete($id)
-	{
-		$this->tanya->delete($id);
-		header('location: ' . URL . 'pengguna');
-	}
-	
-	function sms()
-	{
-		foreach ($_POST as $key => $value)
-		{	
-			if ( $key=='sms')
-			{
-				foreach ($value as $kekunci => $papar)
-				{
-					$data[$kekunci] = bersih($papar);
-				}				
-			}
-		}
-				
-		$kawan = $data['kawan'];
-		$papar = sms_kawan($data);
-			//'Successful!!! You have 47 SMS Credit left';
-		$url = URL . 'kawalan/smskes/' . $kawan . 
-			'/SMS BERJAYA DIHANTAR' . "\r" . $papar;
-		
-		//echo '<pre>$_POST->' . print_r($_POST , 1)  . '</pre>';
-		//echo '<pre>$data->' . print_r($data , 1)  . '</pre>';
-		//echo '$url->' . $url;
+		# Set pemboleubah utama
+		$this->papar->tajuk = namaClass($this);
+		//echo $this->_namaClass; //echo $this->_namaFunction;
 
-		// hantar lokasi asal
-		header('Location:' . $url);
-		
+		# Pergi papar kandungan
+		//$this->semakPembolehubah($this->papar->senarai); # Semak data dulu
+		$this->paparKandungan($this->_folder, 'index', $noInclude=0);
 	}
+##-----------------------------------------------------------------------------------------
+	public function paparKandungan($folder, $fail, $noInclude)
+	{	# Pergi papar kandungan
+		$jenis = $this->papar->pilihTemplate($template=0);
+		$this->papar->bacaTemplate(
+		//$this->papar->paparTemplate(
+			$this->_folder . '/' . $fail, $jenis, $noInclude); # $noInclude=0
+			//'mobile/mobile',$jenis,0); # $noInclude=0
+		//*/
+	}
+##-----------------------------------------------------------------------------------------
+	public function semakPembolehubah($senarai)
+	{
+		echo '<pre>$senarai:<br>';
+		print_r($senarai);
+		echo '</pre>|';//*/
+	}
+##-----------------------------------------------------------------------------------------
+	public function semakRujuk($senarai)
+	{
+		//echo '<pre>$senarai:<br>';
+		print_r($senarai);
+		//echo '</pre>|';//*/
+	}
+##-----------------------------------------------------------------------------------------
+	function logout()
+	{
+		//echo '<pre>sebelum:'; print_r($_SESSION); echo '</pre>';
+		\Aplikasi\Kitab\Sesi::destroy();
+		header('location: ' . URL);
+		//exit;
+	}
+#==========================================================================================
+#-------------------------------------------------------------------------------------------
+#-------------------------------------------------------------------------------------------
+#-------------------------------------------------------------------------------------------
+#==========================================================================================
 }
