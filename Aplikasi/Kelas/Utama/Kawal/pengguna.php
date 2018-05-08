@@ -9,15 +9,15 @@ class Ruangtamu extends \Aplikasi\Kitab\Kawal
 		//\Aplikasi\Kitab\Kebenaran::kawalMasuk();
 		\Aplikasi\Kitab\Kebenaran::kawalKeluar();
 		$this->_folder = huruf('kecil', namaClass($this));
-		$this->_namaClass = '<hr>Nama class :' . __METHOD__ . '<hr>';
-		$this->_namaFunction = '<hr>Nama function :' .__FUNCTION__ . '<hr>';
+		//echo '<hr>Nama class :' . __METHOD__ . '<hr>';
+		//echo '<hr>Nama function :' .__FUNCTION__ . '<hr>';
 	}
 ##-----------------------------------------------------------------------------------------
 	public function index()
 	{
 		# Set pemboleubah utama
 		$this->papar->tajuk = namaClass($this);
-		//echo $this->_namaClass; //echo $this->_namaFunction;
+		//echo '<hr>Nama class :' . __METHOD__ . '<hr>';
 
 		# Pergi papar kandungan
 		//$this->semakPembolehubah($this->papar->senarai); # Semak data dulu

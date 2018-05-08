@@ -9,23 +9,24 @@ class Sesat extends \Aplikasi\Kitab\Kawal
 		//\Aplikasi\Kitab\Kebenaran::kawalMasuk();
 		//\Aplikasi\Kitab\Kebenaran::kawalKeluar();
 		$this->_tajukAtas = 'Enjin - Sesat';
-		$this->_folder = huruf('kecil', namaClass($this));
-		$this->_namaClass = '<hr>Nama class :' . __METHOD__ . '<hr>';
-		$this->_namaFunction = '<hr>Nama function :' .__FUNCTION__ . '<hr>';
+		//$this->_folder = huruf('kecil', namaClass($this));
+		$this->_folder = 'index';
+		//echo '<hr>Nama class :' . __METHOD__ . '<hr>';
+		//echo '<hr>Nama function :' .__FUNCTION__ . '<hr>';
 	}
 ##-----------------------------------------------------------------------------------------
 	public function index()
 	{
 		# Set pemboleubah utama
 		$this->papar->tajuk = namaClass($this);
-		//echo $this->_namaClass; //echo $this->_namaFunction;
+		//echo '<hr>Nama class :' . __METHOD__ . '<hr>';
 
 		# Pergi papar kandungan
 		//$this->semakPembolehubah($this->papar->senarai); # Semak data dulu
-		$this->paparKandungan($this->_folder, 'index', $noInclude=0);
+		$this->paparKandungan($this->_folder, 'index');
 	}
 ##-----------------------------------------------------------------------------------------
-	public function paparKandungan($folder, $fail, $noInclude)
+	public function paparKandungan($folder, $fail, $noInclude=0)
 	{	# Pergi papar kandungan
 		$jenis = $this->papar->pilihTemplate($template=0);
 		$this->papar->bacaTemplate(
@@ -63,7 +64,7 @@ class Sesat extends \Aplikasi\Kitab\Kawal
 
 		# Pergi papar kandungan
 		//$this->semakPembolehubah($this->papar->mesej); # Semak data dulu
-		$this->paparKandungan('index');
+		$this->paparKandungan($this->_folder, 'index');
 	}
 #-------------------------------------------------------------------------------------------
 	function classTidakWujud($amaran)
@@ -73,7 +74,7 @@ class Sesat extends \Aplikasi\Kitab\Kawal
 
 		# Pergi papar kandungan
 		//$this->semakPembolehubah($this->papar->mesej); # Semak data dulu
-		$this->paparKandungan('index');
+		$this->paparKandungan($this->_folder, 'index');
 	}
 
 	function methodTanyaTidakWujud($amaran,$class,$method)
@@ -84,7 +85,7 @@ class Sesat extends \Aplikasi\Kitab\Kawal
 
 		# Pergi papar kandungan
 		//$this->semakPembolehubah($this->papar->mesej); # Semak data dulu
-		$this->paparKandungan('index');
+		$this->paparKandungan($this->_folder, 'index');
 	}
 #-------------------------------------------------------------------------------------------
 	function folderPaparTidakWujud() 
@@ -94,7 +95,7 @@ class Sesat extends \Aplikasi\Kitab\Kawal
 
 		# Pergi papar kandungan
 		//$this->semakPembolehubah($this->papar->mesej); # Semak data dulu
-		$this->paparKandungan('index');
+		$this->paparKandungan($this->_folder, 'index');
 	}
 #-------------------------------------------------------------------------------------------
 	function failTidakWujud() 
@@ -104,7 +105,7 @@ class Sesat extends \Aplikasi\Kitab\Kawal
 
 		# Pergi papar kandungan
 		//$this->semakPembolehubah($this->papar->mesej); # Semak data dulu
-		$this->paparKandungan('index');
+		$this->paparKandungan($this->_folder, 'index');
 	}
 #-------------------------------------------------------------------------------------------
 	function masalahDB($amaran)
@@ -114,7 +115,7 @@ class Sesat extends \Aplikasi\Kitab\Kawal
 
 		# Pergi papar kandungan
 		//$this->semakPembolehubah($this->papar->mesej); # Semak data dulu
-		$this->paparKandungan('index');
+		$this->paparKandungan($this->_folder, 'index');
 	}
 #-------------------------------------------------------------------------------------------
 #===========================================================================================

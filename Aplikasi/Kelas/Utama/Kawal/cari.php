@@ -1,5 +1,5 @@
 <?php
-namespace Aplikasi\Kawal; //echo __NAMESPACE__; 
+namespace Aplikasi\Kawal; //echo __NAMESPACE__;
 class Cari extends \Aplikasi\Kitab\Kawal
 {
 #==========================================================================================
@@ -9,21 +9,21 @@ class Cari extends \Aplikasi\Kitab\Kawal
 		//\Aplikasi\Kitab\Kebenaran::kawalMasuk();
 		\Aplikasi\Kitab\Kebenaran::kawalKeluar();
 		$this->_folder = huruf('kecil', namaClass($this));
-		$this->_namaClass = '<hr>Nama class :' . __METHOD__ . '<hr>';
-		$this->_namaFunction = '<hr>Nama function :' .__FUNCTION__ . '<hr>';
+		//echo '<hr>Nama class :' . __METHOD__ . '<hr>';
+		//echo '<hr>Nama function :' .__FUNCTION__ . '<hr>';
 	}
-##-----------------------------------------------------------------------------------------
+##------------------------------------------------------------------------------------------
 	public function index()
 	{
 		# Set pemboleubah utama
 		$this->papar->tajuk = namaClass($this);
-		//echo $this->_namaClass; //echo $this->_namaFunction;
+		//echo '<hr>Nama class :' . __METHOD__ . '<hr>';
 
 		# Pergi papar kandungan
 		//$this->semakPembolehubah($this->papar->senarai); # Semak data dulu
 		$this->paparKandungan($this->_folder, 'index', $noInclude=0);
 	}
-##-----------------------------------------------------------------------------------------
+##------------------------------------------------------------------------------------------
 	public function paparKandungan($folder, $fail, $noInclude)
 	{	# Pergi papar kandungan
 		$jenis = $this->papar->pilihTemplate($template=0);
@@ -33,21 +33,21 @@ class Cari extends \Aplikasi\Kitab\Kawal
 			//'mobile/mobile',$jenis,0); # $noInclude=0
 		//*/
 	}
-##-----------------------------------------------------------------------------------------
+##------------------------------------------------------------------------------------------
 	public function semakPembolehubah($senarai)
 	{
 		echo '<pre>$senarai:<br>';
 		print_r($senarai);
 		echo '</pre>|';//*/
 	}
-##-----------------------------------------------------------------------------------------
+##------------------------------------------------------------------------------------------
 	public function semakRujuk($senarai)
 	{
 		//echo '<pre>$senarai:<br>';
 		print_r($senarai);
 		//echo '</pre>|';//*/
 	}
-##-----------------------------------------------------------------------------------------
+##------------------------------------------------------------------------------------------
 	function logout()
 	{
 		//echo '<pre>sebelum:'; print_r($_SESSION); echo '</pre>';
@@ -77,8 +77,7 @@ class Cari extends \Aplikasi\Kitab\Kawal
 		'`aes_perkhidmatan`','`aes_pertanian`');
 		$medan = '*';
 		# cari id berasaskan newss/ssm/sidap/nama
-		$id['nama'] = bersih(isset($_POST['cari']) ? $_POST['cari'] : null);
-		//$id['nama'] = isset($_POST['id']['nama']) ? $_POST['id']['nama'] : null;
+		$id['nama'] = isset($_POST['cari']) ? bersih($_POST['cari']) : null;
 		$kumpulSusun = array('kumpul'=>null,'susun'=>'nama');
 		$susun = $this->menyusun($kumpulSusun);
 		return array($myJadual, $medan, $id, $susun); //*/
@@ -105,17 +104,31 @@ class Cari extends \Aplikasi\Kitab\Kawal
 
 		//$this->papar->template = 'bootstrap';
 		$this->papar->template = 'biasa';
-		$fail[] = 'a_syarikat'; $fail[] = 'index';
+		$fail = array('index','b_ubah','b_ubah_kawalan');
 
 		# Pergi papar kandungan
 		//$this->semakPembolehubah($this->papar->senarai); # Semak data dulu
-		$this->paparKandungan($this->_folder, $fail[1], $noInclude=0); //*/
+		$this->paparKandungan($this->_folder, $fail[0], $noInclude=0); //*/
     }
+#------------------------------------------------------------------------------------------
+	function cariSyarikat($jadual, $medan, $carian, $susun, $cariID)
+	{
+		foreach ($jadual as $key => $myTable)
+		{# mula ulang table
+			$this->papar->senarai[$myTable] = $this->tanya->
+				//cariSql($myTable, $medan, $carian, $susun);
+				cariSemuaData($myTable, $medan, $carian, $susun);
+		}# tamat ulang table//*/
+		# isytihar pembolehubah untuk dalam class Papar
+		$this->papar->primaryKey = 'newss';
+		$this->papar->cariID = $this->papar->carian[] = $cariID;
+	}
+#------------------------------------------------------------------------------------------
+###########################################################################################
 #------------------------------------------------------------------------------------------
 	public function tentang($apa, $bil=1, $mesej=null)
 	{
 		# Fungsi ini memaparkan borang
-		//echo 'mana ko pergi daa lokaliti($negeri)<br>';
 
 		//if ($apa=='msic') $jadual = 'pom_dataekonomi.msic2000';
 		if ($apa=='msic') $jadual = 'msic2000';
@@ -128,11 +141,13 @@ class Cari extends \Aplikasi\Kitab\Kawal
 		$this->papar->senarai = $this->tanya->paparMedan($jadual);
 		$this->papar->url = dpt_url();
 		$this->papar->mesej = $mesej;
+		$this->papar->template = 'bootstrap';
+		$fail = array('index','a_mula','b_ubah','b_ubah_kawalan');
 
 		# Pergi papar kandungan
 		//$this->semakPembolehubah($this->papar->senarai); # Semak data dulu
 		//$this->semakPembolehubah($this->papar->url); # Semak data dulu
-		$this->paparKandungan($this->_folder, 'a_mula' , $noInclude=0); //*/
+		$this->paparKandungan($this->_folder, $fail[1], $noInclude=0); //*/
 	}
 #------------------------------------------------------------------------------------------
 	function semakOutput($mesej, $lokasi, $namajadual)
@@ -154,7 +169,7 @@ class Cari extends \Aplikasi\Kitab\Kawal
 		//$this->semakOutput($mesej, $lokasi, $namajadual);
 		$this->papar->template = ($namajadual=='syarikat') ?
 			'biasa' : 'bootstrap';
-		$fail[] = 'a_syarikat'; $fail[] = 'index';
+		$fail = array('index','b_ubah','b_ubah_kawalan');
 
 		# paparkan ke fail cari/$namajadual.php
 		if ($mesej != null )
@@ -164,18 +179,19 @@ class Cari extends \Aplikasi\Kitab\Kawal
 			header('location:' . URL . 'cari/' . $lokasi . $namajadual . '/2');
 		}
 		else# Pergi papar kandungan
-			$this->paparKandungan($this->_folder, $fail[1], $noInclude=0); //*/
+			$this->paparKandungan($this->_folder, $fail[0], $noInclude=0); //*/
 	}
 #------------------------------------------------------------------------------------------
 	function susunPembolehubah($bil, $muka)
 	{	//echo '<hr>Nama class :' . __METHOD__ . '()<hr>';
-		# setkan pembolehubah dulu
-		$jadual = isset($_POST['namajadual']) ? $_POST['namajadual'] : null;
+		# ini adalah bukan tatasusunan
+		$jadual = isset($_POST['namajadual']) ? bersih($_POST['namajadual']) : null;
+		$susunX = isset($_POST['susun']) ? bersih($_POST['susun']) : 1;
+		$pilih = isset($_POST['jika']['pilih'][1]) ? bersih($_POST['jika']['pilih'][1]) : null;
+		$semak = isset($_POST['jika']['cari'][1]) ? bersih($_POST['jika']['cari'][1]) : null;
+		$semak2 = isset($_POST['jika']['cari'][2]) ? bersih($_POST['jika']['cari'][2]) : null;
+		# ini adalah tatasusunan
 		$cari = isset($_POST['jika']['cari']) ? $_POST['jika']['cari'] : null;
-		$susunX = isset($_POST['susun']) ? $_POST['susun'] : 1;
-		$pilih = isset($_POST['jika']['pilih'][1]) ? $_POST['jika']['pilih'][1] : null;
-		$semak = isset($_POST['jika']['cari'][1]) ? $_POST['jika']['cari'][1] : null;
-		$semak2 = isset($_POST['jika']['cari'][2]) ? $_POST['jika']['cari'][2] : null;
 		$atau = isset($_POST['jika']['atau']) ? $_POST['jika']['atau'] : null;
 		# susun limit ikut $bil
 		$kumpulSusun = array('kumpul'=>null,'susun'=>$susunX);
@@ -186,49 +202,52 @@ class Cari extends \Aplikasi\Kitab\Kawal
 		//echo '$susunX =' . $susunX . '<br>';//echo '$pilih=' . $pilih . '<br>';
 		//echo '$semak =' . $semak1 . '<br>$semak2=' . $semak2 . '<br>';
 
-		return array($jadual,$susun,$cari,$pilih,$semak,$semak2,$atau);
+		return array($jadual,$susun,$pilih,$semak,$semak2,$cari,$atau);
 	}
 #------------------------------------------------------------------------------------------
 	function sayaPilih($bil, $muka)
 	{
 		//echo '<hr>Nama class :' . __METHOD__ . '()<hr>';
-		list($namajadual,$susun,$cari,$pilih,$semak,$semak2,$atau)
-			= $this->susunPembolehubah($bil, $muka);
+		list($jadual,$susun,$pilih,$semak,$semak2,$cari,$atau)
+			= $this->susunPembolehubah($bil,$muka);
 
 		if (!isset($_POST['atau']) && isset($_POST['pilih'][2]))
-		{	//echo ')$namajadual=' . $namajadual . '<br>';
+		{	//echo ')$jadual=' . $jadual . '<br>';
 			$mesej = 'tak isi atau-dan pada carian';
-			$lokasi = ($namajadual=='johor') ? 'lokaliti/' : 'semua/';
+			$lokasi = ($jadual=='johor') ? 'lokaliti/' : 'semua/';
 		}
-		elseif ( (empty($semak) || ( empty($semak2) && $namajadual=='johor') ) )
-		{	//echo '2)$namajadual=' . $namajadual . '<br>';
+		elseif ( (empty($semak) || ( empty($semak2) && $jadual=='johor') ) )
+		{	//echo '2)$jadual=' . $jadual . '<br>';
 			$mesej = 'tak isi pada carian';
-			$lokasi = ($namajadual=='johor') ? 'lokaliti/' : 'semua/';
+			$lokasi = ($jadual=='johor') ? 'lokaliti/' : 'semua/';
 		}
-		elseif (!empty($namajadual) )
+		elseif (!empty($jadual) )
 		{
-			$this->pilihYangWujud($namajadual, $cari, $susun);
+			$this->pilihYangWujud($jadual, $cari, $susun);
 			$mesej = $lokasi = null;
 		}//*/
 
-		return array($mesej,$lokasi,$namajadual);
+		return array($mesej,$lokasi,$jadual);
 	}
 #------------------------------------------------------------------------------------------
-	function pilihYangWujud($namajadual, $cari, $susun)
+	function pilihYangWujud($jadual, $cari, $susun)
 	{
-		if ($namajadual=='msic')
-			$this->sayaPilihMsic($namajadual, $cari, $susun);
-		elseif ($namajadual=='produk')
-			$this->sayaPilihProduk($namajadual, $cari, $susun);
-		elseif ($namajadual=='johor')
-			$this->sayaPilihJohor($namajadual, $cari, $susun);
-		elseif ($namajadual=='syarikat')
-			$this->sayaPilihSyarikat($namajadual, $cari, $susun);
-		elseif ($namajadual=='data_mm_prosesan')
-			$this->sayaPilihDataMM($namajadual, $cari, $susun);
+		//echo '<br>jadual:' . $jadual . '<br>';
+		if($jadual=='msic')
+			$this->sayaPilihMsic($cari, $susun);
+		elseif($jadual=='produk')
+			$this->sayaPilihProduk($cari, $susun);
+		elseif($jadual=='johor')
+			$this->sayaPilihJohor($cari, $susun);
+		elseif($jadual=='malaysia')
+			$this->sayaPilihMalaysia($cari, $susun);
+		elseif($jadual=='syarikat')
+			$this->sayaPilihSyarikat($cari, $susun);
+		elseif($jadual=='data_mm_prosesan')
+			$this->sayaPilihDataMM($cari, $susun);
 	}
 #------------------------------------------------------------------------------------------
-	function sayaPilihMsic($namajadual, $cari, $susun)
+	function sayaPilihMsic($cari, $susun)
 	{	//echo '<hr>Nama class : ' . __METHOD__ . '()<hr>';
 		$jadual = dpt_senarai('msicbaru'); //echo '<pre>';
 		//echo 'jadual:' . $this->semakPembolehubah($jadual);
@@ -248,7 +267,7 @@ class Cari extends \Aplikasi\Kitab\Kawal
 		$this->papar->carian = $cari;
 	}
 #------------------------------------------------------------------------------------------
-	function sayaPilihProduk($namajadual, $cari, $susun)
+	function sayaPilihProduk($cari, $susun)
 	{
 		$jadual = dpt_senarai('produk');
 		//echo 'jadual:' . $this->semakPembolehubah($jadual);
@@ -264,8 +283,8 @@ class Cari extends \Aplikasi\Kitab\Kawal
 				: '*';
 			$carian = $this->tanya->bentukCarian($_POST['jika'], $myTable);
 			$this->papar->senarai[$myTable] = $this->tanya->
-				cariSql($namaPanjang, $medan, $carian, $susun);
-				//cariSemuaData($namaPanjang, $medan, $carian, $susun);
+				//cariSql($namaPanjang, $medan, $carian, $susun);
+				cariSemuaData($namaPanjang, $medan, $carian, $susun);
 		}# tamat ulang table
 
 		# papar jadual kod unit
@@ -277,28 +296,45 @@ class Cari extends \Aplikasi\Kitab\Kawal
 		$this->papar->carian = $cari;
 	}
 #------------------------------------------------------------------------------------------
-	function sayaPilihJohor($namajadual, $cari, $susun)
+	function sayaPilihJohor($cari, $susun)
 	{
-		$jadual = dpt_senarai('***');
-		//echo 'jadual:' . $this->semakPembolehubah($jadual);
-		list($medanAsal, $medanBaru) = $this->tanya->bentukMedanJohor();
+		list($namaPanjang,$semak,$medanAsal,$medanBaru) = dpt_senarai('jadual_peta');
+		/*echo 'jadual:' . $this->semakPembolehubah($namaPanjang); *///echo '<pre>';
 
-		foreach ($jadual as $key => $namaPanjang)
+		foreach ($namaPanjang as $key => $jadual)
 		{# mula ulang table
-			$myTable = ($namaPanjang == 'pom_lokaliti.johor') ?
+			$myTable = ($jadual == $semak) ?
 				'JOHOR' : 'LK-JOHOR';
-			$medan = ($namaPanjang == 'pom_lokaliti.johor') ?
+			$medan = ($jadual == $semak) ?
 				$medanAsal : $medanBaru;
 			$carian = $this->tanya->bentukCarian($_POST['jika'], $myTable);
 			$this->papar->senarai[$myTable] = $this->tanya->
-				cariSql($namaPanjang, $medan, $carian, $susun);
-				//cariSemuaData($namaPanjang, $medan, $carian, $susun);
+				//cariSql("$jadual\r", $medan, $carian, $susun);
+				cariSemuaData("$jadual\r", $medan, $carian, $susun);
 		}# tamat ulang table//*/
 
 		$this->papar->carian = $cari;
 	}
 #------------------------------------------------------------------------------------------
-	function sayaPilihSyarikat($namajadual, $cari, $susun)
+	function sayaPilihMalaysia($cari, $susun)
+	{
+		list($namaPanjang,$ngbesar,$medan) = dpt_senarai('jadual_peta2');
+		/*echo 'jadual:' . $this->semakPembolehubah($namaPanjang); *///echo '<pre>';
+		$medan = '*';
+
+		foreach ($namaPanjang as $key => $jadual)
+		{# mula ulang table
+			$myTable = $ngbesar[$key];
+			$carian = $this->tanya->bentukCarian($_POST['jika'], $myTable);
+			$this->papar->senarai[$myTable] = $this->tanya->
+				//cariSql("$jadual\r", $medan, $carian, $susun);
+				cariSemuaData("$jadual\r", $medan, $carian, $susun);
+		}# tamat ulang table//*/
+
+		$this->papar->carian = $cari;
+	}
+#------------------------------------------------------------------------------------------
+	function sayaPilihSyarikat($cari, $susun)
 	{
 		//echo '<hr>Nama class : ' . __METHOD__ . '()<hr>';
 		list($jadual, $medan, $carian) = $this->tanya->dataCorp($cari);
@@ -313,7 +349,7 @@ class Cari extends \Aplikasi\Kitab\Kawal
 		$this->papar->carian = $cari;
 	}
 #------------------------------------------------------------------------------------------
-	function sayaPilihDataMM($namajadual, $cari, $susun)
+	function sayaPilihDataMM($cari, $susun)
 	{
 		$jadual = dpt_senarai('***');
 		//echo 'jadual:' . $this->semakPembolehubah($jadual);
@@ -328,6 +364,53 @@ class Cari extends \Aplikasi\Kitab\Kawal
 		}# tamat ulang table//*/
 
 		$this->papar->carian = $cari;
+	}
+#------------------------------------------------------------------------------------------
+###########################################################################################
+#------------------------------------------------------------------------------------------
+	public function syarikat($carilah = null)
+	{
+		$cari = bersih($_GET['cari']);
+		//echo "URL \$cari = $cari <br> GET \$cari = $carilah";
+		if($cari == null) echo '<li>Kosong Laa</li>';
+		elseif (isset($cari)) 
+		{
+			if(strlen($cari) > 0)
+			{
+				list($paparKes, $bilKes) = $this->syarikatDB();
+				$this->syarikatPapar($paparKes, $bilKes);
+			}# tamat - strlen($cari) > 0
+		}# tamat - isset($cari)//*/
+	}
+#------------------------------------------------------------------------------------------
+	function syarikatPapar($paparKes, $bilKes)
+	{
+		if($bilKes==0) {echo '<li>Takde Laa</li>';}
+		else
+		{	echo '<li>Jumpa ' . $bilKes . '</li>';
+			foreach($paparKes as $key => $data)
+			{
+				echo '<li onClick="fill(\'' . $data['newss'] . '\');">'
+				. ($key+1) . '-' . $data['nama'] . '-' . $data['newss']
+				. '-SSM ' . $data['nossm'] . '-' . $data['operator']
+				. '-KP' . $data['kp'] . '</li>';
+			}# tamat - foreach($paparKes as $key => $data)
+		}# tamat - $bilKes ==0
+	}
+#------------------------------------------------------------------------------------------
+	function syarikatDB()
+	{
+		list($myTable, $medan01) = dpt_senarai('jadual_kawalan');
+		$medan = 'newss,nama,nossm,operator,kp';
+		$carian[] = array('fix'=>'z%like%','atau'=>'WHERE',
+			'medan'=>'concat_ws(" ",newss,nossm,nama)','apa'=>$cari);
+		$susun['dari'] = 10;
+
+		$paparKes = //$this->tanya->cariSql($myTable, $medan, $carian, $susun);
+		$this->tanya->cariSemuaData($myTable, $medan, $carian, $susun);
+		$bilKes = count($paparKes); //echo $bilKes . '=>'; //print_r($paparKes);
+
+		return array($paparKes, $bilKes);
 	}
 #------------------------------------------------------------------------------------------
 #------------------------------------------------------------------------------------------
