@@ -1,0 +1,54 @@
+<code><span style="color: #808080">
+<span style="color: #000000">&lt;?php
+<br /></span><span style="color: #008000">/*&nbsp;Ini&nbsp;fail&nbsp;index.php
+<br />&nbsp;*&nbsp;Dalam&nbsp;ini&nbsp;kita&nbsp;isytiharkan
+<br />&nbsp;*&nbsp;1.&nbsp;laporan&nbsp;tahap&nbsp;kesilapan&nbsp;kod&nbsp;PHP
+<br />&nbsp;*&nbsp;2.&nbsp;zon&nbsp;masa&nbsp;kita&nbsp;pada&nbsp;Asia/Kuala&nbsp;Lumpur
+<br />&nbsp;*&nbsp;3.&nbsp;setkan&nbsp;tatarajah&nbsp;sistem
+<br />&nbsp;*&nbsp;4.&nbsp;masukkan&nbsp;semua&nbsp;fail&nbsp;class&nbsp;dari&nbsp;folder&nbsp;PUSTAKA
+<br />&nbsp;*&nbsp;5.&nbsp;istihar&nbsp;class&nbsp;\Aplikasi\Kitab\Route()
+<br />&nbsp;*/
+<br />&nbsp;
+<br />#&nbsp;1.&nbsp;laporan&nbsp;tahap&nbsp;kesilapan&nbsp;kod&nbsp;PHP
+<br /></span><span style="color: #000000">error_reporting</span><span style="color: #0000BB; font-weight: bold">(</span><span style="color: #000000">E_ALL</span><span style="color: #0000BB; font-weight: bold">);
+<br />&nbsp;
+<br /></span><span style="color: #008000">#&nbsp;2.&nbsp;isytiharkan&nbsp;zon&nbsp;masa&nbsp;=&gt;&nbsp;Asia/Kuala&nbsp;Lumpur
+<br /></span><span style="color: #000000">date_default_timezone_set</span><span style="color: #0000BB; font-weight: bold">(</span><span style="color: #DD0000">'Asia/Kuala_Lumpur'</span><span style="color: #0000BB; font-weight: bold">);
+<br />&nbsp;
+<br /></span><span style="color: #008000">#&nbsp;3.&nbsp;setkan&nbsp;tatarajah&nbsp;sistem
+<br />#&nbsp;rujuk&nbsp;fail&nbsp;i-tatarajah.php&nbsp;untuk
+<br />#&nbsp;define&nbsp;nilai&nbsp;konstan&nbsp;yang&nbsp;perlu&nbsp;dalam&nbsp;framework&nbsp;ini
+<br />#&nbsp;i-tatarajah.php&nbsp;boleh&nbsp;ditukar&nbsp;kepada&nbsp;tatarajah.php
+<br /></span><span style="color: #0000BB; font-weight: bold">require&nbsp;</span><span style="color: #DD0000">'tatarajah.php'</span><span style="color: #0000BB; font-weight: bold">;
+<br />
+<br /></span><span style="color: #008000">/*&nbsp;4.&nbsp;masukkan&nbsp;semua&nbsp;fail&nbsp;class&nbsp;dari&nbsp;folder&nbsp;Aplikasi/Class
+<br />**&nbsp;URL&nbsp;:&nbsp;http://www.php-fig.org/psr/psr-4/examples/
+<br />**&nbsp;Contoh&nbsp;pelaksanaan&nbsp;projek&nbsp;khusus.
+<br />**
+<br />**&nbsp;@param&nbsp;string&nbsp;$class&nbsp;nama&nbsp;class&nbsp;yang&nbsp;sebenar&nbsp;tanpa&nbsp;namespace.
+<br />**&nbsp;@return&nbsp;void
+<br />**/
+<br /></span><span style="color: #000000">spl_autoload_register</span><span style="color: #0000BB; font-weight: bold">(function&nbsp;(</span><span style="color: #000000">$namaClass</span><span style="color: #0000BB; font-weight: bold">)
+<br />{
+<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #008000">#&nbsp;buat&nbsp;pecahan&nbsp;tatasusunan&nbsp;$namaClass
+<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #000000">$class&nbsp;</span><span style="color: #0000BB; font-weight: bold">=&nbsp;</span><span style="color: #000000">explode</span><span style="color: #0000BB; font-weight: bold">(</span><span style="color: #DD0000">'\\'</span><span style="color: #0000BB; font-weight: bold">,&nbsp;</span><span style="color: #000000">$namaClass</span><span style="color: #0000BB; font-weight: bold">);&nbsp;</span><span style="color: #008000">//print_r($class)&nbsp;.&nbsp;'&lt;br&gt;';
+<br />&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;semak&nbsp;kewujudan&nbsp;class
+<br />&nbsp;&nbsp;&nbsp;&nbsp;//echo&nbsp;'&lt;hr&gt;nama&nbsp;class:'&nbsp;.&nbsp;$class[count($class)-1]&nbsp;.&nbsp;'&nbsp;|&nbsp;';
+<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #000000">$cariFail&nbsp;</span><span style="color: #0000BB; font-weight: bold">=&nbsp;</span><span style="color: #000000">GetMatchingFiles</span><span style="color: #0000BB; font-weight: bold">(</span><span style="color: #000000">GetContents</span><span style="color: #0000BB; font-weight: bold">(</span><span style="color: #DD0000">'Aplikasi/Kelas'</span><span style="color: #0000BB; font-weight: bold">),</span><span style="color: #000000">$class</span><span style="color: #0000BB; font-weight: bold">[</span><span style="color: #000000">count</span><span style="color: #0000BB; font-weight: bold">(</span><span style="color: #000000">$class</span><span style="color: #0000BB; font-weight: bold">)-</span><span style="color: #000000">1</span><span style="color: #0000BB; font-weight: bold">]&nbsp;.&nbsp;</span><span style="color: #DD0000">'.php'</span><span style="color: #0000BB; font-weight: bold">);
+<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #008000">#&nbsp;jika&nbsp;fail&nbsp;wujud,&nbsp;masukkan&nbsp;
+<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB; font-weight: bold">foreach(</span><span style="color: #000000">$cariFail&nbsp;</span><span style="color: #0000BB; font-weight: bold">as&nbsp;</span><span style="color: #000000">$kitabApa</span><span style="color: #0000BB; font-weight: bold">)
+<br />&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #008000">//echo&nbsp;'$kitabApa-&gt;'&nbsp;.&nbsp;$kitabApa&nbsp;.&nbsp;'&lt;br&gt;';
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB; font-weight: bold">if&nbsp;(</span><span style="color: #000000">file_exists</span><span style="color: #0000BB; font-weight: bold">(</span><span style="color: #000000">$kitabApa</span><span style="color: #0000BB; font-weight: bold">))&nbsp;require&nbsp;</span><span style="color: #000000">$kitabApa</span><span style="color: #0000BB; font-weight: bold">;
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #008000">//else&nbsp;echo&nbsp;'tidak&nbsp;jumpa&nbsp;daa&lt;br&gt;';
+<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB; font-weight: bold">}</span><span style="color: #008000">//*/
+<br /></span><span style="color: #0000BB; font-weight: bold">});
+<br /></span><span style="color: #008000">/*&nbsp;5.&nbsp;istihar&nbsp;class&nbsp;
+<br />**&nbsp;Selepas&nbsp;mendaftar&nbsp;fungsi&nbsp;autoload&nbsp;ini&nbsp;dengan&nbsp;SPL,&nbsp;baris&nbsp;berikut
+<br />**&nbsp;akan&nbsp;menyebabkan&nbsp;fungsi&nbsp;untuk&nbsp;cuba&nbsp;untuk&nbsp;memuatkan&nbsp;kelas&nbsp;\Foo\Bar\Baz\Qux
+<br />**&nbsp;dari&nbsp;/path/to/project/src/Baz/Qux.php:
+<br />**
+<br />**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;new&nbsp;\Foo\Bar\Baz\Qux;
+<br />**/
+<br /></span><span style="color: #000000">$aplikasi&nbsp;</span><span style="color: #0000BB; font-weight: bold">=&nbsp;new&nbsp;\</span><span style="color: #000000">Aplikasi</span><span style="color: #0000BB; font-weight: bold">\</span><span style="color: #000000">Kitab</span><span style="color: #0000BB; font-weight: bold">\</span><span style="color: #000000">Peta</span><span style="color: #0000BB; font-weight: bold">();</span>
+</span>
+</code>

@@ -1,0 +1,40 @@
+
+<code><span style="color: #808080">
+<span style="color: #000000">&lt;?php
+<br /></span><span style="color: #0000BB; font-weight: bold">namespace&nbsp;</span><span style="color: #000000">Aplikasi</span><span style="color: #0000BB; font-weight: bold">\</span><span style="color: #000000">Kitab</span><span style="color: #0000BB; font-weight: bold">;&nbsp;</span><span style="color: #008000">//echo&nbsp;__NAMESPACE__;
+<br /></span><span style="color: #0000BB; font-weight: bold">class&nbsp;</span><span style="color: #000000">Kawal
+<br /></span><span style="color: #0000BB; font-weight: bold">{
+<br /></span><span style="color: #008000">#==========================================================================================
+<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB; font-weight: bold">function&nbsp;</span><span style="color: #000000">__construct</span><span style="color: #0000BB; font-weight: bold">()
+<br />&nbsp;&nbsp;&nbsp;&nbsp;{
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #008000">//echo&nbsp;'&lt;br&gt;class&nbsp;Kawal';
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #000000">$this</span><span style="color: #0000BB; font-weight: bold">-&gt;</span><span style="color: #000000">papar&nbsp;</span><span style="color: #0000BB; font-weight: bold">=&nbsp;new&nbsp;\</span><span style="color: #000000">Aplikasi</span><span style="color: #0000BB; font-weight: bold">\</span><span style="color: #000000">Kitab</span><span style="color: #0000BB; font-weight: bold">\</span><span style="color: #000000">Papar</span><span style="color: #0000BB; font-weight: bold">();
+<br />&nbsp;&nbsp;&nbsp;&nbsp;}
+<br /></span><span style="color: #008000">#==========================================================================================
+<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB; font-weight: bold">public&nbsp;function&nbsp;</span><span style="color: #000000">jemaahTaskil</span><span style="color: #0000BB; font-weight: bold">(</span><span style="color: #000000">$nama</span><span style="color: #0000BB; font-weight: bold">)
+<br />&nbsp;&nbsp;&nbsp;&nbsp;{
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #000000">$failTanya&nbsp;</span><span style="color: #0000BB; font-weight: bold">=&nbsp;</span><span style="color: #000000">GetMatchingFiles</span><span style="color: #0000BB; font-weight: bold">(</span><span style="color: #000000">GetContents</span><span style="color: #0000BB; font-weight: bold">(</span><span style="color: #000000">TANYA</span><span style="color: #0000BB; font-weight: bold">),</span><span style="color: #000000">$nama&nbsp;</span><span style="color: #0000BB; font-weight: bold">.&nbsp;</span><span style="color: #DD0000">'_tanya.php'</span><span style="color: #0000BB; font-weight: bold">);
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #000000">$tanya&nbsp;</span><span style="color: #0000BB; font-weight: bold">=&nbsp;</span><span style="color: #000000">$failTanya</span><span style="color: #0000BB; font-weight: bold">[</span><span style="color: #000000">0</span><span style="color: #0000BB; font-weight: bold">];
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #008000">/*echo&nbsp;'&lt;br&gt;&nbsp;class&nbsp;Kawal&nbsp;::&nbsp;$nama&nbsp;:&nbsp;'&nbsp;.&nbsp;$nama&nbsp;.&nbsp;'|';
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;'TANYA-&gt;'&nbsp;.&nbsp;TANYA&nbsp;.&nbsp;'';
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;'&lt;pre&gt;$failTanya-&gt;';&nbsp;print_r($failTanya);&nbsp;echo&nbsp;'&lt;/pre&gt;';
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;'$tanya-&gt;'&nbsp;.&nbsp;$tanya&nbsp;.&nbsp;'&lt;br&gt;';
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//*/
+<br />
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB; font-weight: bold">if&nbsp;(</span><span style="color: #000000">file_exists</span><span style="color: #0000BB; font-weight: bold">(</span><span style="color: #000000">$tanya</span><span style="color: #0000BB; font-weight: bold">))
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #000000">$tanyaNama&nbsp;</span><span style="color: #0000BB; font-weight: bold">=&nbsp;</span><span style="color: #DD0000">'\\Aplikasi\Tanya\\'&nbsp;</span><span style="color: #0000BB; font-weight: bold">.&nbsp;</span><span style="color: #000000">huruf</span><span style="color: #0000BB; font-weight: bold">(</span><span style="color: #DD0000">'Besar'</span><span style="color: #0000BB; font-weight: bold">,&nbsp;</span><span style="color: #000000">$nama</span><span style="color: #0000BB; font-weight: bold">)&nbsp;.&nbsp;</span><span style="color: #DD0000">'_Tanya'</span><span style="color: #0000BB; font-weight: bold">;
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #008000">//echo&nbsp;'&lt;br&gt;$tanyaNama-&gt;'&nbsp;.&nbsp;$tanyaNama&nbsp;.&nbsp;'&lt;br&gt;';
+<br />
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB; font-weight: bold">require_once&nbsp;</span><span style="color: #000000">$tanya</span><span style="color: #0000BB; font-weight: bold">;
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #000000">$this</span><span style="color: #0000BB; font-weight: bold">-&gt;</span><span style="color: #000000">tanya&nbsp;</span><span style="color: #0000BB; font-weight: bold">=&nbsp;new&nbsp;</span><span style="color: #000000">$tanyaNama</span><span style="color: #0000BB; font-weight: bold">();
+<br />
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #008000">//if&nbsp;(class_exists($tanyaNama))&nbsp;echo&nbsp;'&lt;br&gt;class&nbsp;'&nbsp;.&nbsp;$tanyaNama&nbsp;.&nbsp;'&nbsp;wujud&lt;br&gt;';
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//else&nbsp;echo&nbsp;'&lt;br&gt;class&nbsp;'&nbsp;.&nbsp;$tanyaNama&nbsp;.&nbsp;'&nbsp;tak&nbsp;wujud&lt;br&gt;';
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB; font-weight: bold">}</span><span style="color: #008000">//*/
+<br />
+<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB; font-weight: bold">}
+<br /></span><span style="color: #008000">#==========================================================================================
+<br /></span><span style="color: #0000BB; font-weight: bold">}</span>
+</span>
+</code>
