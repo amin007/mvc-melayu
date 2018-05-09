@@ -1,0 +1,35 @@
+
+<code><span style="color: #808080">
+<span style="color: #000000">&lt;?php
+<br /></span><span style="color: #0000BB; font-weight: bold">namespace&nbsp;</span><span style="color: #000000">Aplikasi</span><span style="color: #0000BB; font-weight: bold">\</span><span style="color: #000000">Kitab</span><span style="color: #0000BB; font-weight: bold">;&nbsp;</span><span style="color: #008000">//echo&nbsp;__NAMESPACE__;&nbsp;
+<br /></span><span style="color: #0000BB; font-weight: bold">class&nbsp;</span><span style="color: #000000">Sesi&nbsp;</span><span style="color: #008000">#&nbsp;\Aplikasi\Kitab\Sesi::
+<br /></span><span style="color: #0000BB; font-weight: bold">{
+<br /></span><span style="color: #008000">#==========================================================
+<br />#----------------------------------------------------------
+<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB; font-weight: bold">public&nbsp;static&nbsp;function&nbsp;</span><span style="color: #000000">init</span><span style="color: #0000BB; font-weight: bold">()
+<br />&nbsp;&nbsp;&nbsp;&nbsp;{
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@</span><span style="color: #000000">session_start</span><span style="color: #0000BB; font-weight: bold">();
+<br />&nbsp;&nbsp;&nbsp;&nbsp;}
+<br /></span><span style="color: #008000">#----------------------------------------------------------
+<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB; font-weight: bold">public&nbsp;static&nbsp;function&nbsp;</span><span style="color: #000000">set</span><span style="color: #0000BB; font-weight: bold">(</span><span style="color: #000000">$key</span><span style="color: #0000BB; font-weight: bold">,&nbsp;</span><span style="color: #000000">$value</span><span style="color: #0000BB; font-weight: bold">)
+<br />&nbsp;&nbsp;&nbsp;&nbsp;{
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #000000">$_SESSION</span><span style="color: #0000BB; font-weight: bold">[</span><span style="color: #000000">$key</span><span style="color: #0000BB; font-weight: bold">]&nbsp;=&nbsp;</span><span style="color: #000000">$value</span><span style="color: #0000BB; font-weight: bold">;
+<br />&nbsp;&nbsp;&nbsp;&nbsp;}
+<br /></span><span style="color: #008000">#----------------------------------------------------------
+<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB; font-weight: bold">public&nbsp;static&nbsp;function&nbsp;</span><span style="color: #000000">get</span><span style="color: #0000BB; font-weight: bold">(</span><span style="color: #000000">$key</span><span style="color: #0000BB; font-weight: bold">)
+<br />&nbsp;&nbsp;&nbsp;&nbsp;{
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(isset(</span><span style="color: #000000">$_SESSION</span><span style="color: #0000BB; font-weight: bold">[</span><span style="color: #000000">$key</span><span style="color: #0000BB; font-weight: bold">]))
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;</span><span style="color: #000000">$_SESSION</span><span style="color: #0000BB; font-weight: bold">[</span><span style="color: #000000">$key</span><span style="color: #0000BB; font-weight: bold">];
+<br />&nbsp;&nbsp;&nbsp;&nbsp;}
+<br /></span><span style="color: #008000">#----------------------------------------------------------
+<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB; font-weight: bold">public&nbsp;static&nbsp;function&nbsp;</span><span style="color: #000000">destroy</span><span style="color: #0000BB; font-weight: bold">()
+<br />&nbsp;&nbsp;&nbsp;&nbsp;{
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #008000">//unset($_SESSION);
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #000000">session_destroy</span><span style="color: #0000BB; font-weight: bold">();
+<br />&nbsp;&nbsp;&nbsp;&nbsp;}
+<br /></span><span style="color: #008000">#----------------------------------------------------------
+<br />#----------------------------------------------------------
+<br />#==========================================================
+<br /></span><span style="color: #0000BB; font-weight: bold">}</span>
+</span>
+</code>

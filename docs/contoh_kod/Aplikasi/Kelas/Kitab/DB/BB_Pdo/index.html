@@ -1,0 +1,385 @@
+
+<code><span style="color: #808080">
+<span style="color: #000000">&lt;?php
+<br /></span><span style="color: #0000BB; font-weight: bold">namespace&nbsp;</span><span style="color: #000000">Aplikasi</span><span style="color: #0000BB; font-weight: bold">\</span><span style="color: #000000">Kitab</span><span style="color: #0000BB; font-weight: bold">;&nbsp;</span><span style="color: #008000">//echo&nbsp;__NAMESPACE__;&nbsp;
+<br /></span><span style="color: #0000BB; font-weight: bold">class&nbsp;</span><span style="color: #000000">DB_Pdo&nbsp;</span><span style="color: #0000BB; font-weight: bold">extends&nbsp;\</span><span style="color: #000000">PDO
+<br /></span><span style="color: #0000BB; font-weight: bold">{
+<br /></span><span style="color: #008000">#==================================================================================================================
+<br />#------------------------------------------------------------------------------------------------------------------
+<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB; font-weight: bold">public&nbsp;function&nbsp;</span><span style="color: #000000">__construct</span><span style="color: #0000BB; font-weight: bold">(</span><span style="color: #000000">$DB_TYPE</span><span style="color: #0000BB; font-weight: bold">,&nbsp;</span><span style="color: #000000">$DB_HOST</span><span style="color: #0000BB; font-weight: bold">,&nbsp;</span><span style="color: #000000">$DB_NAME</span><span style="color: #0000BB; font-weight: bold">,&nbsp;</span><span style="color: #000000">$DB_USER</span><span style="color: #0000BB; font-weight: bold">,&nbsp;</span><span style="color: #000000">$DB_PASS</span><span style="color: #0000BB; font-weight: bold">)
+<br />&nbsp;&nbsp;&nbsp;&nbsp;{
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;try
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #000000">parent</span><span style="color: #0000BB; font-weight: bold">::</span><span style="color: #000000">__construct</span><span style="color: #0000BB; font-weight: bold">(</span><span style="color: #000000">$DB_TYPE&nbsp;</span><span style="color: #0000BB; font-weight: bold">.&nbsp;</span><span style="color: #DD0000">':host='&nbsp;</span><span style="color: #0000BB; font-weight: bold">.&nbsp;</span><span style="color: #000000">$DB_HOST&nbsp;</span><span style="color: #0000BB; font-weight: bold">.&nbsp;</span><span style="color: #DD0000">';dbname='&nbsp;</span><span style="color: #0000BB; font-weight: bold">.&nbsp;</span><span style="color: #000000">$DB_NAME</span><span style="color: #0000BB; font-weight: bold">,&nbsp;</span><span style="color: #000000">$DB_USER</span><span style="color: #0000BB; font-weight: bold">,&nbsp;</span><span style="color: #000000">$DB_PASS</span><span style="color: #0000BB; font-weight: bold">);
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #008000">//parent::setAttribute(\PDO::ATTR_ERRMODE,&nbsp;\PDO::ERRMODE_EXCEPTIONS);
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB; font-weight: bold">}
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;catch&nbsp;(</span><span style="color: #000000">PDOException&nbsp;$e</span><span style="color: #0000BB; font-weight: bold">)&nbsp;
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">'&lt;pre&gt;'</span><span style="color: #0000BB; font-weight: bold">;
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #000000">$e</span><span style="color: #0000BB; font-weight: bold">-&gt;</span><span style="color: #000000">getMessage</span><span style="color: #0000BB; font-weight: bold">();
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">'&lt;/pre&gt;&lt;br&gt;&lt;a&nbsp;href="'&nbsp;</span><span style="color: #0000BB; font-weight: bold">.&nbsp;</span><span style="color: #000000">URL&nbsp;</span><span style="color: #0000BB; font-weight: bold">.&nbsp;</span><span style="color: #DD0000">'ruangtamu/logout"&gt;Keluar&lt;/a&gt;'</span><span style="color: #0000BB; font-weight: bold">;
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;exit;
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+<br />&nbsp;&nbsp;&nbsp;&nbsp;}
+<br /></span><span style="color: #008000">#------------------------------------------------------------------------------------------------------------------
+<br />&nbsp;&nbsp;&nbsp;&nbsp;/**
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;bigError
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;papar&nbsp;$masalah&nbsp;yang&nbsp;dialami
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@exit&nbsp;
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/
+<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB; font-weight: bold">public&nbsp;function&nbsp;</span><span style="color: #000000">bigError</span><span style="color: #0000BB; font-weight: bold">(</span><span style="color: #000000">$masalah</span><span style="color: #0000BB; font-weight: bold">)
+<br />&nbsp;&nbsp;&nbsp;&nbsp;{
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #000000">$error&nbsp;&nbsp;</span><span style="color: #0000BB; font-weight: bold">=&nbsp;</span><span style="color: #DD0000">'PDO::errorInfo()'</span><span style="color: #0000BB; font-weight: bold">;
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #000000">$error&nbsp;</span><span style="color: #0000BB; font-weight: bold">.=&nbsp;</span><span style="color: #DD0000">'&lt;br&gt;'&nbsp;</span><span style="color: #0000BB; font-weight: bold">.&nbsp;</span><span style="color: #000000">$masalah</span><span style="color: #0000BB; font-weight: bold">[</span><span style="color: #000000">2</span><span style="color: #0000BB; font-weight: bold">];
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #000000">$error</span><span style="color: #0000BB; font-weight: bold">;
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #008000">/*foreach&nbsp;($masalah&nbsp;as&nbsp;$key=&gt;$apa)
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$error&nbsp;.=&nbsp;'&lt;br&gt;'&nbsp;.&nbsp;$key&nbsp;.&nbsp;'=&gt;'&nbsp;.&nbsp;$apa;&nbsp;//*/
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB; font-weight: bold">exit;
+<br />&nbsp;&nbsp;&nbsp;&nbsp;}
+<br /></span><span style="color: #008000">#------------------------------------------------------------------------------------------------------------------
+<br />&nbsp;&nbsp;&nbsp;&nbsp;/**
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;selectAll
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;string&nbsp;$sql&nbsp;An&nbsp;SQL&nbsp;string
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;array&nbsp;$array&nbsp;Paramters&nbsp;to&nbsp;bind
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;constant&nbsp;$fetchMode&nbsp;A&nbsp;PDO&nbsp;Fetch&nbsp;mode
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@return&nbsp;mixed
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/
+<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB; font-weight: bold">public&nbsp;function&nbsp;</span><span style="color: #000000">selectAll</span><span style="color: #0000BB; font-weight: bold">(</span><span style="color: #000000">$sql</span><span style="color: #0000BB; font-weight: bold">,&nbsp;</span><span style="color: #000000">$array&nbsp;</span><span style="color: #0000BB; font-weight: bold">=&nbsp;array(),&nbsp;</span><span style="color: #000000">$fetchMode&nbsp;</span><span style="color: #0000BB; font-weight: bold">=&nbsp;\</span><span style="color: #000000">PDO</span><span style="color: #0000BB; font-weight: bold">::</span><span style="color: #000000">FETCH_ASSOC</span><span style="color: #0000BB; font-weight: bold">)
+<br />&nbsp;&nbsp;&nbsp;&nbsp;{
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #008000">//echo&nbsp;'&lt;hr&gt;&lt;pre&gt;';&nbsp;print_r($sql)&nbsp;.&nbsp;'&lt;/pre&gt;&lt;hr&gt;';
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #000000">$sth&nbsp;</span><span style="color: #0000BB; font-weight: bold">=&nbsp;</span><span style="color: #000000">$this</span><span style="color: #0000BB; font-weight: bold">-&gt;</span><span style="color: #000000">prepare</span><span style="color: #0000BB; font-weight: bold">(</span><span style="color: #000000">$sql</span><span style="color: #0000BB; font-weight: bold">);
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;foreach&nbsp;(</span><span style="color: #000000">$array&nbsp;</span><span style="color: #0000BB; font-weight: bold">as&nbsp;</span><span style="color: #000000">$key&nbsp;</span><span style="color: #0000BB; font-weight: bold">=&gt;&nbsp;</span><span style="color: #000000">$value</span><span style="color: #0000BB; font-weight: bold">)&nbsp;
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #000000">$sth</span><span style="color: #0000BB; font-weight: bold">-&gt;</span><span style="color: #000000">bindValue</span><span style="color: #0000BB; font-weight: bold">(</span><span style="color: #DD0000">"</span><span style="color: #000000">$key</span><span style="color: #DD0000">"</span><span style="color: #0000BB; font-weight: bold">,&nbsp;</span><span style="color: #000000">$value</span><span style="color: #0000BB; font-weight: bold">);
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+<br />
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #000000">$sth</span><span style="color: #0000BB; font-weight: bold">-&gt;</span><span style="color: #000000">execute</span><span style="color: #0000BB; font-weight: bold">();
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #000000">$masalah&nbsp;</span><span style="color: #0000BB; font-weight: bold">=&nbsp;</span><span style="color: #000000">$sth</span><span style="color: #0000BB; font-weight: bold">-&gt;</span><span style="color: #000000">errorInfo</span><span style="color: #0000BB; font-weight: bold">();&nbsp;</span><span style="color: #008000">#&nbsp;semak&nbsp;jika&nbsp;ada&nbsp;error
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//echo&nbsp;"\nPDO::errorInfo()&lt;hr&gt;&lt;pre&gt;";&nbsp;print_r($masalah)&nbsp;.&nbsp;'&lt;/pre&gt;';
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB; font-weight: bold">if&nbsp;(</span><span style="color: #000000">strpos</span><span style="color: #0000BB; font-weight: bold">(</span><span style="color: #000000">$masalah</span><span style="color: #0000BB; font-weight: bold">[</span><span style="color: #000000">2</span><span style="color: #0000BB; font-weight: bold">],&nbsp;</span><span style="color: #DD0000">'Unknown&nbsp;column'</span><span style="color: #0000BB; font-weight: bold">)&nbsp;!==&nbsp;</span><span style="color: #000000">false</span><span style="color: #0000BB; font-weight: bold">)&nbsp;
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #000000">$this</span><span style="color: #0000BB; font-weight: bold">-&gt;</span><span style="color: #000000">bigError</span><span style="color: #0000BB; font-weight: bold">(</span><span style="color: #000000">$masalah</span><span style="color: #0000BB; font-weight: bold">);
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;else&nbsp;</span><span style="color: #008000">#&nbsp;pulangkan&nbsp;pembolehubah
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB; font-weight: bold">return&nbsp;</span><span style="color: #000000">$sth</span><span style="color: #0000BB; font-weight: bold">-&gt;</span><span style="color: #000000">fetchAll</span><span style="color: #0000BB; font-weight: bold">(</span><span style="color: #000000">$fetchMode</span><span style="color: #0000BB; font-weight: bold">);
+<br />&nbsp;&nbsp;&nbsp;&nbsp;}
+<br /></span><span style="color: #008000">#------------------------------------------------------------------------------------------------------------------
+<br />&nbsp;&nbsp;&nbsp;&nbsp;/**
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;select
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;string&nbsp;$sql&nbsp;An&nbsp;SQL&nbsp;string
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;array&nbsp;$array&nbsp;Paramters&nbsp;to&nbsp;bind
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;constant&nbsp;$fetchMode&nbsp;A&nbsp;PDO&nbsp;Fetch&nbsp;mode
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@return&nbsp;mixed
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/
+<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB; font-weight: bold">public&nbsp;function&nbsp;</span><span style="color: #000000">select</span><span style="color: #0000BB; font-weight: bold">(</span><span style="color: #000000">$sql</span><span style="color: #0000BB; font-weight: bold">,&nbsp;</span><span style="color: #000000">$array&nbsp;</span><span style="color: #0000BB; font-weight: bold">=&nbsp;array(),&nbsp;</span><span style="color: #000000">$fetchMode&nbsp;</span><span style="color: #0000BB; font-weight: bold">=&nbsp;\</span><span style="color: #000000">PDO</span><span style="color: #0000BB; font-weight: bold">::</span><span style="color: #000000">FETCH_ASSOC</span><span style="color: #0000BB; font-weight: bold">)
+<br />&nbsp;&nbsp;&nbsp;&nbsp;{
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #008000">//echo&nbsp;'&lt;hr&gt;&lt;pre&gt;';&nbsp;print_r($sql)&nbsp;.&nbsp;'&lt;/pre&gt;&lt;hr&gt;';
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #000000">$sth&nbsp;</span><span style="color: #0000BB; font-weight: bold">=&nbsp;</span><span style="color: #000000">$this</span><span style="color: #0000BB; font-weight: bold">-&gt;</span><span style="color: #000000">prepare</span><span style="color: #0000BB; font-weight: bold">(</span><span style="color: #000000">$sql</span><span style="color: #0000BB; font-weight: bold">);
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;foreach&nbsp;(</span><span style="color: #000000">$array&nbsp;</span><span style="color: #0000BB; font-weight: bold">as&nbsp;</span><span style="color: #000000">$key&nbsp;</span><span style="color: #0000BB; font-weight: bold">=&gt;&nbsp;</span><span style="color: #000000">$value</span><span style="color: #0000BB; font-weight: bold">)&nbsp;
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #000000">$sth</span><span style="color: #0000BB; font-weight: bold">-&gt;</span><span style="color: #000000">bindValue</span><span style="color: #0000BB; font-weight: bold">(</span><span style="color: #DD0000">"</span><span style="color: #000000">$key</span><span style="color: #DD0000">"</span><span style="color: #0000BB; font-weight: bold">,&nbsp;</span><span style="color: #000000">$value</span><span style="color: #0000BB; font-weight: bold">);
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+<br />
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #000000">$sth</span><span style="color: #0000BB; font-weight: bold">-&gt;</span><span style="color: #000000">execute</span><span style="color: #0000BB; font-weight: bold">();
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #000000">$masalah&nbsp;</span><span style="color: #0000BB; font-weight: bold">=&nbsp;</span><span style="color: #000000">$sth</span><span style="color: #0000BB; font-weight: bold">-&gt;</span><span style="color: #000000">errorInfo</span><span style="color: #0000BB; font-weight: bold">();&nbsp;</span><span style="color: #008000">#&nbsp;semak&nbsp;jika&nbsp;ada&nbsp;error
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//echo&nbsp;"\nPDO::errorInfo()&lt;hr&gt;&lt;pre&gt;";&nbsp;print_r($masalah)&nbsp;.&nbsp;'&lt;/pre&gt;';
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB; font-weight: bold">if&nbsp;(</span><span style="color: #000000">strpos</span><span style="color: #0000BB; font-weight: bold">(</span><span style="color: #000000">$masalah</span><span style="color: #0000BB; font-weight: bold">[</span><span style="color: #000000">2</span><span style="color: #0000BB; font-weight: bold">],&nbsp;</span><span style="color: #DD0000">'Unknown&nbsp;column'</span><span style="color: #0000BB; font-weight: bold">)&nbsp;!==&nbsp;</span><span style="color: #000000">false</span><span style="color: #0000BB; font-weight: bold">)&nbsp;
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #000000">$this</span><span style="color: #0000BB; font-weight: bold">-&gt;</span><span style="color: #000000">bigError</span><span style="color: #0000BB; font-weight: bold">(</span><span style="color: #000000">$masalah</span><span style="color: #0000BB; font-weight: bold">);
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;else&nbsp;</span><span style="color: #008000">#&nbsp;pulangkan&nbsp;pembolehubah
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB; font-weight: bold">return&nbsp;</span><span style="color: #000000">$sth</span><span style="color: #0000BB; font-weight: bold">-&gt;</span><span style="color: #000000">fetchAll</span><span style="color: #0000BB; font-weight: bold">(</span><span style="color: #000000">$fetchMode</span><span style="color: #0000BB; font-weight: bold">);
+<br />&nbsp;&nbsp;&nbsp;&nbsp;}
+<br /></span><span style="color: #008000">#------------------------------------------------------------------------------------------------------------------
+<br />&nbsp;&nbsp;&nbsp;&nbsp;/**
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;rowCount()
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;string&nbsp;$sql&nbsp;An&nbsp;SQL&nbsp;string
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;array&nbsp;$array&nbsp;Paramters&nbsp;to&nbsp;bind
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;constant&nbsp;$fetchMode&nbsp;A&nbsp;PDO&nbsp;Fetch&nbsp;mode
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@return&nbsp;mixed
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/
+<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB; font-weight: bold">public&nbsp;function&nbsp;</span><span style="color: #000000">rowCount</span><span style="color: #0000BB; font-weight: bold">(</span><span style="color: #000000">$sql</span><span style="color: #0000BB; font-weight: bold">,&nbsp;</span><span style="color: #000000">$array&nbsp;</span><span style="color: #0000BB; font-weight: bold">=&nbsp;array(),&nbsp;</span><span style="color: #000000">$fetchMode&nbsp;</span><span style="color: #0000BB; font-weight: bold">=&nbsp;\</span><span style="color: #000000">PDO</span><span style="color: #0000BB; font-weight: bold">::</span><span style="color: #000000">FETCH_ASSOC</span><span style="color: #0000BB; font-weight: bold">)
+<br />&nbsp;&nbsp;&nbsp;&nbsp;{
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #008000">//echo&nbsp;'&lt;hr&gt;&lt;pre&gt;';&nbsp;print_r($sql)&nbsp;.&nbsp;'&lt;/pre&gt;&lt;hr&gt;';
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #000000">$sth&nbsp;</span><span style="color: #0000BB; font-weight: bold">=&nbsp;</span><span style="color: #000000">$this</span><span style="color: #0000BB; font-weight: bold">-&gt;</span><span style="color: #000000">prepare</span><span style="color: #0000BB; font-weight: bold">(</span><span style="color: #000000">$sql</span><span style="color: #0000BB; font-weight: bold">);
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;foreach&nbsp;(</span><span style="color: #000000">$array&nbsp;</span><span style="color: #0000BB; font-weight: bold">as&nbsp;</span><span style="color: #000000">$key&nbsp;</span><span style="color: #0000BB; font-weight: bold">=&gt;&nbsp;</span><span style="color: #000000">$value</span><span style="color: #0000BB; font-weight: bold">)&nbsp;
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #000000">$sth</span><span style="color: #0000BB; font-weight: bold">-&gt;</span><span style="color: #000000">bindValue</span><span style="color: #0000BB; font-weight: bold">(</span><span style="color: #DD0000">"</span><span style="color: #000000">$key</span><span style="color: #DD0000">"</span><span style="color: #0000BB; font-weight: bold">,&nbsp;</span><span style="color: #000000">$value</span><span style="color: #0000BB; font-weight: bold">);
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+<br />
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #000000">$sth</span><span style="color: #0000BB; font-weight: bold">-&gt;</span><span style="color: #000000">execute</span><span style="color: #0000BB; font-weight: bold">();
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #000000">$masalah&nbsp;</span><span style="color: #0000BB; font-weight: bold">=&nbsp;</span><span style="color: #000000">$sth</span><span style="color: #0000BB; font-weight: bold">-&gt;</span><span style="color: #000000">errorInfo</span><span style="color: #0000BB; font-weight: bold">();&nbsp;</span><span style="color: #008000">#&nbsp;semak&nbsp;jika&nbsp;ada&nbsp;error
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//echo&nbsp;"\nPDO::errorInfo()&lt;hr&gt;&lt;pre&gt;";&nbsp;print_r($masalah)&nbsp;.&nbsp;'&lt;/pre&gt;';
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB; font-weight: bold">if&nbsp;(</span><span style="color: #000000">strpos</span><span style="color: #0000BB; font-weight: bold">(</span><span style="color: #000000">$masalah</span><span style="color: #0000BB; font-weight: bold">[</span><span style="color: #000000">2</span><span style="color: #0000BB; font-weight: bold">],&nbsp;</span><span style="color: #DD0000">'Unknown&nbsp;column'</span><span style="color: #0000BB; font-weight: bold">)&nbsp;!==&nbsp;</span><span style="color: #000000">false</span><span style="color: #0000BB; font-weight: bold">)&nbsp;
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #000000">$this</span><span style="color: #0000BB; font-weight: bold">-&gt;</span><span style="color: #000000">bigError</span><span style="color: #0000BB; font-weight: bold">(</span><span style="color: #000000">$masalah</span><span style="color: #0000BB; font-weight: bold">);
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;else&nbsp;</span><span style="color: #008000">#&nbsp;pulangkan&nbsp;pembolehubah
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB; font-weight: bold">return&nbsp;</span><span style="color: #000000">$sth</span><span style="color: #0000BB; font-weight: bold">-&gt;</span><span style="color: #000000">rowCount</span><span style="color: #0000BB; font-weight: bold">();&nbsp;</span><span style="color: #008000">//$sth-&gt;fetchAll($fetchMode);
+<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB; font-weight: bold">}
+<br /></span><span style="color: #008000">#------------------------------------------------------------------------------------------------------------------
+<br />&nbsp;&nbsp;&nbsp;&nbsp;/**
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;insert
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;string&nbsp;$table&nbsp;A&nbsp;name&nbsp;of&nbsp;table&nbsp;to&nbsp;insert&nbsp;into
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;string&nbsp;$data&nbsp;An&nbsp;associative&nbsp;array
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/
+<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB; font-weight: bold">public&nbsp;function&nbsp;</span><span style="color: #000000">insert</span><span style="color: #0000BB; font-weight: bold">(</span><span style="color: #000000">$table</span><span style="color: #0000BB; font-weight: bold">,&nbsp;</span><span style="color: #000000">$data</span><span style="color: #0000BB; font-weight: bold">)
+<br />&nbsp;&nbsp;&nbsp;&nbsp;{
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #000000">ksort</span><span style="color: #0000BB; font-weight: bold">(</span><span style="color: #000000">$data</span><span style="color: #0000BB; font-weight: bold">);
+<br />
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #000000">$fieldNames&nbsp;</span><span style="color: #0000BB; font-weight: bold">=&nbsp;</span><span style="color: #000000">implode</span><span style="color: #0000BB; font-weight: bold">(</span><span style="color: #DD0000">'`,&nbsp;`'</span><span style="color: #0000BB; font-weight: bold">,&nbsp;</span><span style="color: #000000">array_keys</span><span style="color: #0000BB; font-weight: bold">(</span><span style="color: #000000">$data</span><span style="color: #0000BB; font-weight: bold">));
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #000000">$fieldValues&nbsp;</span><span style="color: #0000BB; font-weight: bold">=&nbsp;</span><span style="color: #DD0000">':'&nbsp;</span><span style="color: #0000BB; font-weight: bold">.&nbsp;</span><span style="color: #000000">implode</span><span style="color: #0000BB; font-weight: bold">(</span><span style="color: #DD0000">',&nbsp;:'</span><span style="color: #0000BB; font-weight: bold">,&nbsp;</span><span style="color: #000000">array_keys</span><span style="color: #0000BB; font-weight: bold">(</span><span style="color: #000000">$data</span><span style="color: #0000BB; font-weight: bold">));
+<br />
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #008000">//echo&nbsp;$sql&nbsp;=&nbsp;"INSERT&nbsp;INTO&nbsp;$table&nbsp;(`$fieldNames`)&nbsp;VALUES&nbsp;($fieldValues)";
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #000000">$sth&nbsp;</span><span style="color: #0000BB; font-weight: bold">=&nbsp;</span><span style="color: #000000">$this</span><span style="color: #0000BB; font-weight: bold">-&gt;</span><span style="color: #000000">prepare</span><span style="color: #0000BB; font-weight: bold">(</span><span style="color: #DD0000">"INSERT&nbsp;INTO&nbsp;</span><span style="color: #000000">$table</span><span style="color: #DD0000">&nbsp;(`</span><span style="color: #000000">$fieldNames</span><span style="color: #DD0000">`)&nbsp;VALUES&nbsp;(</span><span style="color: #000000">$fieldValues</span><span style="color: #DD0000">)"</span><span style="color: #0000BB; font-weight: bold">);
+<br />
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;foreach&nbsp;(</span><span style="color: #000000">$data&nbsp;</span><span style="color: #0000BB; font-weight: bold">as&nbsp;</span><span style="color: #000000">$key&nbsp;</span><span style="color: #0000BB; font-weight: bold">=&gt;&nbsp;</span><span style="color: #000000">$value</span><span style="color: #0000BB; font-weight: bold">)&nbsp;{
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #000000">$sth</span><span style="color: #0000BB; font-weight: bold">-&gt;</span><span style="color: #000000">bindValue</span><span style="color: #0000BB; font-weight: bold">(</span><span style="color: #DD0000">":</span><span style="color: #000000">$key</span><span style="color: #DD0000">"</span><span style="color: #0000BB; font-weight: bold">,&nbsp;</span><span style="color: #000000">$value</span><span style="color: #0000BB; font-weight: bold">);
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+<br />
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #000000">$sth</span><span style="color: #0000BB; font-weight: bold">-&gt;</span><span style="color: #000000">execute</span><span style="color: #0000BB; font-weight: bold">();
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #000000">$masalah&nbsp;</span><span style="color: #0000BB; font-weight: bold">=&nbsp;</span><span style="color: #000000">$sth</span><span style="color: #0000BB; font-weight: bold">-&gt;</span><span style="color: #000000">errorInfo</span><span style="color: #0000BB; font-weight: bold">();&nbsp;</span><span style="color: #008000">#&nbsp;semak&nbsp;jika&nbsp;ada&nbsp;error
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//echo&nbsp;"\nPDO::errorInfo()&lt;hr&gt;&lt;pre&gt;";&nbsp;print_r($masalah)&nbsp;.&nbsp;'&lt;/pre&gt;';
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB; font-weight: bold">if&nbsp;(</span><span style="color: #000000">strpos</span><span style="color: #0000BB; font-weight: bold">(</span><span style="color: #000000">$masalah</span><span style="color: #0000BB; font-weight: bold">[</span><span style="color: #000000">2</span><span style="color: #0000BB; font-weight: bold">],&nbsp;</span><span style="color: #DD0000">'Unknown&nbsp;column'</span><span style="color: #0000BB; font-weight: bold">)&nbsp;!==&nbsp;</span><span style="color: #000000">false</span><span style="color: #0000BB; font-weight: bold">)&nbsp;
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #000000">$this</span><span style="color: #0000BB; font-weight: bold">-&gt;</span><span style="color: #000000">bigError</span><span style="color: #0000BB; font-weight: bold">(</span><span style="color: #000000">$masalah</span><span style="color: #0000BB; font-weight: bold">);
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #008000">//*/
+<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB; font-weight: bold">}
+<br /></span><span style="color: #008000">#------------------------------------------------------------------------------------------------------------------
+<br />&nbsp;&nbsp;&nbsp;&nbsp;/**
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;insertAll
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;string&nbsp;$sql&nbsp;An&nbsp;SQL&nbsp;string
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;array&nbsp;$array&nbsp;Paramters&nbsp;to&nbsp;bind
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;constant&nbsp;$fetchMode&nbsp;A&nbsp;PDO&nbsp;Fetch&nbsp;mode
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@return&nbsp;mixed
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/
+<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB; font-weight: bold">public&nbsp;function&nbsp;</span><span style="color: #000000">insertAll</span><span style="color: #0000BB; font-weight: bold">(</span><span style="color: #000000">$sql</span><span style="color: #0000BB; font-weight: bold">,&nbsp;</span><span style="color: #000000">$array&nbsp;</span><span style="color: #0000BB; font-weight: bold">=&nbsp;array(),&nbsp;</span><span style="color: #000000">$fetchMode&nbsp;</span><span style="color: #0000BB; font-weight: bold">=&nbsp;\</span><span style="color: #000000">PDO</span><span style="color: #0000BB; font-weight: bold">::</span><span style="color: #000000">FETCH_ASSOC</span><span style="color: #0000BB; font-weight: bold">)
+<br />&nbsp;&nbsp;&nbsp;&nbsp;{
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #008000">//echo&nbsp;'&lt;hr&gt;&lt;pre&gt;';&nbsp;print_r($sql)&nbsp;.&nbsp;'&lt;/pre&gt;&lt;hr&gt;';
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #000000">$sth&nbsp;</span><span style="color: #0000BB; font-weight: bold">=&nbsp;</span><span style="color: #000000">$this</span><span style="color: #0000BB; font-weight: bold">-&gt;</span><span style="color: #000000">prepare</span><span style="color: #0000BB; font-weight: bold">(</span><span style="color: #000000">$sql</span><span style="color: #0000BB; font-weight: bold">);
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #008000">/*foreach&nbsp;($array&nbsp;as&nbsp;$key&nbsp;=&gt;&nbsp;$value)&nbsp;
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//$sth-&gt;bindValue("$key",&nbsp;$value);
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;"&lt;br&gt;\$sth-&gt;bindValue(\"$key\",&nbsp;$value)&nbsp;";
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}//*/
+<br />
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #000000">$sth</span><span style="color: #0000BB; font-weight: bold">-&gt;</span><span style="color: #000000">execute</span><span style="color: #0000BB; font-weight: bold">();
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #000000">$masalah&nbsp;</span><span style="color: #0000BB; font-weight: bold">=&nbsp;</span><span style="color: #000000">$sth</span><span style="color: #0000BB; font-weight: bold">-&gt;</span><span style="color: #000000">errorInfo</span><span style="color: #0000BB; font-weight: bold">();&nbsp;</span><span style="color: #008000">#&nbsp;semak&nbsp;jika&nbsp;ada&nbsp;error
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//echo&nbsp;"\nPDO::errorInfo()&lt;hr&gt;&lt;pre&gt;";&nbsp;print_r($masalah)&nbsp;.&nbsp;'&lt;/pre&gt;';
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB; font-weight: bold">if&nbsp;(</span><span style="color: #000000">strpos</span><span style="color: #0000BB; font-weight: bold">(</span><span style="color: #000000">$masalah</span><span style="color: #0000BB; font-weight: bold">[</span><span style="color: #000000">2</span><span style="color: #0000BB; font-weight: bold">],&nbsp;</span><span style="color: #DD0000">'Unknown&nbsp;column'</span><span style="color: #0000BB; font-weight: bold">)&nbsp;!==&nbsp;</span><span style="color: #000000">false</span><span style="color: #0000BB; font-weight: bold">)&nbsp;
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #000000">$this</span><span style="color: #0000BB; font-weight: bold">-&gt;</span><span style="color: #000000">bigError</span><span style="color: #0000BB; font-weight: bold">(</span><span style="color: #000000">$masalah</span><span style="color: #0000BB; font-weight: bold">);
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;else&nbsp;</span><span style="color: #008000">#&nbsp;pulangkan&nbsp;pembolehubah
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB; font-weight: bold">return&nbsp;</span><span style="color: #000000">$sth</span><span style="color: #0000BB; font-weight: bold">-&gt;</span><span style="color: #000000">fetchAll</span><span style="color: #0000BB; font-weight: bold">(</span><span style="color: #000000">$fetchMode</span><span style="color: #0000BB; font-weight: bold">);
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #008000">//*/
+<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB; font-weight: bold">}
+<br /></span><span style="color: #008000">#------------------------------------------------------------------------------------------------------------------
+<br />&nbsp;&nbsp;&nbsp;&nbsp;/**
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;insertAllNew
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;string&nbsp;$sql&nbsp;An&nbsp;SQL&nbsp;string
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;array&nbsp;$array&nbsp;Paramters&nbsp;to&nbsp;bind
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;constant&nbsp;$fetchMode&nbsp;A&nbsp;PDO&nbsp;Fetch&nbsp;mode
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@return&nbsp;mixed
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/
+<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB; font-weight: bold">public&nbsp;function&nbsp;</span><span style="color: #000000">insertAllNew</span><span style="color: #0000BB; font-weight: bold">(</span><span style="color: #000000">$sql</span><span style="color: #0000BB; font-weight: bold">,&nbsp;</span><span style="color: #000000">$array&nbsp;</span><span style="color: #0000BB; font-weight: bold">=&nbsp;array(),&nbsp;</span><span style="color: #000000">$fetchMode&nbsp;</span><span style="color: #0000BB; font-weight: bold">=&nbsp;\</span><span style="color: #000000">PDO</span><span style="color: #0000BB; font-weight: bold">::</span><span style="color: #000000">FETCH_ASSOC</span><span style="color: #0000BB; font-weight: bold">)
+<br />&nbsp;&nbsp;&nbsp;&nbsp;{
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #008000">//echo&nbsp;'&lt;hr&gt;&lt;pre&gt;';&nbsp;print_r($sql);&nbsp;echo&nbsp;'&lt;/pre&gt;&lt;hr&gt;';
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//echo&nbsp;'&lt;hr&gt;&lt;pre&gt;array::';&nbsp;print_r($array);&nbsp;echo&nbsp;'&lt;/pre&gt;&lt;hr&gt;';
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #000000">$sth&nbsp;</span><span style="color: #0000BB; font-weight: bold">=&nbsp;</span><span style="color: #000000">$this</span><span style="color: #0000BB; font-weight: bold">-&gt;</span><span style="color: #000000">prepare</span><span style="color: #0000BB; font-weight: bold">(</span><span style="color: #000000">$sql</span><span style="color: #0000BB; font-weight: bold">);
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;foreach&nbsp;(</span><span style="color: #000000">$array&nbsp;</span><span style="color: #0000BB; font-weight: bold">as&nbsp;</span><span style="color: #000000">$key&nbsp;</span><span style="color: #0000BB; font-weight: bold">=&gt;&nbsp;</span><span style="color: #000000">$value</span><span style="color: #0000BB; font-weight: bold">)&nbsp;
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #000000">$sth</span><span style="color: #0000BB; font-weight: bold">-&gt;</span><span style="color: #000000">bindValue</span><span style="color: #0000BB; font-weight: bold">(</span><span style="color: #DD0000">":</span><span style="color: #000000">$key</span><span style="color: #DD0000">"</span><span style="color: #0000BB; font-weight: bold">,&nbsp;(!empty(</span><span style="color: #000000">$value</span><span style="color: #0000BB; font-weight: bold">)&nbsp;?&nbsp;</span><span style="color: #000000">$value&nbsp;</span><span style="color: #0000BB; font-weight: bold">:&nbsp;</span><span style="color: #000000">NULL</span><span style="color: #0000BB; font-weight: bold">)&nbsp;);
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #008000">//echo&nbsp;'&lt;hr&gt;$sth-&gt;bindValue(":'&nbsp;.&nbsp;$key&nbsp;.&nbsp;'",&nbsp;'&nbsp;.&nbsp;$value&nbsp;.&nbsp;')';
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB; font-weight: bold">}&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #008000">//echo&nbsp;'&lt;hr&gt;';
+<br />
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #000000">$sth</span><span style="color: #0000BB; font-weight: bold">-&gt;</span><span style="color: #000000">execute</span><span style="color: #0000BB; font-weight: bold">();
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #000000">$masalah&nbsp;</span><span style="color: #0000BB; font-weight: bold">=&nbsp;</span><span style="color: #000000">$sth</span><span style="color: #0000BB; font-weight: bold">-&gt;</span><span style="color: #000000">errorInfo</span><span style="color: #0000BB; font-weight: bold">();&nbsp;</span><span style="color: #008000">#&nbsp;semak&nbsp;jika&nbsp;ada&nbsp;error
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//$sth-&gt;debugDumpParams();&nbsp;#&nbsp;papar&nbsp;sql&nbsp;balik
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//echo&nbsp;"\nPDO::errorInfo()&lt;hr&gt;&lt;pre&gt;";&nbsp;print_r($masalah);&nbsp;echo&nbsp;'&lt;/pre&gt;';
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB; font-weight: bold">if&nbsp;(</span><span style="color: #000000">strpos</span><span style="color: #0000BB; font-weight: bold">(</span><span style="color: #000000">$masalah</span><span style="color: #0000BB; font-weight: bold">[</span><span style="color: #000000">2</span><span style="color: #0000BB; font-weight: bold">],&nbsp;</span><span style="color: #DD0000">'Unknown&nbsp;column'</span><span style="color: #0000BB; font-weight: bold">)&nbsp;!==&nbsp;</span><span style="color: #000000">false</span><span style="color: #0000BB; font-weight: bold">)&nbsp;
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #000000">$this</span><span style="color: #0000BB; font-weight: bold">-&gt;</span><span style="color: #000000">bigError</span><span style="color: #0000BB; font-weight: bold">(</span><span style="color: #000000">$masalah</span><span style="color: #0000BB; font-weight: bold">);
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #008000">//*/
+<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB; font-weight: bold">}
+<br /></span><span style="color: #008000">#------------------------------------------------------------------------------------------------------------------
+<br />&nbsp;&nbsp;&nbsp;&nbsp;/**
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;update
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;string&nbsp;$sql&nbsp;An&nbsp;SQL&nbsp;string
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;array&nbsp;$array&nbsp;Paramters&nbsp;to&nbsp;bind
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;constant&nbsp;$fetchMode&nbsp;A&nbsp;PDO&nbsp;Fetch&nbsp;mode
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@return&nbsp;mixed
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/
+<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB; font-weight: bold">public&nbsp;function&nbsp;</span><span style="color: #000000">update</span><span style="color: #0000BB; font-weight: bold">(</span><span style="color: #000000">$sql</span><span style="color: #0000BB; font-weight: bold">,&nbsp;</span><span style="color: #000000">$array&nbsp;</span><span style="color: #0000BB; font-weight: bold">=&nbsp;array(),&nbsp;</span><span style="color: #000000">$fetchMode&nbsp;</span><span style="color: #0000BB; font-weight: bold">=&nbsp;\</span><span style="color: #000000">PDO</span><span style="color: #0000BB; font-weight: bold">::</span><span style="color: #000000">FETCH_ASSOC</span><span style="color: #0000BB; font-weight: bold">)
+<br />&nbsp;&nbsp;&nbsp;&nbsp;{
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #008000">//echo&nbsp;'&lt;hr&gt;&lt;pre&gt;';&nbsp;print_r($sql)&nbsp;.&nbsp;'&lt;/pre&gt;&lt;hr&gt;';
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #000000">$sth&nbsp;</span><span style="color: #0000BB; font-weight: bold">=&nbsp;</span><span style="color: #000000">$this</span><span style="color: #0000BB; font-weight: bold">-&gt;</span><span style="color: #000000">prepare</span><span style="color: #0000BB; font-weight: bold">(</span><span style="color: #000000">$sql</span><span style="color: #0000BB; font-weight: bold">);
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;foreach&nbsp;(</span><span style="color: #000000">$array&nbsp;</span><span style="color: #0000BB; font-weight: bold">as&nbsp;</span><span style="color: #000000">$key&nbsp;</span><span style="color: #0000BB; font-weight: bold">=&gt;&nbsp;</span><span style="color: #000000">$value</span><span style="color: #0000BB; font-weight: bold">)&nbsp;
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #000000">$sth</span><span style="color: #0000BB; font-weight: bold">-&gt;</span><span style="color: #000000">bindValue</span><span style="color: #0000BB; font-weight: bold">(</span><span style="color: #DD0000">"</span><span style="color: #000000">$key</span><span style="color: #DD0000">"</span><span style="color: #0000BB; font-weight: bold">,&nbsp;</span><span style="color: #000000">$value</span><span style="color: #0000BB; font-weight: bold">);
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #008000">//echo&nbsp;'$sth-&gt;bindValue("'.$key.'",&nbsp;'.$value.')';
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB; font-weight: bold">}
+<br />
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #000000">$sth</span><span style="color: #0000BB; font-weight: bold">-&gt;</span><span style="color: #000000">execute</span><span style="color: #0000BB; font-weight: bold">();
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #000000">$masalah&nbsp;</span><span style="color: #0000BB; font-weight: bold">=&nbsp;</span><span style="color: #000000">$sth</span><span style="color: #0000BB; font-weight: bold">-&gt;</span><span style="color: #000000">errorInfo</span><span style="color: #0000BB; font-weight: bold">();&nbsp;</span><span style="color: #008000">#&nbsp;semak&nbsp;jika&nbsp;ada&nbsp;error
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//echo&nbsp;"\nPDO::errorInfo()&lt;hr&gt;&lt;pre&gt;";&nbsp;print_r($masalah)&nbsp;.&nbsp;'&lt;/pre&gt;';
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB; font-weight: bold">if&nbsp;(</span><span style="color: #000000">strpos</span><span style="color: #0000BB; font-weight: bold">(</span><span style="color: #000000">$masalah</span><span style="color: #0000BB; font-weight: bold">[</span><span style="color: #000000">2</span><span style="color: #0000BB; font-weight: bold">],&nbsp;</span><span style="color: #DD0000">'Unknown&nbsp;column'</span><span style="color: #0000BB; font-weight: bold">)&nbsp;!==&nbsp;</span><span style="color: #000000">false</span><span style="color: #0000BB; font-weight: bold">)&nbsp;
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #000000">$this</span><span style="color: #0000BB; font-weight: bold">-&gt;</span><span style="color: #000000">bigError</span><span style="color: #0000BB; font-weight: bold">(</span><span style="color: #000000">$masalah</span><span style="color: #0000BB; font-weight: bold">);
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #008000">//*/
+<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB; font-weight: bold">}
+<br /></span><span style="color: #008000">#------------------------------------------------------------------------------------------------------------------
+<br />&nbsp;&nbsp;&nbsp;&nbsp;/**
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;updateNew
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;string&nbsp;$sql&nbsp;An&nbsp;SQL&nbsp;string
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;array&nbsp;$array&nbsp;Paramters&nbsp;to&nbsp;bind
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;constant&nbsp;$fetchMode&nbsp;A&nbsp;PDO&nbsp;Fetch&nbsp;mode
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@return&nbsp;mixed
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/
+<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB; font-weight: bold">public&nbsp;function&nbsp;</span><span style="color: #000000">updateNew</span><span style="color: #0000BB; font-weight: bold">(</span><span style="color: #000000">$sql</span><span style="color: #0000BB; font-weight: bold">,&nbsp;</span><span style="color: #000000">$array&nbsp;</span><span style="color: #0000BB; font-weight: bold">=&nbsp;array(),&nbsp;</span><span style="color: #000000">$fetchMode&nbsp;</span><span style="color: #0000BB; font-weight: bold">=&nbsp;\</span><span style="color: #000000">PDO</span><span style="color: #0000BB; font-weight: bold">::</span><span style="color: #000000">FETCH_ASSOC</span><span style="color: #0000BB; font-weight: bold">)
+<br />&nbsp;&nbsp;&nbsp;&nbsp;{
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #008000">//echo&nbsp;'&lt;hr&gt;&lt;pre&gt;';&nbsp;print_r($sql);&nbsp;echo&nbsp;'&lt;/pre&gt;&lt;hr&gt;';
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #000000">$sth&nbsp;</span><span style="color: #0000BB; font-weight: bold">=&nbsp;</span><span style="color: #000000">$this</span><span style="color: #0000BB; font-weight: bold">-&gt;</span><span style="color: #000000">prepare</span><span style="color: #0000BB; font-weight: bold">(</span><span style="color: #000000">$sql</span><span style="color: #0000BB; font-weight: bold">);
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;foreach&nbsp;(</span><span style="color: #000000">$array&nbsp;</span><span style="color: #0000BB; font-weight: bold">as&nbsp;</span><span style="color: #000000">$key&nbsp;</span><span style="color: #0000BB; font-weight: bold">=&gt;&nbsp;</span><span style="color: #000000">$value</span><span style="color: #0000BB; font-weight: bold">)&nbsp;
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #000000">$sth</span><span style="color: #0000BB; font-weight: bold">-&gt;</span><span style="color: #000000">bindValue</span><span style="color: #0000BB; font-weight: bold">(</span><span style="color: #DD0000">":</span><span style="color: #000000">$key</span><span style="color: #DD0000">"</span><span style="color: #0000BB; font-weight: bold">,&nbsp;(!empty(</span><span style="color: #000000">$value</span><span style="color: #0000BB; font-weight: bold">)&nbsp;?&nbsp;</span><span style="color: #000000">$value&nbsp;</span><span style="color: #0000BB; font-weight: bold">:&nbsp;</span><span style="color: #000000">NULL</span><span style="color: #0000BB; font-weight: bold">)&nbsp;);
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #008000">//echo&nbsp;'&lt;hr&gt;$sth-&gt;bindValue(":'&nbsp;.&nbsp;$key&nbsp;.&nbsp;'",&nbsp;'&nbsp;.&nbsp;$value&nbsp;.&nbsp;')';
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB; font-weight: bold">}&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #008000">//echo&nbsp;'&lt;hr&gt;';
+<br />
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #000000">$sth</span><span style="color: #0000BB; font-weight: bold">-&gt;</span><span style="color: #000000">execute</span><span style="color: #0000BB; font-weight: bold">();
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #000000">$masalah&nbsp;</span><span style="color: #0000BB; font-weight: bold">=&nbsp;</span><span style="color: #000000">$sth</span><span style="color: #0000BB; font-weight: bold">-&gt;</span><span style="color: #000000">errorInfo</span><span style="color: #0000BB; font-weight: bold">();&nbsp;</span><span style="color: #008000">#&nbsp;semak&nbsp;jika&nbsp;ada&nbsp;error
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//$sth-&gt;debugDumpParams();&nbsp;#&nbsp;papar&nbsp;sql&nbsp;balik
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//echo&nbsp;"\nPDO::errorInfo()&lt;hr&gt;&lt;pre&gt;";&nbsp;print_r($masalah);&nbsp;echo&nbsp;'&lt;/pre&gt;';
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB; font-weight: bold">if&nbsp;(</span><span style="color: #000000">strpos</span><span style="color: #0000BB; font-weight: bold">(</span><span style="color: #000000">$masalah</span><span style="color: #0000BB; font-weight: bold">[</span><span style="color: #000000">2</span><span style="color: #0000BB; font-weight: bold">],&nbsp;</span><span style="color: #DD0000">'Unknown&nbsp;column'</span><span style="color: #0000BB; font-weight: bold">)&nbsp;!==&nbsp;</span><span style="color: #000000">false</span><span style="color: #0000BB; font-weight: bold">)&nbsp;
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #000000">$this</span><span style="color: #0000BB; font-weight: bold">-&gt;</span><span style="color: #000000">bigError</span><span style="color: #0000BB; font-weight: bold">(</span><span style="color: #000000">$masalah</span><span style="color: #0000BB; font-weight: bold">);
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #008000">//*/
+<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB; font-weight: bold">}
+<br /></span><span style="color: #008000">#------------------------------------------------------------------------------------------------------------------
+<br />&nbsp;&nbsp;&nbsp;&nbsp;/**
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;updateOld
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;string&nbsp;$table&nbsp;A&nbsp;name&nbsp;of&nbsp;table&nbsp;to&nbsp;insert&nbsp;into
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;string&nbsp;$data&nbsp;An&nbsp;associative&nbsp;array
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;string&nbsp;$where&nbsp;the&nbsp;WHERE&nbsp;query&nbsp;part
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/
+<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB; font-weight: bold">public&nbsp;function&nbsp;</span><span style="color: #000000">updateOld</span><span style="color: #0000BB; font-weight: bold">(</span><span style="color: #000000">$table</span><span style="color: #0000BB; font-weight: bold">,&nbsp;</span><span style="color: #000000">$data</span><span style="color: #0000BB; font-weight: bold">,&nbsp;</span><span style="color: #000000">$where</span><span style="color: #0000BB; font-weight: bold">)
+<br />&nbsp;&nbsp;&nbsp;&nbsp;{
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #000000">ksort</span><span style="color: #0000BB; font-weight: bold">(</span><span style="color: #000000">$data</span><span style="color: #0000BB; font-weight: bold">);
+<br />
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #000000">$fieldDetails&nbsp;</span><span style="color: #0000BB; font-weight: bold">=&nbsp;</span><span style="color: #000000">NULL</span><span style="color: #0000BB; font-weight: bold">;
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;foreach(</span><span style="color: #000000">$data&nbsp;</span><span style="color: #0000BB; font-weight: bold">as&nbsp;</span><span style="color: #000000">$key</span><span style="color: #0000BB; font-weight: bold">=&gt;&nbsp;</span><span style="color: #000000">$value</span><span style="color: #0000BB; font-weight: bold">)&nbsp;
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #000000">$fieldDetails&nbsp;</span><span style="color: #0000BB; font-weight: bold">.=&nbsp;</span><span style="color: #DD0000">"`</span><span style="color: #000000">$key</span><span style="color: #DD0000">`=:</span><span style="color: #000000">$key</span><span style="color: #DD0000">,"</span><span style="color: #0000BB; font-weight: bold">;
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #000000">$fieldDetails&nbsp;</span><span style="color: #0000BB; font-weight: bold">=&nbsp;</span><span style="color: #000000">rtrim</span><span style="color: #0000BB; font-weight: bold">(</span><span style="color: #000000">$fieldDetails</span><span style="color: #0000BB; font-weight: bold">,&nbsp;</span><span style="color: #DD0000">','</span><span style="color: #0000BB; font-weight: bold">);
+<br />
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #000000">$update&nbsp;</span><span style="color: #0000BB; font-weight: bold">=&nbsp;</span><span style="color: #DD0000">"UPDATE&nbsp;</span><span style="color: #000000">$table</span><span style="color: #DD0000">&nbsp;SET&nbsp;</span><span style="color: #000000">$fieldDetails</span><span style="color: #DD0000">&nbsp;WHERE&nbsp;</span><span style="color: #000000">$where</span><span style="color: #DD0000">"</span><span style="color: #0000BB; font-weight: bold">;
+<br />
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #000000">$sth&nbsp;</span><span style="color: #0000BB; font-weight: bold">=&nbsp;</span><span style="color: #000000">$this</span><span style="color: #0000BB; font-weight: bold">-&gt;</span><span style="color: #000000">prepare</span><span style="color: #0000BB; font-weight: bold">(</span><span style="color: #DD0000">"UPDATE&nbsp;</span><span style="color: #000000">$table</span><span style="color: #DD0000">&nbsp;SET&nbsp;</span><span style="color: #000000">$fieldDetails</span><span style="color: #DD0000">&nbsp;WHERE&nbsp;</span><span style="color: #000000">$where</span><span style="color: #DD0000">"</span><span style="color: #0000BB; font-weight: bold">);
+<br />
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;foreach&nbsp;(</span><span style="color: #000000">$data&nbsp;</span><span style="color: #0000BB; font-weight: bold">as&nbsp;</span><span style="color: #000000">$key&nbsp;</span><span style="color: #0000BB; font-weight: bold">=&gt;&nbsp;</span><span style="color: #000000">$value</span><span style="color: #0000BB; font-weight: bold">)
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #000000">$sth</span><span style="color: #0000BB; font-weight: bold">-&gt;</span><span style="color: #000000">bindValue</span><span style="color: #0000BB; font-weight: bold">(</span><span style="color: #DD0000">":</span><span style="color: #000000">$key</span><span style="color: #DD0000">"</span><span style="color: #0000BB; font-weight: bold">,&nbsp;</span><span style="color: #000000">$value</span><span style="color: #0000BB; font-weight: bold">);
+<br />
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #000000">$sth</span><span style="color: #0000BB; font-weight: bold">-&gt;</span><span style="color: #000000">execute</span><span style="color: #0000BB; font-weight: bold">();
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #000000">$masalah&nbsp;</span><span style="color: #0000BB; font-weight: bold">=&nbsp;</span><span style="color: #000000">$sth</span><span style="color: #0000BB; font-weight: bold">-&gt;</span><span style="color: #000000">errorInfo</span><span style="color: #0000BB; font-weight: bold">();&nbsp;</span><span style="color: #008000">#&nbsp;semak&nbsp;jika&nbsp;ada&nbsp;error
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//echo&nbsp;"\nPDO::errorInfo()&lt;hr&gt;&lt;pre&gt;";&nbsp;print_r($masalah)&nbsp;.&nbsp;'&lt;/pre&gt;';
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB; font-weight: bold">if&nbsp;(</span><span style="color: #000000">strpos</span><span style="color: #0000BB; font-weight: bold">(</span><span style="color: #000000">$masalah</span><span style="color: #0000BB; font-weight: bold">[</span><span style="color: #000000">2</span><span style="color: #0000BB; font-weight: bold">],&nbsp;</span><span style="color: #DD0000">'Unknown&nbsp;column'</span><span style="color: #0000BB; font-weight: bold">)&nbsp;!==&nbsp;</span><span style="color: #000000">false</span><span style="color: #0000BB; font-weight: bold">)&nbsp;
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #000000">$this</span><span style="color: #0000BB; font-weight: bold">-&gt;</span><span style="color: #000000">bigError</span><span style="color: #0000BB; font-weight: bold">(</span><span style="color: #000000">$masalah</span><span style="color: #0000BB; font-weight: bold">);
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #008000">//*/
+<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB; font-weight: bold">}
+<br /></span><span style="color: #008000">#------------------------------------------------------------------------------------------------------------------
+<br />&nbsp;&nbsp;&nbsp;&nbsp;/**
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;delete
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;string&nbsp;$table
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;string&nbsp;$where
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;integer&nbsp;$limit
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@return&nbsp;integer&nbsp;Affected&nbsp;Rows
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/
+<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB; font-weight: bold">public&nbsp;function&nbsp;</span><span style="color: #000000">delete</span><span style="color: #0000BB; font-weight: bold">(</span><span style="color: #000000">$table</span><span style="color: #0000BB; font-weight: bold">,&nbsp;</span><span style="color: #000000">$where</span><span style="color: #0000BB; font-weight: bold">,&nbsp;</span><span style="color: #000000">$limit&nbsp;</span><span style="color: #0000BB; font-weight: bold">=&nbsp;</span><span style="color: #000000">1</span><span style="color: #0000BB; font-weight: bold">)
+<br />&nbsp;&nbsp;&nbsp;&nbsp;{
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;</span><span style="color: #000000">$this</span><span style="color: #0000BB; font-weight: bold">-&gt;</span><span style="color: #000000">exec</span><span style="color: #0000BB; font-weight: bold">(</span><span style="color: #DD0000">"DELETE&nbsp;FROM&nbsp;</span><span style="color: #000000">$table</span><span style="color: #DD0000">&nbsp;WHERE&nbsp;</span><span style="color: #000000">$where</span><span style="color: #DD0000">&nbsp;LIMIT&nbsp;</span><span style="color: #000000">$limit</span><span style="color: #DD0000">"</span><span style="color: #0000BB; font-weight: bold">);
+<br />&nbsp;&nbsp;&nbsp;&nbsp;}
+<br /></span><span style="color: #008000">#------------------------------------------------------------------------------------------------------------------
+<br />#==================================================================================================================
+<br /></span><span style="color: #0000BB; font-weight: bold">}
+<br />
+<br /></span><span style="color: #008000">/*
+<br />&nbsp;&nbsp;&nbsp;&nbsp;/**
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;entah&nbsp;mana&nbsp;mamat&nbsp;ini&nbsp;jumpa,&nbsp;masih&nbsp;tidak&nbsp;faham
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;https://www.sitepoint.com/community/t/pdo-getcolumnmeta-bug/3430/3
+<br />
+<br />&nbsp;&nbsp;&nbsp;&nbsp;/**
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;&nbsp;&nbsp;&nbsp;Automatically&nbsp;get&nbsp;column&nbsp;metadata
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*
+<br />&nbsp;&nbsp;&nbsp;&nbsp;protected&nbsp;function&nbsp;getColumnMeta($getTableName,&nbsp;$primaryKey)
+<br />&nbsp;&nbsp;&nbsp;&nbsp;{
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;Clear&nbsp;any&nbsp;previous&nbsp;column/field&nbsp;info
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$this-&gt;_fields&nbsp;=&nbsp;array();
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$this-&gt;_fieldMeta&nbsp;=&nbsp;array();
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$this-&gt;_primaryKey&nbsp;=&nbsp;NULL;
+<br />
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;Automatically&nbsp;retrieve&nbsp;column&nbsp;information&nbsp;if&nbsp;column&nbsp;info&nbsp;not&nbsp;specified
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if(count($this-&gt;_fields)&nbsp;==&nbsp;0&nbsp;||&nbsp;count($this-&gt;_fieldMeta)&nbsp;==&nbsp;0)
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;Fetch&nbsp;all&nbsp;columns&nbsp;and&nbsp;store&nbsp;in&nbsp;$this-&gt;fields
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$columns&nbsp;=&nbsp;$this-&gt;select('SHOW&nbsp;COLUMNS&nbsp;FROM&nbsp;'&nbsp;.&nbsp;$getTableName);
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;foreach($columns&nbsp;as&nbsp;$key&nbsp;=&gt;&nbsp;$col)
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;Insert&nbsp;into&nbsp;fields&nbsp;array
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$colname&nbsp;=&nbsp;$col['Field'];
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$this-&gt;_fields[$colname]&nbsp;=&nbsp;$col;
+<br />&nbsp;&nbnbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if($col['Key']&nbsp;==&nbsp;"PRI"&nbsp;&amp;&amp;&nbsp;empty($primaryKey))&nbsp;
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$this-&gt;_primaryKey&nbsp;=&nbsp;$colname;
+<br />
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;Set&nbsp;field&nbsp;types
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$colType&nbsp;=&nbsp;$this-&gt;parseColumnType($col['Type']);
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$this-&gt;_fieldMeta[$colname]&nbsp;=&nbsp;$colType;
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;true;
+<br />&nbsp;&nbsp;&nbsp;&nbsp;}
+<br />
+<br />&nbsp;&nbsp;&nbsp;&nbsp;/**
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;&nbsp;&nbsp;&nbsp;Parse&nbsp;PDO-produced&nbsp;column&nbsp;type
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;&nbsp;&nbsp;&nbsp;[internal&nbsp;function]
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*
+<br />&nbsp;&nbsp;&nbsp;&nbsp;protected&nbsp;function&nbsp;parseColumnType($colType)
+<br />&nbsp;&nbsp;&nbsp;&nbsp;{
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$colInfo&nbsp;=&nbsp;array();
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$colParts&nbsp;=&nbsp;explode("&nbsp;",&nbsp;$colType);
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if($fparen&nbsp;=&nbsp;strpos($colParts[0],&nbsp;"("))
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$colInfo['type']&nbsp;=&nbsp;substr($colParts[0],&nbsp;0,&nbsp;$fparen);
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$colInfo['pdoType']&nbsp;=&nbsp;'';
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$colInfo['length']&nbsp;&nbsp;=&nbsp;str_replace(")",&nbsp;"",&nbsp;substr($colParts[0],&nbsp;$fparen+1));
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$colInfo['attributes']&nbsp;=&nbsp;isset($colParts[1])&nbsp;?&nbsp;$colParts[1]&nbsp;:&nbsp;NULL;
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;else
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$colInfo['type']&nbsp;=&nbsp;$colParts[0];
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+<br />
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;PDO&nbsp;Bind&nbsp;types
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$pdoType&nbsp;=&nbsp;'';
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;foreach($this-&gt;_pdoBindTypes&nbsp;as&nbsp;$pKey&nbsp;=&gt;&nbsp;$pType)
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if(strpos('&nbsp;'.strtolower($colInfo['type']).'&nbsp;',&nbsp;$pKey))&nbsp;{
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$colInfo['pdoType']&nbsp;=&nbsp;$pType;
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;break;
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;else&nbsp;{
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$colInfo['pdoType']&nbsp;=&nbsp;PDO::PARAM_STR;
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+<br />
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;$colInfo;
+<br />&nbsp;&nbsp;&nbsp;&nbsp;}
+<br />
+<br />&nbsp;&nbsp;&nbsp;&nbsp;/**
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;&nbsp;&nbsp;&nbsp;Will&nbsp;attempt&nbsp;to&nbsp;bind&nbsp;columns&nbsp;with&nbsp;datatypes&nbsp;based&nbsp;on&nbsp;parts&nbsp;of&nbsp;the&nbsp;column&nbsp;type&nbsp;name
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;&nbsp;&nbsp;&nbsp;Any&nbsp;part&nbsp;of&nbsp;the&nbsp;name&nbsp;below&nbsp;will&nbsp;be&nbsp;picked&nbsp;up&nbsp;and&nbsp;converted&nbsp;unless&nbsp;otherwise&nbsp;sepcified
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Example:&nbsp;'VARCHAR'&nbsp;columns&nbsp;have&nbsp;'CHAR'&nbsp;in&nbsp;them,&nbsp;so&nbsp;'char'&nbsp;=&gt;&nbsp;PDO::PARAM_STR&nbsp;will&nbsp;convert
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;&nbsp;&nbsp;&nbsp;all&nbsp;columns&nbsp;of&nbsp;that&nbsp;type&nbsp;to&nbsp;be&nbsp;bound&nbsp;as&nbsp;PDO::PARAM_STR
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;&nbsp;&nbsp;&nbsp;If&nbsp;there&nbsp;is&nbsp;no&nbsp;specification&nbsp;for&nbsp;a&nbsp;column&nbsp;type,&nbsp;column&nbsp;will&nbsp;be&nbsp;bound&nbsp;as&nbsp;PDO::PARAM_STR
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*
+<br />&nbsp;&nbsp;&nbsp;&nbsp;protected&nbsp;$_pdoBindTypes&nbsp;=&nbsp;array(
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'char'&nbsp;=&gt;&nbsp;PDO::PARAM_STR,
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'int'&nbsp;=&gt;&nbsp;PDO::PARAM_INT,
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'bool'&nbsp;=&gt;&nbsp;PDO::PARAM_BOOL,
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'date'&nbsp;=&gt;&nbsp;PDO::PARAM_STR,
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'time'&nbsp;=&gt;&nbsp;PDO::PARAM_INT,
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'text'&nbsp;=&gt;&nbsp;PDO::PARAM_STR,
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'blob'&nbsp;=&gt;&nbsp;PDO::PARAM_LOB,
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'binary'&nbsp;=&gt;&nbsp;PDO::PARAM_LOB
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;);
+<br />
+<br />//*/</span>
+</span>
+</code>

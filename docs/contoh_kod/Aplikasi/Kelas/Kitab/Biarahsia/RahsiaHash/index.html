@@ -1,0 +1,64 @@
+
+<code><span style="color: #808080">
+<span style="color: #000000">&lt;?php
+<br /></span><span style="color: #0000BB; font-weight: bold">namespace&nbsp;</span><span style="color: #000000">Aplikasi</span><span style="color: #0000BB; font-weight: bold">\</span><span style="color: #000000">Kitab</span><span style="color: #0000BB; font-weight: bold">;&nbsp;</span><span style="color: #008000">//echo&nbsp;__NAMESPACE__;
+<br /></span><span style="color: #0000BB; font-weight: bold">class&nbsp;</span><span style="color: #000000">RahsiaHash
+<br /></span><span style="color: #0000BB; font-weight: bold">{
+<br /></span><span style="color: #008000">#=============================================================================================
+<br />&nbsp;&nbsp;&nbsp;&nbsp;/**
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;string&nbsp;$algo&nbsp;The&nbsp;algorithm&nbsp;(md5,&nbsp;sha1,&nbsp;whirlpool,&nbsp;etc)
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;string&nbsp;$data&nbsp;The&nbsp;data&nbsp;to&nbsp;encode
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;string&nbsp;$salt&nbsp;The&nbsp;salt&nbsp;(This&nbsp;should&nbsp;be&nbsp;the&nbsp;same&nbsp;throughout&nbsp;the&nbsp;system&nbsp;probably)
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@return&nbsp;string&nbsp;The&nbsp;hashed/salted&nbsp;data
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/
+<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB; font-weight: bold">public&nbsp;static&nbsp;function&nbsp;</span><span style="color: #000000">create</span><span style="color: #0000BB; font-weight: bold">(</span><span style="color: #000000">$algo</span><span style="color: #0000BB; font-weight: bold">,&nbsp;</span><span style="color: #000000">$data</span><span style="color: #0000BB; font-weight: bold">,&nbsp;</span><span style="color: #000000">$salt</span><span style="color: #0000BB; font-weight: bold">)
+<br />&nbsp;&nbsp;&nbsp;&nbsp;{
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #000000">$context&nbsp;</span><span style="color: #0000BB; font-weight: bold">=&nbsp;</span><span style="color: #000000">hash_init</span><span style="color: #0000BB; font-weight: bold">(</span><span style="color: #000000">$algo</span><span style="color: #0000BB; font-weight: bold">,&nbsp;</span><span style="color: #000000">HASH_HMAC</span><span style="color: #0000BB; font-weight: bold">,&nbsp;</span><span style="color: #000000">$salt</span><span style="color: #0000BB; font-weight: bold">);
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #000000">hash_update</span><span style="color: #0000BB; font-weight: bold">(</span><span style="color: #000000">$context</span><span style="color: #0000BB; font-weight: bold">,&nbsp;</span><span style="color: #000000">$data</span><span style="color: #0000BB; font-weight: bold">);
+<br />
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;</span><span style="color: #000000">hash_final</span><span style="color: #0000BB; font-weight: bold">(</span><span style="color: #000000">$context</span><span style="color: #0000BB; font-weight: bold">);
+<br />&nbsp;&nbsp;&nbsp;&nbsp;}
+<br /></span><span style="color: #008000">#---------------------------------------------------------------------------------------------
+<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB; font-weight: bold">public&nbsp;static&nbsp;function&nbsp;</span><span style="color: #000000">rahsia</span><span style="color: #0000BB; font-weight: bold">(</span><span style="color: #000000">$algo</span><span style="color: #0000BB; font-weight: bold">,&nbsp;</span><span style="color: #000000">$data</span><span style="color: #0000BB; font-weight: bold">)
+<br />&nbsp;&nbsp;&nbsp;&nbsp;{
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #000000">$context&nbsp;</span><span style="color: #0000BB; font-weight: bold">=&nbsp;</span><span style="color: #000000">hash_init</span><span style="color: #0000BB; font-weight: bold">(</span><span style="color: #000000">$algo</span><span style="color: #0000BB; font-weight: bold">);
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #000000">hash_update</span><span style="color: #0000BB; font-weight: bold">(</span><span style="color: #000000">$context</span><span style="color: #0000BB; font-weight: bold">,&nbsp;</span><span style="color: #000000">$data</span><span style="color: #0000BB; font-weight: bold">);
+<br />
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;</span><span style="color: #000000">hash_final</span><span style="color: #0000BB; font-weight: bold">(</span><span style="color: #000000">$context</span><span style="color: #0000BB; font-weight: bold">);
+<br />&nbsp;&nbsp;&nbsp;&nbsp;}
+<br /></span><span style="color: #008000">#---------------------------------------------------------------------------------------------
+<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB; font-weight: bold">public&nbsp;static&nbsp;function&nbsp;</span><span style="color: #000000">cincang</span><span style="color: #0000BB; font-weight: bold">(</span><span style="color: #000000">$data</span><span style="color: #0000BB; font-weight: bold">,&nbsp;</span><span style="color: #000000">$numAlgo&nbsp;</span><span style="color: #0000BB; font-weight: bold">=&nbsp;</span><span style="color: #000000">12</span><span style="color: #0000BB; font-weight: bold">,&nbsp;</span><span style="color: #000000">$arrOptions&nbsp;</span><span style="color: #0000BB; font-weight: bold">=&nbsp;array())
+<br />&nbsp;&nbsp;&nbsp;&nbsp;{
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(</span><span style="color: #000000">function_exists</span><span style="color: #0000BB; font-weight: bold">(</span><span style="color: #DD0000">'password_hash'</span><span style="color: #0000BB; font-weight: bold">))&nbsp;
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{</span><span style="color: #008000">#&nbsp;php&nbsp;&gt;=&nbsp;5.5
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #000000">$cincang&nbsp;</span><span style="color: #0000BB; font-weight: bold">=&nbsp;</span><span style="color: #000000">password_hash</span><span style="color: #0000BB; font-weight: bold">(</span><span style="color: #000000">$data</span><span style="color: #0000BB; font-weight: bold">,&nbsp;</span><span style="color: #000000">$numAlgo</span><span style="color: #0000BB; font-weight: bold">,&nbsp;</span><span style="color: #000000">$arrOptions</span><span style="color: #0000BB; font-weight: bold">);
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;else
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #000000">$garam&nbsp;</span><span style="color: #0000BB; font-weight: bold">=&nbsp;</span><span style="color: #000000">mcrypt_create_iv</span><span style="color: #0000BB; font-weight: bold">(</span><span style="color: #000000">22</span><span style="color: #0000BB; font-weight: bold">,&nbsp;</span><span style="color: #000000">MCRYPT_DEV_URANDOM</span><span style="color: #0000BB; font-weight: bold">);
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #000000">$garam&nbsp;</span><span style="color: #0000BB; font-weight: bold">=&nbsp;</span><span style="color: #000000">base64_encode</span><span style="color: #0000BB; font-weight: bold">(</span><span style="color: #000000">$garam</span><span style="color: #0000BB; font-weight: bold">);
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #000000">$garam&nbsp;</span><span style="color: #0000BB; font-weight: bold">=&nbsp;</span><span style="color: #000000">str_replace</span><span style="color: #0000BB; font-weight: bold">(</span><span style="color: #DD0000">'+'</span><span style="color: #0000BB; font-weight: bold">,&nbsp;</span><span style="color: #DD0000">'.'</span><span style="color: #0000BB; font-weight: bold">,&nbsp;</span><span style="color: #000000">$garam</span><span style="color: #0000BB; font-weight: bold">);
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #000000">$cincang&nbsp;</span><span style="color: #0000BB; font-weight: bold">=&nbsp;</span><span style="color: #000000">crypt</span><span style="color: #0000BB; font-weight: bold">(</span><span style="color: #000000">$data</span><span style="color: #0000BB; font-weight: bold">,&nbsp;</span><span style="color: #DD0000">'$2y$10$'&nbsp;</span><span style="color: #0000BB; font-weight: bold">.&nbsp;</span><span style="color: #000000">$garam&nbsp;</span><span style="color: #0000BB; font-weight: bold">.&nbsp;</span><span style="color: #DD0000">'$'</span><span style="color: #0000BB; font-weight: bold">);
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+<br />
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;</span><span style="color: #000000">$cincang</span><span style="color: #0000BB; font-weight: bold">;
+<br />&nbsp;&nbsp;&nbsp;&nbsp;}
+<br /></span><span style="color: #008000">#---------------------------------------------------------------------------------------------
+<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB; font-weight: bold">public&nbsp;static&nbsp;function&nbsp;</span><span style="color: #000000">sahkan</span><span style="color: #0000BB; font-weight: bold">(</span><span style="color: #000000">$data</span><span style="color: #0000BB; font-weight: bold">,&nbsp;</span><span style="color: #000000">$cincang</span><span style="color: #0000BB; font-weight: bold">)
+<br />&nbsp;&nbsp;&nbsp;&nbsp;{
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(</span><span style="color: #000000">function_exists</span><span style="color: #0000BB; font-weight: bold">(</span><span style="color: #DD0000">'password_verify'</span><span style="color: #0000BB; font-weight: bold">))
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{</span><span style="color: #008000">#&nbsp;php&nbsp;&gt;=&nbsp;5.5
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #000000">$pisau&nbsp;</span><span style="color: #0000BB; font-weight: bold">=&nbsp;</span><span style="color: #000000">password_verify</span><span style="color: #0000BB; font-weight: bold">(</span><span style="color: #000000">$data</span><span style="color: #0000BB; font-weight: bold">,&nbsp;</span><span style="color: #000000">$cincang</span><span style="color: #0000BB; font-weight: bold">);
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;else
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #000000">$lumat&nbsp;</span><span style="color: #0000BB; font-weight: bold">=&nbsp;</span><span style="color: #000000">crypt</span><span style="color: #0000BB; font-weight: bold">(</span><span style="color: #000000">$data</span><span style="color: #0000BB; font-weight: bold">,&nbsp;</span><span style="color: #000000">$cincang</span><span style="color: #0000BB; font-weight: bold">);
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #000000">$pisau&nbsp;</span><span style="color: #0000BB; font-weight: bold">=&nbsp;</span><span style="color: #000000">$cincang&nbsp;</span><span style="color: #0000BB; font-weight: bold">==&nbsp;</span><span style="color: #000000">$lumat</span><span style="color: #0000BB; font-weight: bold">;
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+<br />
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;</span><span style="color: #000000">$pisau</span><span style="color: #0000BB; font-weight: bold">;
+<br />&nbsp;&nbsp;&nbsp;&nbsp;}
+<br /></span><span style="color: #008000">#=============================================================================================
+<br /></span><span style="color: #0000BB; font-weight: bold">}</span>
+</span>
+</code>

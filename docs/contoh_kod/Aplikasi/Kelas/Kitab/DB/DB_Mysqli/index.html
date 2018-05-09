@@ -1,0 +1,310 @@
+
+<code><span style="color: #808080">
+<span style="color: #000000">&lt;?php
+<br /></span><span style="color: #008000">/**
+<br />&nbsp;*&nbsp;Simple&nbsp;MySQLi&nbsp;Class&nbsp;0.3
+<br />&nbsp;*
+<br />&nbsp;*&nbsp;@author&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;JREAM
+<br />&nbsp;*&nbsp;@link&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;http://jream.com
+<br />&nbsp;*&nbsp;@copyright&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2011&nbsp;Jesse&nbsp;Boyer&nbsp;(contact@jream.com)
+<br />&nbsp;*&nbsp;@license&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GNU&nbsp;General&nbsp;Public&nbsp;License&nbsp;3&nbsp;(http://www.gnu.org/licenses/)
+<br />&nbsp;*
+<br />&nbsp;*&nbsp;This&nbsp;program&nbsp;is&nbsp;free&nbsp;software;&nbsp;you&nbsp;can&nbsp;redistribute&nbsp;it&nbsp;and/or&nbsp;modify&nbsp;it
+<br />&nbsp;*&nbsp;under&nbsp;the&nbsp;terms&nbsp;of&nbsp;the&nbsp;GNU&nbsp;General&nbsp;Public&nbsp;License&nbsp;as&nbsp;published&nbsp;by&nbsp;the
+<br />&nbsp;*&nbsp;Free&nbsp;Software&nbsp;Foundation;&nbsp;either&nbsp;version&nbsp;3&nbsp;of&nbsp;the&nbsp;License,&nbsp;or
+<br />&nbsp;*&nbsp;(at&nbsp;your&nbsp;option)&nbsp;any&nbsp;later&nbsp;version.
+<br />&nbsp;*
+<br />&nbsp;*&nbsp;This&nbsp;program&nbsp;is&nbsp;distributed&nbsp;in&nbsp;the&nbsp;hope&nbsp;that&nbsp;it&nbsp;will&nbsp;be&nbsp;useful,
+<br />&nbsp;*&nbsp;but&nbsp;WITHOUT&nbsp;ANY&nbsp;WARRANTY;&nbsp;without&nbsp;even&nbsp;the&nbsp;implied&nbsp;warranty&nbsp;of
+<br />&nbsp;*&nbsp;MERCHANTABILITY&nbsp;or&nbsp;FITNESS&nbsp;FOR&nbsp;A&nbsp;PARTICULAR&nbsp;PURPOSE.&nbsp;See&nbsp;the
+<br />&nbsp;*&nbsp;GNU&nbsp;General&nbsp;Public&nbsp;License&nbsp;for&nbsp;more&nbsp;details:
+<br />&nbsp;*&nbsp;http://www.gnu.org/licenses/
+<br />&nbsp;*
+<br />&nbsp;*&nbsp;@uses&nbsp;&nbsp;&nbsp;&nbsp;----------------------------------------
+<br />&nbsp;*
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;A&nbsp;Config&nbsp;array&nbsp;should&nbsp;be&nbsp;setup&nbsp;from&nbsp;a&nbsp;config&nbsp;file&nbsp;with&nbsp;these&nbsp;parameters:
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$config&nbsp;=&nbsp;array();
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$config['host']&nbsp;=&nbsp;'localhost';
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$config['user']&nbsp;=&nbsp;'root';
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$config['pass']&nbsp;=&nbsp;'';
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$config['table']&nbsp;=&nbsp;'table';
+<br />
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;Then&nbsp;simply&nbsp;connect&nbsp;to&nbsp;your&nbsp;DB&nbsp;this&nbsp;way:
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$db&nbsp;=&nbsp;new&nbsp;DB($config);
+<br />
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;Run&nbsp;a&nbsp;Query:
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$db-&gt;query('SELECT&nbsp;*&nbsp;FROM&nbsp;someplace');
+<br />
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;Get&nbsp;an&nbsp;array&nbsp;of&nbsp;items:
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$result&nbsp;=&nbsp;$db-&gt;get();
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print_r($result);
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;Optional&nbsp;fetch&nbsp;modes&nbsp;(1&nbsp;and&nbsp;2)
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$db-&gt;setFetchMode(1);
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;Get&nbsp;a&nbsp;single&nbsp;item:
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$result&nbsp;=&nbsp;$db-&gt;get('field');
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print_r($result);
+<br />
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;What&nbsp;you&nbsp;do&nbsp;with&nbsp;displaying&nbsp;the&nbsp;array&nbsp;result&nbsp;is&nbsp;up&nbsp;to&nbsp;you!
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;----------------------------------------
+<br />&nbsp;*/
+<br /></span><span style="color: #0000BB; font-weight: bold">namespace&nbsp;</span><span style="color: #000000">Aplikasi</span><span style="color: #0000BB; font-weight: bold">\</span><span style="color: #000000">Kitab</span><span style="color: #0000BB; font-weight: bold">;&nbsp;</span><span style="color: #008000">//echo&nbsp;__NAMESPACE__;&nbsp;
+<br /></span><span style="color: #0000BB; font-weight: bold">class&nbsp;</span><span style="color: #000000">DB_Mysqli
+<br /></span><span style="color: #0000BB; font-weight: bold">{
+<br /></span><span style="color: #008000">#==================================================================================================================
+<br />#------------------------------------------------------------------------------------------------------------------
+<br />&nbsp;&nbsp;&nbsp;&nbsp;/**
+<br />&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@var&nbsp;&lt;str&gt;&nbsp;The&nbsp;mode&nbsp;to&nbsp;return&nbsp;results,&nbsp;defualt&nbsp;is&nbsp;MYSQLI_BOTH,&nbsp;use&nbsp;setFetchMode()&nbsp;to&nbsp;change.
+<br />&nbsp;&nbsp;&nbsp;&nbsp;*/
+<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB; font-weight: bold">private&nbsp;</span><span style="color: #000000">$fetchMode&nbsp;</span><span style="color: #0000BB; font-weight: bold">=&nbsp;</span><span style="color: #000000">MYSQLI_BOTH</span><span style="color: #0000BB; font-weight: bold">;
+<br /></span><span style="color: #008000">#------------------------------------------------------------------------------------------------------------------&nbsp;&nbsp;&nbsp;&nbsp;
+<br />&nbsp;&nbsp;&nbsp;&nbsp;/**
+<br />&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@desc&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Creates&nbsp;the&nbsp;MySQLi&nbsp;object&nbsp;for&nbsp;usage.
+<br />&nbsp;&nbsp;&nbsp;&nbsp;*
+<br />&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;&nbsp;&nbsp;&nbsp;&lt;arr&gt;&nbsp;$db&nbsp;Required&nbsp;connection&nbsp;params.
+<br />&nbsp;&nbsp;&nbsp;&nbsp;*/
+<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB; font-weight: bold">public&nbsp;function&nbsp;&nbsp;</span><span style="color: #000000">__construct</span><span style="color: #0000BB; font-weight: bold">(</span><span style="color: #000000">$DB_TYPE</span><span style="color: #0000BB; font-weight: bold">,&nbsp;</span><span style="color: #000000">$DB_HOST</span><span style="color: #0000BB; font-weight: bold">,&nbsp;</span><span style="color: #000000">$DB_NAME</span><span style="color: #0000BB; font-weight: bold">,&nbsp;</span><span style="color: #000000">$DB_USER</span><span style="color: #0000BB; font-weight: bold">,&nbsp;</span><span style="color: #000000">$DB_PASS</span><span style="color: #0000BB; font-weight: bold">)&nbsp;
+<br />&nbsp;&nbsp;&nbsp;&nbsp;{
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;try
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #000000">$this</span><span style="color: #0000BB; font-weight: bold">-&gt;</span><span style="color: #000000">mysqli&nbsp;</span><span style="color: #0000BB; font-weight: bold">=&nbsp;new&nbsp;\</span><span style="color: #000000">mysqli</span><span style="color: #0000BB; font-weight: bold">(</span><span style="color: #000000">$DB_HOST</span><span style="color: #0000BB; font-weight: bold">,&nbsp;</span><span style="color: #000000">$DB_USER</span><span style="color: #0000BB; font-weight: bold">,&nbsp;</span><span style="color: #000000">$DB_PASS</span><span style="color: #0000BB; font-weight: bold">,&nbsp;</span><span style="color: #000000">$DB_NAME</span><span style="color: #0000BB; font-weight: bold">);
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #008000">//parent::__construct($DB_HOST,&nbsp;$DB_USER,&nbsp;$DB_PASS,&nbsp;$DB_NAME);
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//parent::__construct($DB_TYPE.':host='.$DB_HOST.';dbname='.$DB_NAME,&nbsp;$DB_USER,&nbsp;$DB_PASS);
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB; font-weight: bold">}
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;catch&nbsp;(</span><span style="color: #000000">PDOException&nbsp;$e</span><span style="color: #0000BB; font-weight: bold">)&nbsp;
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #000000">$e</span><span style="color: #0000BB; font-weight: bold">-&gt;</span><span style="color: #000000">getMessage</span><span style="color: #0000BB; font-weight: bold">();
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">'&lt;br&gt;&lt;a&nbsp;href="'&nbsp;</span><span style="color: #0000BB; font-weight: bold">.&nbsp;</span><span style="color: #000000">URL&nbsp;</span><span style="color: #0000BB; font-weight: bold">.&nbsp;</span><span style="color: #DD0000">'ruangtamu/logout"&gt;Keluar&lt;/a&gt;'</span><span style="color: #0000BB; font-weight: bold">;
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;exit;
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+<br />&nbsp;&nbsp;&nbsp;&nbsp;}
+<br /></span><span style="color: #008000">#------------------------------------------------------------------------------------------------------------------
+<br />&nbsp;&nbsp;&nbsp;&nbsp;/**
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;insert
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;string&nbsp;$table&nbsp;A&nbsp;name&nbsp;of&nbsp;table&nbsp;to&nbsp;insert&nbsp;into
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;string&nbsp;$data&nbsp;An&nbsp;associative&nbsp;array
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/
+<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB; font-weight: bold">public&nbsp;function&nbsp;</span><span style="color: #000000">insert_lama</span><span style="color: #0000BB; font-weight: bold">(</span><span style="color: #000000">$table</span><span style="color: #0000BB; font-weight: bold">,&nbsp;</span><span style="color: #000000">$data</span><span style="color: #0000BB; font-weight: bold">)
+<br />&nbsp;&nbsp;&nbsp;&nbsp;{
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #008000">/*
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ksort($data);
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$fieldNames&nbsp;=&nbsp;implode('`,&nbsp;`',&nbsp;array_keys($data));
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$fieldValues&nbsp;=&nbsp;':'&nbsp;.&nbsp;implode(',&nbsp;:',&nbsp;array_keys($data));
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/
+<br />
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #000000">$fieldNames&nbsp;</span><span style="color: #0000BB; font-weight: bold">=&nbsp;</span><span style="color: #000000">implode</span><span style="color: #0000BB; font-weight: bold">(</span><span style="color: #DD0000">'`,&nbsp;`'</span><span style="color: #0000BB; font-weight: bold">,&nbsp;</span><span style="color: #000000">$data</span><span style="color: #0000BB; font-weight: bold">[</span><span style="color: #DD0000">'medan'</span><span style="color: #0000BB; font-weight: bold">]);
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #000000">$fieldValues&nbsp;</span><span style="color: #0000BB; font-weight: bold">=&nbsp;</span><span style="color: #DD0000">'"'&nbsp;</span><span style="color: #0000BB; font-weight: bold">.&nbsp;</span><span style="color: #000000">implode</span><span style="color: #0000BB; font-weight: bold">(</span><span style="color: #DD0000">'",&nbsp;"'</span><span style="color: #0000BB; font-weight: bold">,&nbsp;</span><span style="color: #000000">$data</span><span style="color: #0000BB; font-weight: bold">[</span><span style="color: #DD0000">'isi'</span><span style="color: #0000BB; font-weight: bold">]);
+<br />
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #000000">$sql</span><span style="color: #0000BB; font-weight: bold">=(</span><span style="color: #DD0000">"INSERT&nbsp;INTO&nbsp;</span><span style="color: #000000">$table</span><span style="color: #DD0000">&nbsp;(`</span><span style="color: #000000">$fieldNames</span><span style="color: #DD0000">`)&nbsp;VALUES&nbsp;(</span><span style="color: #000000">$fieldValues</span><span style="color: #DD0000">)"</span><span style="color: #0000BB; font-weight: bold">);
+<br />
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">'&lt;hr&gt;&lt;pre&gt;'</span><span style="color: #0000BB; font-weight: bold">;&nbsp;</span><span style="color: #000000">print_r</span><span style="color: #0000BB; font-weight: bold">(</span><span style="color: #000000">$sql</span><span style="color: #0000BB; font-weight: bold">)&nbsp;.&nbsp;</span><span style="color: #DD0000">'&lt;/pre&gt;&lt;hr&gt;'</span><span style="color: #0000BB; font-weight: bold">;
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #008000">//return&nbsp;$this-&gt;query($sql&nbsp;);
+<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB; font-weight: bold">}
+<br /></span><span style="color: #008000">#------------------------------------------------------------------------------------------------------------------
+<br />&nbsp;&nbsp;&nbsp;&nbsp;/**
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;insert
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;string&nbsp;$table&nbsp;A&nbsp;name&nbsp;of&nbsp;table&nbsp;to&nbsp;insert&nbsp;into
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;string&nbsp;$data&nbsp;An&nbsp;associative&nbsp;array
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/
+<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB; font-weight: bold">public&nbsp;function&nbsp;</span><span style="color: #000000">insert</span><span style="color: #0000BB; font-weight: bold">(</span><span style="color: #000000">$sql</span><span style="color: #0000BB; font-weight: bold">,&nbsp;</span><span style="color: #000000">$array&nbsp;</span><span style="color: #0000BB; font-weight: bold">=&nbsp;array(),&nbsp;</span><span style="color: #000000">$fetchMode&nbsp;</span><span style="color: #0000BB; font-weight: bold">=&nbsp;</span><span style="color: #000000">2</span><span style="color: #0000BB; font-weight: bold">)
+<br />&nbsp;&nbsp;&nbsp;&nbsp;{
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #008000">//echo&nbsp;'&lt;hr&gt;&lt;pre&gt;';&nbsp;print_r($sql)&nbsp;.&nbsp;'&lt;/pre&gt;&lt;hr&gt;';
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB; font-weight: bold">return&nbsp;</span><span style="color: #000000">$this</span><span style="color: #0000BB; font-weight: bold">-&gt;</span><span style="color: #000000">query</span><span style="color: #0000BB; font-weight: bold">(</span><span style="color: #000000">$sql</span><span style="color: #0000BB; font-weight: bold">,&nbsp;</span><span style="color: #000000">$fetchMode</span><span style="color: #0000BB; font-weight: bold">);
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #008000">//return&nbsp;$this-&gt;dpt_data($fetchMode);
+<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB; font-weight: bold">}
+<br /></span><span style="color: #008000">#------------------------------------------------------------------------------------------------------------------
+<br />&nbsp;&nbsp;&nbsp;&nbsp;/**
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;update
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;string&nbsp;$sql&nbsp;An&nbsp;SQL&nbsp;string
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;array&nbsp;$array&nbsp;Paramters&nbsp;to&nbsp;bind
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;constant&nbsp;$fetchMode&nbsp;A&nbsp;PDO&nbsp;Fetch&nbsp;mode
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@return&nbsp;mixed
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/
+<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB; font-weight: bold">public&nbsp;function&nbsp;</span><span style="color: #000000">update</span><span style="color: #0000BB; font-weight: bold">(</span><span style="color: #000000">$sql</span><span style="color: #0000BB; font-weight: bold">,&nbsp;</span><span style="color: #000000">$array&nbsp;</span><span style="color: #0000BB; font-weight: bold">=&nbsp;array(),&nbsp;</span><span style="color: #000000">$fetchMode&nbsp;</span><span style="color: #0000BB; font-weight: bold">=&nbsp;</span><span style="color: #000000">2</span><span style="color: #0000BB; font-weight: bold">)
+<br />&nbsp;&nbsp;&nbsp;&nbsp;{
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #008000">//echo&nbsp;'&lt;hr&gt;&lt;pre&gt;';&nbsp;print_r($sql)&nbsp;.&nbsp;'&lt;/pre&gt;&lt;hr&gt;';
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB; font-weight: bold">return&nbsp;</span><span style="color: #000000">$this</span><span style="color: #0000BB; font-weight: bold">-&gt;</span><span style="color: #000000">query</span><span style="color: #0000BB; font-weight: bold">(</span><span style="color: #000000">$sql</span><span style="color: #0000BB; font-weight: bold">,&nbsp;</span><span style="color: #000000">$fetchMode</span><span style="color: #0000BB; font-weight: bold">);
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #008000">//return&nbsp;$this-&gt;dpt_data($fetchMode);
+<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB; font-weight: bold">}
+<br /></span><span style="color: #008000">#------------------------------------------------------------------------------------------------------------------
+<br />&nbsp;&nbsp;&nbsp;&nbsp;/**
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;delete
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;string&nbsp;$table
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;string&nbsp;$where
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;integer&nbsp;$limit
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@return&nbsp;integer&nbsp;Affected&nbsp;Rows
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/
+<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB; font-weight: bold">public&nbsp;function&nbsp;</span><span style="color: #000000">delete</span><span style="color: #0000BB; font-weight: bold">(</span><span style="color: #000000">$table</span><span style="color: #0000BB; font-weight: bold">,&nbsp;</span><span style="color: #000000">$where</span><span style="color: #0000BB; font-weight: bold">,&nbsp;</span><span style="color: #000000">$limit&nbsp;</span><span style="color: #0000BB; font-weight: bold">=&nbsp;</span><span style="color: #000000">1</span><span style="color: #0000BB; font-weight: bold">)
+<br />&nbsp;&nbsp;&nbsp;&nbsp;{
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #000000">$sql&nbsp;</span><span style="color: #0000BB; font-weight: bold">=&nbsp;</span><span style="color: #DD0000">"DELETE&nbsp;FROM&nbsp;</span><span style="color: #000000">$table</span><span style="color: #DD0000">&nbsp;WHERE&nbsp;</span><span style="color: #000000">$where</span><span style="color: #DD0000">&nbsp;LIMIT&nbsp;</span><span style="color: #000000">$limit</span><span style="color: #DD0000">"</span><span style="color: #0000BB; font-weight: bold">;
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #008000">//echo&nbsp;'&lt;hr&gt;&lt;pre&gt;';&nbsp;print_r($sql)&nbsp;.&nbsp;'&lt;/pre&gt;&lt;hr&gt;';
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB; font-weight: bold">return&nbsp;</span><span style="color: #000000">$this</span><span style="color: #0000BB; font-weight: bold">-&gt;</span><span style="color: #000000">query</span><span style="color: #0000BB; font-weight: bold">(</span><span style="color: #000000">$sql</span><span style="color: #0000BB; font-weight: bold">,&nbsp;</span><span style="color: #000000">$fetchMode&nbsp;</span><span style="color: #0000BB; font-weight: bold">=&nbsp;</span><span style="color: #000000">2</span><span style="color: #0000BB; font-weight: bold">);
+<br />&nbsp;&nbsp;&nbsp;&nbsp;}
+<br /></span><span style="color: #008000">#------------------------------------------------------------------------------------------------------------------
+<br />&nbsp;&nbsp;&nbsp;&nbsp;/**
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;rowcount
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;string&nbsp;$sql&nbsp;An&nbsp;SQL&nbsp;string
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;array&nbsp;$array&nbsp;Paramters&nbsp;to&nbsp;bind
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;constant&nbsp;$fetchMode&nbsp;A&nbsp;PDO&nbsp;Fetch&nbsp;mode
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@return&nbsp;mixed
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/
+<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB; font-weight: bold">public&nbsp;function&nbsp;</span><span style="color: #000000">rowCount</span><span style="color: #0000BB; font-weight: bold">(</span><span style="color: #000000">$SQL</span><span style="color: #0000BB; font-weight: bold">,&nbsp;</span><span style="color: #000000">$fetchMode&nbsp;</span><span style="color: #0000BB; font-weight: bold">=&nbsp;</span><span style="color: #000000">2</span><span style="color: #0000BB; font-weight: bold">)
+<br />&nbsp;&nbsp;&nbsp;&nbsp;{
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #008000">//echo&nbsp;'&lt;hr&gt;&lt;pre&gt;';&nbsp;print_r($SQL)&nbsp;.&nbsp;'&lt;/pre&gt;&lt;hr&gt;';
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #000000">$this</span><span style="color: #0000BB; font-weight: bold">-&gt;</span><span style="color: #000000">SQL&nbsp;</span><span style="color: #0000BB; font-weight: bold">=&nbsp;</span><span style="color: #000000">$this</span><span style="color: #0000BB; font-weight: bold">-&gt;</span><span style="color: #000000">mysqli</span><span style="color: #0000BB; font-weight: bold">-&gt;</span><span style="color: #000000">real_escape_string</span><span style="color: #0000BB; font-weight: bold">(</span><span style="color: #000000">$SQL</span><span style="color: #0000BB; font-weight: bold">);
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #000000">$result&nbsp;</span><span style="color: #0000BB; font-weight: bold">=&nbsp;</span><span style="color: #000000">$this</span><span style="color: #0000BB; font-weight: bold">-&gt;</span><span style="color: #000000">mysqli</span><span style="color: #0000BB; font-weight: bold">-&gt;</span><span style="color: #000000">query</span><span style="color: #0000BB; font-weight: bold">(</span><span style="color: #000000">$SQL</span><span style="color: #0000BB; font-weight: bold">);
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;</span><span style="color: #000000">$result</span><span style="color: #0000BB; font-weight: bold">-&gt;</span><span style="color: #000000">num_rows</span><span style="color: #0000BB; font-weight: bold">;
+<br />&nbsp;&nbsp;&nbsp;&nbsp;}
+<br /></span><span style="color: #008000">#------------------------------------------------------------------------------------------------------------------
+<br />&nbsp;&nbsp;&nbsp;&nbsp;/**
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;select
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;string&nbsp;$sql&nbsp;An&nbsp;SQL&nbsp;string
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;array&nbsp;$array&nbsp;Paramters&nbsp;to&nbsp;bind
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;constant&nbsp;$fetchMode&nbsp;A&nbsp;PDO&nbsp;Fetch&nbsp;mode
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@return&nbsp;mixed
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/
+<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB; font-weight: bold">public&nbsp;function&nbsp;</span><span style="color: #000000">selectAll</span><span style="color: #0000BB; font-weight: bold">(</span><span style="color: #000000">$sql</span><span style="color: #0000BB; font-weight: bold">,&nbsp;</span><span style="color: #000000">$fetchMode&nbsp;</span><span style="color: #0000BB; font-weight: bold">=&nbsp;</span><span style="color: #000000">2</span><span style="color: #0000BB; font-weight: bold">)
+<br />&nbsp;&nbsp;&nbsp;&nbsp;{
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #008000">//echo&nbsp;'&lt;hr&gt;&lt;pre&gt;';&nbsp;print_r($sql)&nbsp;.&nbsp;'&lt;/pre&gt;&lt;hr&gt;';
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #000000">$this</span><span style="color: #0000BB; font-weight: bold">-&gt;</span><span style="color: #000000">query</span><span style="color: #0000BB; font-weight: bold">(</span><span style="color: #000000">$sql</span><span style="color: #0000BB; font-weight: bold">);
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;</span><span style="color: #000000">$this</span><span style="color: #0000BB; font-weight: bold">-&gt;</span><span style="color: #000000">dpt_data</span><span style="color: #0000BB; font-weight: bold">(</span><span style="color: #000000">$fetchMode</span><span style="color: #0000BB; font-weight: bold">);
+<br />&nbsp;&nbsp;&nbsp;&nbsp;}
+<br /></span><span style="color: #008000">#------------------------------------------------------------------------------------------------------------------
+<br />&nbsp;&nbsp;&nbsp;&nbsp;/**
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@desc&nbsp;&nbsp;&nbsp;&nbsp;Simple&nbsp;preparation&nbsp;to&nbsp;clean&nbsp;the&nbsp;SQL/Setup&nbsp;result&nbsp;Object.
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;&nbsp;&nbsp;&nbsp;&lt;str&gt;&nbsp;SQL&nbsp;statement
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@return&nbsp;&nbsp;&nbsp;&nbsp;&lt;bln|null&gt;
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/
+<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB; font-weight: bold">public&nbsp;function&nbsp;</span><span style="color: #000000">query</span><span style="color: #0000BB; font-weight: bold">(</span><span style="color: #000000">$SQL</span><span style="color: #0000BB; font-weight: bold">)
+<br />&nbsp;&nbsp;&nbsp;&nbsp;{
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #008000">//echo&nbsp;'&lt;hr&gt;&lt;pre&gt;';&nbsp;print_r($SQL)&nbsp;.&nbsp;'&lt;/pre&gt;&lt;hr&gt;';
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #000000">$this</span><span style="color: #0000BB; font-weight: bold">-&gt;</span><span style="color: #000000">SQL&nbsp;</span><span style="color: #0000BB; font-weight: bold">=&nbsp;</span><span style="color: #000000">$this</span><span style="color: #0000BB; font-weight: bold">-&gt;</span><span style="color: #000000">mysqli</span><span style="color: #0000BB; font-weight: bold">-&gt;</span><span style="color: #000000">real_escape_string</span><span style="color: #0000BB; font-weight: bold">(</span><span style="color: #000000">$SQL</span><span style="color: #0000BB; font-weight: bold">);
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #000000">$this</span><span style="color: #0000BB; font-weight: bold">-&gt;</span><span style="color: #000000">result&nbsp;</span><span style="color: #0000BB; font-weight: bold">=&nbsp;</span><span style="color: #000000">$this</span><span style="color: #0000BB; font-weight: bold">-&gt;</span><span style="color: #000000">mysqli</span><span style="color: #0000BB; font-weight: bold">-&gt;</span><span style="color: #000000">query</span><span style="color: #0000BB; font-weight: bold">(</span><span style="color: #000000">$SQL</span><span style="color: #0000BB; font-weight: bold">);
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(</span><span style="color: #000000">$this</span><span style="color: #0000BB; font-weight: bold">-&gt;</span><span style="color: #000000">result&nbsp;</span><span style="color: #0000BB; font-weight: bold">==&nbsp;</span><span style="color: #000000">true</span><span style="color: #0000BB; font-weight: bold">)
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;</span><span style="color: #000000">$this</span><span style="color: #0000BB; font-weight: bold">-&gt;</span><span style="color: #000000">result</span><span style="color: #0000BB; font-weight: bold">;
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;else
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #000000">printf</span><span style="color: #0000BB; font-weight: bold">(</span><span style="color: #DD0000">"Masalah&nbsp;pada&nbsp;:&nbsp;&lt;pre&gt;%s.\n%s&lt;/pre&gt;"</span><span style="color: #0000BB; font-weight: bold">,&nbsp;
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #000000">$this</span><span style="color: #0000BB; font-weight: bold">-&gt;</span><span style="color: #000000">mysqli</span><span style="color: #0000BB; font-weight: bold">-&gt;</span><span style="color: #000000">error</span><span style="color: #0000BB; font-weight: bold">,
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #000000">$this</span><span style="color: #0000BB; font-weight: bold">-&gt;</span><span style="color: #000000">SQL</span><span style="color: #0000BB; font-weight: bold">);
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;exit;
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<br />&nbsp;&nbsp;&nbsp;&nbsp;}
+<br /></span><span style="color: #008000">#------------------------------------------------------------------------------------------------------------------
+<br />&nbsp;&nbsp;&nbsp;&nbsp;/**
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@desc&nbsp;&nbsp;&nbsp;&nbsp;Get&nbsp;the&nbsp;results
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@return&nbsp;&nbsp;&nbsp;&nbsp;&lt;mixed&gt;
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/
+<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB; font-weight: bold">public&nbsp;function&nbsp;</span><span style="color: #000000">dpt_data</span><span style="color: #0000BB; font-weight: bold">(</span><span style="color: #000000">$jenis</span><span style="color: #0000BB; font-weight: bold">)
+<br />&nbsp;&nbsp;&nbsp;&nbsp;{
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #008000">/**&nbsp;Grab&nbsp;all&nbsp;the&nbsp;data&nbsp;*/
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #000000">$this</span><span style="color: #0000BB; font-weight: bold">-&gt;</span><span style="color: #000000">fetchMode&nbsp;</span><span style="color: #0000BB; font-weight: bold">=&nbsp;</span><span style="color: #000000">$this</span><span style="color: #0000BB; font-weight: bold">-&gt;</span><span style="color: #000000">setFetchMode</span><span style="color: #0000BB; font-weight: bold">(</span><span style="color: #000000">$jenis</span><span style="color: #0000BB; font-weight: bold">);&nbsp;</span><span style="color: #008000">//&nbsp;tentukan&nbsp;jenis&nbsp;data
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/*echo&nbsp;'&lt;pre&gt;$jenis:'&nbsp;.&nbsp;$jenis&nbsp;.&nbsp;'&lt;/pre&gt;&lt;hr&gt;'
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.&nbsp;'&lt;pre&gt;$this-&gt;fetchMode:'&nbsp;.&nbsp;$this-&gt;fetchMode&nbsp;.&nbsp;'&lt;/pre&gt;&lt;hr&gt;';*/
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #000000">$data&nbsp;</span><span style="color: #0000BB; font-weight: bold">=&nbsp;array();
+<br />
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;while&nbsp;(</span><span style="color: #000000">$row&nbsp;</span><span style="color: #0000BB; font-weight: bold">=&nbsp;</span><span style="color: #000000">$this</span><span style="color: #0000BB; font-weight: bold">-&gt;</span><span style="color: #000000">result</span><span style="color: #0000BB; font-weight: bold">-&gt;</span><span style="color: #000000">fetch_array</span><span style="color: #0000BB; font-weight: bold">(</span><span style="color: #000000">$this</span><span style="color: #0000BB; font-weight: bold">-&gt;</span><span style="color: #000000">fetchMode</span><span style="color: #0000BB; font-weight: bold">))
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #008000">//echo&nbsp;'&lt;hr&gt;&lt;pre&gt;$row:';&nbsp;print_r($row)&nbsp;.&nbsp;'&lt;/pre&gt;&lt;hr&gt;';
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #000000">$data</span><span style="color: #0000BB; font-weight: bold">[]&nbsp;=&nbsp;</span><span style="color: #000000">$row</span><span style="color: #0000BB; font-weight: bold">;
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+<br />
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #008000">/**&nbsp;Make&nbsp;sure&nbsp;to&nbsp;close&nbsp;the&nbsp;result&nbsp;Set&nbsp;*/
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #000000">$this</span><span style="color: #0000BB; font-weight: bold">-&gt;</span><span style="color: #000000">result</span><span style="color: #0000BB; font-weight: bold">-&gt;</span><span style="color: #000000">close</span><span style="color: #0000BB; font-weight: bold">();
+<br />
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;</span><span style="color: #000000">$data</span><span style="color: #0000BB; font-weight: bold">;
+<br />&nbsp;&nbsp;&nbsp;&nbsp;}
+<br /></span><span style="color: #008000">#------------------------------------------------------------------------------------------------------------------
+<br />&nbsp;&nbsp;&nbsp;&nbsp;/**
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;select
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;string&nbsp;$sql&nbsp;An&nbsp;SQL&nbsp;string
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;array&nbsp;$array&nbsp;Paramters&nbsp;to&nbsp;bind
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;constant&nbsp;$fetchMode&nbsp;A&nbsp;PDO&nbsp;Fetch&nbsp;mode
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@return&nbsp;mixed
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/
+<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB; font-weight: bold">public&nbsp;function&nbsp;</span><span style="color: #000000">select</span><span style="color: #0000BB; font-weight: bold">(</span><span style="color: #000000">$sql</span><span style="color: #0000BB; font-weight: bold">,&nbsp;</span><span style="color: #000000">$fetchMode&nbsp;</span><span style="color: #0000BB; font-weight: bold">=&nbsp;</span><span style="color: #000000">2</span><span style="color: #0000BB; font-weight: bold">)
+<br />&nbsp;&nbsp;&nbsp;&nbsp;{
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #008000">//echo&nbsp;'&lt;hr&gt;&lt;pre&gt;';&nbsp;print_r($sql)&nbsp;.&nbsp;'&lt;/pre&gt;&lt;hr&gt;';
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #000000">$this</span><span style="color: #0000BB; font-weight: bold">-&gt;</span><span style="color: #000000">query</span><span style="color: #0000BB; font-weight: bold">(</span><span style="color: #000000">$sql</span><span style="color: #0000BB; font-weight: bold">,&nbsp;</span><span style="color: #000000">$fetchMode</span><span style="color: #0000BB; font-weight: bold">);
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;</span><span style="color: #000000">$this</span><span style="color: #0000BB; font-weight: bold">-&gt;</span><span style="color: #000000">dpt1data</span><span style="color: #0000BB; font-weight: bold">(</span><span style="color: #000000">$fetchMode</span><span style="color: #0000BB; font-weight: bold">);
+<br />&nbsp;&nbsp;&nbsp;&nbsp;}
+<br /></span><span style="color: #008000">#------------------------------------------------------------------------------------------------------------------
+<br />&nbsp;&nbsp;&nbsp;&nbsp;/**
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@desc&nbsp;&nbsp;&nbsp;&nbsp;Get&nbsp;the&nbsp;results
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@return&nbsp;&nbsp;&nbsp;&nbsp;&lt;mixed&gt;
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/
+<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB; font-weight: bold">public&nbsp;function&nbsp;</span><span style="color: #000000">dpt1data</span><span style="color: #0000BB; font-weight: bold">(</span><span style="color: #000000">$jenis&nbsp;</span><span style="color: #0000BB; font-weight: bold">=&nbsp;</span><span style="color: #000000">2</span><span style="color: #0000BB; font-weight: bold">)
+<br />&nbsp;&nbsp;&nbsp;&nbsp;{
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #008000">/**&nbsp;Grab&nbsp;all&nbsp;the&nbsp;data&nbsp;*/
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #000000">$this</span><span style="color: #0000BB; font-weight: bold">-&gt;</span><span style="color: #000000">fetchMode&nbsp;</span><span style="color: #0000BB; font-weight: bold">=&nbsp;</span><span style="color: #000000">$this</span><span style="color: #0000BB; font-weight: bold">-&gt;</span><span style="color: #000000">setFetchMode</span><span style="color: #0000BB; font-weight: bold">(</span><span style="color: #000000">$jenis</span><span style="color: #0000BB; font-weight: bold">);&nbsp;</span><span style="color: #008000">//&nbsp;tentukan&nbsp;jenis&nbsp;data
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #000000">$data&nbsp;</span><span style="color: #0000BB; font-weight: bold">=&nbsp;array();
+<br />
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;while&nbsp;(</span><span style="color: #000000">$row&nbsp;</span><span style="color: #0000BB; font-weight: bold">=&nbsp;</span><span style="color: #000000">$this</span><span style="color: #0000BB; font-weight: bold">-&gt;</span><span style="color: #000000">result</span><span style="color: #0000BB; font-weight: bold">-&gt;</span><span style="color: #000000">fetch_array</span><span style="color: #0000BB; font-weight: bold">(</span><span style="color: #000000">$this</span><span style="color: #0000BB; font-weight: bold">-&gt;</span><span style="color: #000000">fetchMode</span><span style="color: #0000BB; font-weight: bold">))
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #008000">//echo&nbsp;'&lt;hr&gt;&lt;pre&gt;$row:';&nbsp;print_r($row)&nbsp;.&nbsp;'&lt;/pre&gt;&lt;hr&gt;';
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB; font-weight: bold">foreach&nbsp;(</span><span style="color: #000000">$row&nbsp;</span><span style="color: #0000BB; font-weight: bold">as&nbsp;</span><span style="color: #000000">$key&nbsp;</span><span style="color: #0000BB; font-weight: bold">=&gt;&nbsp;</span><span style="color: #000000">$value</span><span style="color: #0000BB; font-weight: bold">)&nbsp;
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #000000">$data</span><span style="color: #0000BB; font-weight: bold">[</span><span style="color: #000000">$key</span><span style="color: #0000BB; font-weight: bold">]&nbsp;=&nbsp;</span><span style="color: #000000">$value</span><span style="color: #0000BB; font-weight: bold">;
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+<br />
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #008000">/**&nbsp;Make&nbsp;sure&nbsp;to&nbsp;close&nbsp;the&nbsp;result&nbsp;Set&nbsp;*/
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #000000">$this</span><span style="color: #0000BB; font-weight: bold">-&gt;</span><span style="color: #000000">result</span><span style="color: #0000BB; font-weight: bold">-&gt;</span><span style="color: #000000">close</span><span style="color: #0000BB; font-weight: bold">();
+<br />
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;</span><span style="color: #000000">$data</span><span style="color: #0000BB; font-weight: bold">;
+<br />&nbsp;&nbsp;&nbsp;&nbsp;}
+<br /></span><span style="color: #008000">#------------------------------------------------------------------------------------------------------------------
+<br />&nbsp;&nbsp;&nbsp;&nbsp;/**&nbsp;
+<br />&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@desc&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Optionally&nbsp;set&nbsp;the&nbsp;return&nbsp;mode.
+<br />&nbsp;&nbsp;&nbsp;&nbsp;*
+<br />&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;&nbsp;&nbsp;&nbsp;&lt;int&gt;&nbsp;$type&nbsp;The&nbsp;mode:&nbsp;1&nbsp;for&nbsp;MYSQLI_NUM,&nbsp;2&nbsp;for&nbsp;MYSQLI_ASSOC,&nbsp;default&nbsp;is&nbsp;MYSQLI_BOTH
+<br />&nbsp;&nbsp;&nbsp;&nbsp;*/
+<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB; font-weight: bold">public&nbsp;function&nbsp;</span><span style="color: #000000">setFetchMode</span><span style="color: #0000BB; font-weight: bold">(</span><span style="color: #000000">$type</span><span style="color: #0000BB; font-weight: bold">)
+<br />&nbsp;&nbsp;&nbsp;&nbsp;{
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;switch(</span><span style="color: #000000">$type</span><span style="color: #0000BB; font-weight: bold">)
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;case&nbsp;</span><span style="color: #000000">1</span><span style="color: #0000BB; font-weight: bold">:
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #000000">$this</span><span style="color: #0000BB; font-weight: bold">-&gt;</span><span style="color: #000000">fetchMode&nbsp;</span><span style="color: #0000BB; font-weight: bold">=&nbsp;</span><span style="color: #000000">MYSQLI_NUM</span><span style="color: #0000BB; font-weight: bold">;
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;break;
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;case&nbsp;</span><span style="color: #000000">2</span><span style="color: #0000BB; font-weight: bold">:
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #000000">$this</span><span style="color: #0000BB; font-weight: bold">-&gt;</span><span style="color: #000000">fetchMode&nbsp;</span><span style="color: #0000BB; font-weight: bold">=&nbsp;</span><span style="color: #000000">MYSQLI_ASSOC</span><span style="color: #0000BB; font-weight: bold">;
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;break;
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;default:
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #000000">$this</span><span style="color: #0000BB; font-weight: bold">-&gt;</span><span style="color: #000000">fetchMode&nbsp;</span><span style="color: #0000BB; font-weight: bold">=&nbsp;</span><span style="color: #000000">MYSQLI_BOTH</span><span style="color: #0000BB; font-weight: bold">;
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;break;
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;</span><span style="color: #000000">$this</span><span style="color: #0000BB; font-weight: bold">-&gt;</span><span style="color: #000000">fetchMode</span><span style="color: #0000BB; font-weight: bold">;
+<br />&nbsp;&nbsp;&nbsp;&nbsp;}
+<br /></span><span style="color: #008000">#------------------------------------------------------------------------------------------------------------------
+<br />&nbsp;&nbsp;&nbsp;&nbsp;/**
+<br />&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@desc&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns&nbsp;the&nbsp;automatically&nbsp;generated&nbsp;insert&nbsp;ID
+<br />&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This&nbsp;MUST&nbsp;come&nbsp;after&nbsp;an&nbsp;insert&nbsp;Query.
+<br />&nbsp;&nbsp;&nbsp;&nbsp;*/
+<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB; font-weight: bold">public&nbsp;function&nbsp;</span><span style="color: #000000">id</span><span style="color: #0000BB; font-weight: bold">()
+<br />&nbsp;&nbsp;&nbsp;&nbsp;{
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;</span><span style="color: #000000">$this</span><span style="color: #0000BB; font-weight: bold">-&gt;</span><span style="color: #000000">mysqli</span><span style="color: #0000BB; font-weight: bold">-&gt;</span><span style="color: #000000">insert_id</span><span style="color: #0000BB; font-weight: bold">;
+<br />&nbsp;&nbsp;&nbsp;&nbsp;}
+<br /></span><span style="color: #008000">#------------------------------------------------------------------------------------------------------------------
+<br />&nbsp;&nbsp;&nbsp;&nbsp;/**
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@desc&nbsp;&nbsp;&nbsp;&nbsp;Automatically&nbsp;close&nbsp;the&nbsp;connection&nbsp;when&nbsp;finished&nbsp;with&nbsp;this&nbsp;object.
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/
+<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB; font-weight: bold">public&nbsp;function&nbsp;</span><span style="color: #000000">__destruct</span><span style="color: #0000BB; font-weight: bold">()
+<br />&nbsp;&nbsp;&nbsp;&nbsp;{
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #000000">$this</span><span style="color: #0000BB; font-weight: bold">-&gt;</span><span style="color: #000000">mysqli</span><span style="color: #0000BB; font-weight: bold">-&gt;</span><span style="color: #000000">close</span><span style="color: #0000BB; font-weight: bold">();
+<br />&nbsp;&nbsp;&nbsp;&nbsp;}
+<br /></span><span style="color: #008000">#------------------------------------------------------------------------------------------------------------------
+<br />#==================================================================================================================
+<br /></span><span style="color: #0000BB; font-weight: bold">}</span>
+</span>
+</code>
