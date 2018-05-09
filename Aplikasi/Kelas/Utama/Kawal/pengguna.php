@@ -1,6 +1,6 @@
 <?php
 namespace Aplikasi\Kawal; //echo __NAMESPACE__;
-class Ruangtamu extends \Aplikasi\Kitab\Kawal
+class Pengguna extends \Aplikasi\Kitab\Kawal
 {
 #==========================================================================================
 	function __construct()
