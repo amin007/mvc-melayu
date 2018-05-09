@@ -3,6 +3,7 @@ namespace Aplikasi\Kitab; //echo __NAMESPACE__;
 class DB_Pdo extends \PDO
 {
 #==================================================================================================================
+#------------------------------------------------------------------------------------------------------------------
 	public function __construct($DB_TYPE, $DB_HOST, $DB_NAME, $DB_USER, $DB_PASS)
 	{
 		try
@@ -18,7 +19,7 @@ class DB_Pdo extends \PDO
 			exit;
 		}
 	}
-
+#------------------------------------------------------------------------------------------------------------------
 	/**
 	 * bigError
 	 * @param papar $masalah yang dialami
@@ -33,7 +34,7 @@ class DB_Pdo extends \PDO
 			$error .= '<br>' . $key . '=>' . $apa; //*/
 		exit;
 	}
-
+#------------------------------------------------------------------------------------------------------------------
 	/**
 	 * selectAll
 	 * @param string $sql An SQL string
@@ -58,7 +59,7 @@ class DB_Pdo extends \PDO
 		else # pulangkan pembolehubah
 			return $sth->fetchAll($fetchMode);
 	}
-
+#------------------------------------------------------------------------------------------------------------------
 	/**
 	 * select
 	 * @param string $sql An SQL string
@@ -83,7 +84,7 @@ class DB_Pdo extends \PDO
 		else # pulangkan pembolehubah
 			return $sth->fetchAll($fetchMode);
 	}
-
+#------------------------------------------------------------------------------------------------------------------
 	/**
 	 * rowCount()
 	 * @param string $sql An SQL string
@@ -108,7 +109,7 @@ class DB_Pdo extends \PDO
 		else # pulangkan pembolehubah
 			return $sth->rowCount(); //$sth->fetchAll($fetchMode);
 	}
-
+#------------------------------------------------------------------------------------------------------------------
 	/**
 	 * insert
 	 * @param string $table A name of table to insert into
@@ -135,7 +136,7 @@ class DB_Pdo extends \PDO
 			$this->bigError($masalah);
 		//*/
 	}
-
+#------------------------------------------------------------------------------------------------------------------
 	/**
 	 * insertAll
 	 * @param string $sql An SQL string
@@ -162,7 +163,7 @@ class DB_Pdo extends \PDO
 			return $sth->fetchAll($fetchMode);
 		//*/
 	}
-
+#------------------------------------------------------------------------------------------------------------------
 	/**
 	 * insertAllNew
 	 * @param string $sql An SQL string
@@ -190,7 +191,7 @@ class DB_Pdo extends \PDO
 			$this->bigError($masalah);
 		//*/
 	}
-
+#------------------------------------------------------------------------------------------------------------------
 	/**
 	 * update
 	 * @param string $sql An SQL string
@@ -215,7 +216,7 @@ class DB_Pdo extends \PDO
 			$this->bigError($masalah);
 		//*/
 	}
-
+#------------------------------------------------------------------------------------------------------------------
 	/**
 	 * updateNew
 	 * @param string $sql An SQL string
@@ -241,7 +242,7 @@ class DB_Pdo extends \PDO
 			$this->bigError($masalah);
 		//*/
 	}
-
+#------------------------------------------------------------------------------------------------------------------
 	/**
 	 * updateOld
 	 * @param string $table A name of table to insert into
@@ -271,7 +272,7 @@ class DB_Pdo extends \PDO
 			$this->bigError($masalah);
 		//*/
 	}
-
+#------------------------------------------------------------------------------------------------------------------
 	/**
 	 * delete
 	 * 
@@ -284,6 +285,7 @@ class DB_Pdo extends \PDO
 	{
 		return $this->exec("DELETE FROM $table WHERE $where LIMIT $limit");
 	}
+#------------------------------------------------------------------------------------------------------------------
 #==================================================================================================================
 }
 

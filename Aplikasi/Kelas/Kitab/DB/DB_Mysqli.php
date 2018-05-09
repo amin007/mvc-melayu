@@ -50,11 +50,13 @@
 namespace Aplikasi\Kitab; //echo __NAMESPACE__; 
 class DB_Mysqli
 {
+#==================================================================================================================
+#------------------------------------------------------------------------------------------------------------------
 	/**
 	* @var <str> The mode to return results, defualt is MYSQLI_BOTH, use setFetchMode() to change.
 	*/
 	private $fetchMode = MYSQLI_BOTH;
-	
+#------------------------------------------------------------------------------------------------------------------	
 	/**
 	* @desc		Creates the MySQLi object for usage.
 	*
@@ -75,7 +77,7 @@ class DB_Mysqli
 			exit;
 		}
 	}
-	
+#------------------------------------------------------------------------------------------------------------------
 	/**
 	 * insert
 	 * @param string $table A name of table to insert into
@@ -98,7 +100,7 @@ class DB_Mysqli
 		echo '<hr><pre>'; print_r($sql) . '</pre><hr>';
 		//return $this->query($sql );
 	}
-
+#------------------------------------------------------------------------------------------------------------------
 	/**
 	 * insert
 	 * @param string $table A name of table to insert into
@@ -110,7 +112,7 @@ class DB_Mysqli
 		return $this->query($sql, $fetchMode);
 		//return $this->dpt_data($fetchMode);
 	}
-	
+#------------------------------------------------------------------------------------------------------------------
 	/**
 	 * update
 	 * @param string $sql An SQL string
@@ -124,7 +126,7 @@ class DB_Mysqli
 		return $this->query($sql, $fetchMode);
 		//return $this->dpt_data($fetchMode);
 	}
-	
+#------------------------------------------------------------------------------------------------------------------
 	/**
 	 * delete
 	 * 
@@ -139,7 +141,7 @@ class DB_Mysqli
 		//echo '<hr><pre>'; print_r($sql) . '</pre><hr>';
 		return $this->query($sql, $fetchMode = 2);
 	}
-
+#------------------------------------------------------------------------------------------------------------------
 	/**
 	 * rowcount
 	 * @param string $sql An SQL string
@@ -154,7 +156,7 @@ class DB_Mysqli
 		$result = $this->mysqli->query($SQL);
 		return $result->num_rows;
 	}
-
+#------------------------------------------------------------------------------------------------------------------
 	/**
 	 * select
 	 * @param string $sql An SQL string
@@ -168,7 +170,7 @@ class DB_Mysqli
 		$this->query($sql);
 		return $this->dpt_data($fetchMode);
 	}
-
+#------------------------------------------------------------------------------------------------------------------
 	/**
 	 * @desc	Simple preparation to clean the SQL/Setup result Object.
 	 *
@@ -194,7 +196,7 @@ class DB_Mysqli
 		}
 		
 	}
-
+#------------------------------------------------------------------------------------------------------------------
 	/**
 	 * @desc	Get the results
 	 * @return	<mixed>
@@ -217,9 +219,8 @@ class DB_Mysqli
 		$this->result->close();
 
 		return $data;
-
 	}
-
+#------------------------------------------------------------------------------------------------------------------
 	/**
 	 * select
 	 * @param string $sql An SQL string
@@ -233,7 +234,7 @@ class DB_Mysqli
 		$this->query($sql, $fetchMode);
 		return $this->dpt1data($fetchMode);
 	}
-
+#------------------------------------------------------------------------------------------------------------------
 	/**
 	 * @desc	Get the results
 	 * @return	<mixed>
@@ -257,9 +258,8 @@ class DB_Mysqli
 		$this->result->close();
 
 		return $data;
-
 	}
-	
+#------------------------------------------------------------------------------------------------------------------
 	/** 
 	* @desc		Optionally set the return mode.
 	*
@@ -284,7 +284,7 @@ class DB_Mysqli
 		
 		return $this->fetchMode;
 	}
-
+#------------------------------------------------------------------------------------------------------------------
 	/**
 	* @desc		Returns the automatically generated insert ID
 	* 			This MUST come after an insert Query.
@@ -293,7 +293,7 @@ class DB_Mysqli
 	{
 		return $this->mysqli->insert_id;
 	}
-
+#------------------------------------------------------------------------------------------------------------------
 	/**
 	 * @desc	Automatically close the connection when finished with this object.
 	 */
@@ -301,5 +301,6 @@ class DB_Mysqli
 	{
 		$this->mysqli->close();
 	}
-
+#------------------------------------------------------------------------------------------------------------------
+#==================================================================================================================
 }

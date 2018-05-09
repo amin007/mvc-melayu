@@ -8,6 +8,7 @@ namespace Aplikasi\Kitab; //echo __NAMESPACE__;
 class Kebenaran
 {
 #====================================================================================
+#------------------------------------------------------------------------------------
 	/* Kebenaran::kawalMasuk() khas untuk
 	 * class login dan index
 	 * supaya kalau user berada dalam class tersebut
@@ -32,12 +33,12 @@ class Kebenaran
 		}
 		//*/
 	}
-
+#------------------------------------------------------------------------------------
 	private static function senaraiLevel()
 	{
 		return array('pentadbir','pelawat','kawal','pegawai');
 	}
-	
+#------------------------------------------------------------------------------------
 	public static function kawalKeluar()
 	{
 		@session_start();
@@ -59,7 +60,7 @@ class Kebenaran
 		}
 		//*/
 	}
-
+#------------------------------------------------------------------------------------
 	public static function papar($_folder)
 	{
 		# pergi papar kandungan fungsi papar() dalam KAWAL
@@ -84,7 +85,7 @@ class Kebenaran
 		}
 		# pergi papar kandungan fungsi papar() dalam KAWAL
 	}
-
+#------------------------------------------------------------------------------------
 	public static function tambahSimpan($_folder)
 	{
 		# pergi papar kandungan tambahSimpan() dalam KAWAL
@@ -109,7 +110,7 @@ class Kebenaran
 		}
 		# pergi papar kandungan tambahSimpan() dalam KAWAL
 	}
-
+#------------------------------------------------------------------------------------
 	public static function ubahSimpan($_folder, $ID)
 	{
 		# pergi papar kandungan ubahSimpan($medanID, $cariID) dalam KAWAL
@@ -134,5 +135,7 @@ class Kebenaran
 		}
 		# pergi papar kandungan ubahSimpan($medanID, $cariID) dalam KAWAL
 	}
+#------------------------------------------------------------------------------------
+#------------------------------------------------------------------------------------
 #====================================================================================
 }
