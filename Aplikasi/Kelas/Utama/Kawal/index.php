@@ -21,7 +21,7 @@ class Index extends \Aplikasi\Kitab\Kawal
 
 		# Pergi papar kandungan
 		//$this->semakPembolehubah($this->papar->senarai); # Semak data dulu
-		$this->paparKandungan($this->_folder,'index',$noInclude=0);
+		$this->paparKandungan($this->_folder,'index',$noInclude=1);
 	}
 ##------------------------------------------------------------------------------------------
 	public function paparKandungan($folder, $fail, $noInclude)
@@ -61,10 +61,11 @@ class Index extends \Aplikasi\Kitab\Kawal
 		# Set pemboleubah utama
 		$this->papar->nama = $user; # dapatkan nama pengguna
 		$this->papar->IP = dpt_ip(); # dapatkan senarai IP yang dibenarkan
+		$fail = array('login','login_automatik');
 
 		# Pergi papar kandungan
 		//$this->semakPembolehubah(); # Semak data dulu
-		$this->paparKandungan($this->_folder,'login', $noInclude=0); # $noInclude=0
+		$this->paparKandungan($this->_folder,$fail[0],$noInclude=0); # $noInclude=0
 	}
 #------------------------------------------------------------------------------------------
 	function login_automatik($user)
@@ -72,20 +73,12 @@ class Index extends \Aplikasi\Kitab\Kawal
 		# Set pemboleubah utama
 		$this->papar->nama = $user; # dapatkan nama pengguna
 		$this->papar->IP = dpt_ip(); # dapatkan senarai IP yang dibenarkan
+		$fail = array('login','login_automatik');
 
 		# Pergi papar kandungan
 		//$this->semakPembolehubah(); # Semak data dulu
-		$this->paparKandungan($this->_folder,'login_automatik', $noInclude=0); # $noInclude=0
+		$this->paparKandungan($this->_folder,$fail[0],$noInclude=0); # $noInclude=0
 	}
 #------------------------------------------------------------------------------------------
-	function keluar()
-	{
-		# Set pemboleubah utama
-		$this->papar->IP = dpt_ip(); # dapatkan senarai IP yang dibenarkan
-
-		# Pergi papar kandungan
-		//$this->semakPembolehubah(); # Semak data dulu
-		$this->paparKandungan($this->_folder,'keluar', $noInclude=1); # $noInclude=0
-	}
 #==========================================================================================
 }
