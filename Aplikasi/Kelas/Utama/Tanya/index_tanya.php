@@ -1,6 +1,7 @@
 <?php
 namespace Aplikasi\Tanya; //echo __NAMESPACE__;
 class Index_Tanya extends \Aplikasi\Kitab\Tanya
+{
 #=====================================================================================================
 	public function __construct()
 	{

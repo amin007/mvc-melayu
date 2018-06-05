@@ -18,7 +18,7 @@ echo "\r\r";
 
 $iconFA['home2'] = '<i class="fa fa-home fa-2x" aria-hidden="true"></i>';
 $iconFA['video'] = '<i class="fa fa-video-camera" aria-hidden="true"></i>';
-//if ($paras == null): else: ?>
+if ($paras == null): else: ?>
 <nav class="navbar navbar-inverse" role="navigation">
 <!-- div class="navbar navbar-custom" role="navigation" -->
 	<div class="container-fluid">
@@ -56,4 +56,4 @@ $iconFA['video'] = '<i class="fa fa-video-camera" aria-hidden="true"></i>';
 	</div>
 </nav>
 <?php
-// endif;
+endif;
