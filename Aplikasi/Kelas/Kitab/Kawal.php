@@ -13,24 +13,33 @@ class Kawal
 	{
 		$failTanya = GetMatchingFiles(GetContents(TANYA),$nama . '_tanya.php');
 		$tanya = $failTanya[0];
-		/*echo '<br> class Kawal :: $nama : ' . $nama . '|';
-		echo 'TANYA->' . TANYA . '';
-		echo '<pre>$failTanya->'; print_r($failTanya); echo '</pre>';
-		echo '$tanya->' . $tanya . '<br>';
-		//*/
+		$this->debug($nama, $failTanya, $tanya);
 
 		if (file_exists($tanya))
 		{
 			$tanyaNama = '\\Aplikasi\Tanya\\' . huruf('Besar', $nama) . '_Tanya';
 			//echo '<br>$tanyaNama->' . $tanyaNama . '<br>';
-
-			require_once $tanya;
 			$this->tanya = new $tanyaNama();
 
-			//if (class_exists($tanyaNama)) echo '<br>class ' . $tanyaNama . ' wujud<br>';
-			//else echo '<br>class ' . $tanyaNama . ' tak wujud<br>';
+			if(!class_exists($tanyaNama, false))
+			{
+				$amaran = 'class ' . $tanyaNama . ' tidak wujud tetapi fail wujud.';
+				//trigger_error("Tidak boleh muatkan class: $tanyaNama", E_USER_WARNING);
+				Peta::classTanyaTidakWujud($amaran);
+				exit();
+			}
 		}//*/
 
 	}
+#------------------------------------------------------------------------------------------
+	function debug($nama, $failTanya, $tanya)
+	{
+		/*echo '<br> class Kawal :: $nama : ' . $nama . '|';
+		echo 'TANYA->' . TANYA . '';
+		echo '<pre>$failTanya->'; print_r($failTanya); echo '</pre>';
+		echo '$tanya->' . $tanya . '<br>';
+		//*/
+	}
+#------------------------------------------------------------------------------------------
 #==========================================================================================
 }
