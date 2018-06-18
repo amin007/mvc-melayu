@@ -151,7 +151,7 @@ class Peta
 	{
 		$kawal = new \Aplikasi\Kawal\Sesat();
 		$kawal->classTidakWujud($amaran);
-		//return false;
+		return false;
 		exit;
 	}
 	#--------------------------------------------------------------------------------------------------------------
