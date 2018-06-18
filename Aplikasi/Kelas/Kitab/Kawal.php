@@ -11,10 +11,7 @@ class Kawal
 #==========================================================================================
 	public function jemaahTaskil($nama)
 	{
-		$failTanya = GetMatchingFiles(GetContents(TANYA),$nama . '_tanya.php');
-		$tanya = $failTanya[0];
-		$this->debug($nama, $failTanya, $tanya);
-
+		list($tanya) = $this->semakPencam($nama);
 		if (file_exists($tanya))
 		{
 			$tanyaNama = '\\Aplikasi\Tanya\\' . huruf('Besar', $nama) . '_Tanya';
@@ -31,16 +28,19 @@ class Kawal
 				//exit();
 			}
 		}//*/
-
 	}
 #------------------------------------------------------------------------------------------
-	function debug($nama, $failTanya, $tanya)
+	function semakPencam($nama)
 	{
+		$failTanya = GetMatchingFiles(GetContents(TANYA),$nama . '_tanya.php');
+		$tanya = $failTanya[0];
+
 		/*echo '<br> class Kawal :: $nama : ' . $nama . '|';
 		echo 'TANYA->' . TANYA . '';
 		echo '<pre>$failTanya->'; print_r($failTanya); echo '</pre>';
 		echo '$tanya->' . $tanya . '<br>';
 		//*/
+		return array($tanya);
 	}
 #------------------------------------------------------------------------------------------
 #==========================================================================================
