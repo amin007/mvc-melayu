@@ -5,9 +5,9 @@ class Index extends \Aplikasi\Kitab\Kawal
 #==========================================================================================
 	function __construct()
 	{
-		//echo '<br>class Index extends \Aplikasi\Kelas\Kitab\Kawal';
 		parent::__construct();
 		\Aplikasi\Kitab\Kebenaran::kawalMasuk();
+		//\Aplikasi\Kitab\Kebenaran::kawalKeluar();
 		$this->_folder = huruf('kecil', namaClass($this));
 		//echo '<hr>Nama class :' . __METHOD__ . '<hr>';
 		//echo '<hr>Nama function :' .__FUNCTION__ . '<hr>';
@@ -39,13 +39,6 @@ class Index extends \Aplikasi\Kitab\Kawal
 		echo '<pre>$senarai:<br>';
 		print_r($senarai);
 		echo '</pre>|';//*/
-	}
-##------------------------------------------------------------------------------------------
-	public function semakRujuk($senarai)
-	{
-		//echo '<pre>$senarai:<br>';
-		print_r($senarai);
-		//echo '</pre>|';//*/
 	}
 ##------------------------------------------------------------------------------------------
 	function logout()
