@@ -19,14 +19,16 @@ class Kawal
 		{
 			$tanyaNama = '\\Aplikasi\Tanya\\' . huruf('Besar', $nama) . '_Tanya';
 			//echo '<br>$tanyaNama->' . $tanyaNama . '<br>';
-			$this->tanya = new $tanyaNama();
 
-			if(!class_exists($tanyaNama, false))
+			if(class_exists($tanyaNama))
+				$this->tanya = new $tanyaNama();
+			else
 			{
-				$amaran = 'class ' . $tanyaNama . ' tidak wujud tetapi fail wujud.';
+				$amaran = 'class ' . $tanyaNama . ' tidak wujud tetapi fail '
+				. $tanya . ' wujud.';
 				//trigger_error("Tidak boleh muatkan class: $tanyaNama", E_USER_WARNING);
 				Peta::classTanyaTidakWujud($amaran);
-				exit();
+				//exit();
 			}
 		}//*/
 
