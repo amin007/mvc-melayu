@@ -32,7 +32,6 @@ class Peta
 		 */
 		if (file_exists($fail))
 		{
-			require $fail;
 			$kawal = new $Url[0];
 			$kawal->jemaahTaskil($url[0]);
 			# jika $url[1] tak disetkan, bagi $method='index'
@@ -118,7 +117,6 @@ class Peta
 #--- masuk fungsi campak ke pangkal jalan jika sesat
 	function sesat()
 	{
-		require KAWAL . '/sesat.php';
 		$kawal = new \Aplikasi\Kawal\Sesat();
 		$kawal->index();
 		return false;
@@ -126,7 +124,6 @@ class Peta
 
 	function parameter()
 	{
-		require KAWAL . '/sesat.php';
 		$kawal = new \Aplikasi\Kawal\Sesat();
 		$kawal->parameter();
 		return false;
@@ -135,7 +132,6 @@ class Peta
 	function panjangSangatParam()
 	{
 		$amaran = 'parameter lebih daripada 8';
-		require KAWAL . '/sesat.php';
 		$kawal = new \Aplikasi\Kawal\Sesat();
 		$kawal->classTidakWujud($amaran);
 		return false;
@@ -143,7 +139,6 @@ class Peta
 
 	function classKawalTidakWujud($amaran)
 	{
-		require KAWAL . '/sesat.php';
 		$kawal = new \Aplikasi\Kawal\Sesat();
 		$kawal->classTidakWujud($amaran);
 		return false;
@@ -151,7 +146,6 @@ class Peta
 
 	public static function classTanyaTidakWujud($amaran)
 	{
-		require KAWAL . '/sesat.php';
 		$kawal = new \Aplikasi\Kawal\Sesat();
 		$kawal->classTidakWujud($amaran);
 		//return false;
@@ -160,7 +154,6 @@ class Peta
 
 	public static function methodTanyaTidakWujud($amaran,$class,$method)
 	{
-		require KAWAL . '/sesat.php';
 		$kawal = new \Aplikasi\Kawal\Sesat();
 		$kawal->methodTanyaTidakWujud($amaran,$class,$method);
 		//return false;
@@ -169,7 +162,6 @@ class Peta
 
 	public static function folderPaparTidakWujud()
 	{
-		require KAWAL . '/sesat.php';
 		$kawal = new \Aplikasi\Kawal\Sesat();
 		$kawal->folderPaparTidakWujud();
 		return false;//*/
@@ -177,7 +169,6 @@ class Peta
 
 	public static function failPaparTidakWujud()
 	{
-		require KAWAL . '/sesat.php';
 		$kawal = new \Aplikasi\Kawal\Sesat();
 		$kawal->failTidakWujud();
 		return false;
