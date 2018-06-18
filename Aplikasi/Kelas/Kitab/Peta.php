@@ -10,6 +10,7 @@ namespace Aplikasi\Kitab; //echo __NAMESPACE__;
 class Peta
 {
 #==================================================================================================================
+#------------------------------------------------------------------------------------------------------------------
 	function __construct()
 	{
 		# 1. capai fungsi dpt_url() dan masukkan dalam $url
@@ -45,7 +46,7 @@ class Peta
 		else $this->sesat();
 
 	}
-
+#------------------------------------------------------------------------------------------------------------------
 	private function debugPembolehubah($failKawal, $fail, $url, $Url)
 	{
 		//echo '<hr>KAWAL=' . KAWAL . '<br>';
@@ -53,7 +54,7 @@ class Peta
 		//echo '<hr>$fail->' . $fail . '<br>';
 		//echo '<hr>$url[0]->' . $Url[0] . '<br>';
 	}
-
+#------------------------------------------------------------------------------------------------------------------
 	/**
 	 *  Cara membaca parameter url GET
 	 *
@@ -77,7 +78,7 @@ class Peta
 			$this->muatkanKawal($kawal, $panjang, $url);
 
     }
-
+#------------------------------------------------------------------------------------------------------------------
 	private function muatkanKawal($kawal, $panjang, $url)
 	{
 			# Tentukan apa yang dimuatkan
@@ -114,21 +115,23 @@ class Peta
 				default: $kawal->index(); break;
 			}
 	}
-#--- masuk fungsi campak ke pangkal jalan jika sesat
+#------------------------------------------------------------------------------------------------------------------
+### masuk fungsi campak ke pangkal jalan jika sesat
+	#--------------------------------------------------------------------------------------------------------------
 	function sesat()
 	{
 		$kawal = new \Aplikasi\Kawal\Sesat();
 		$kawal->index();
 		return false;
 	}
-
+	#--------------------------------------------------------------------------------------------------------------
 	function parameter()
 	{
 		$kawal = new \Aplikasi\Kawal\Sesat();
 		$kawal->parameter();
 		return false;
 	}
-
+	#--------------------------------------------------------------------------------------------------------------
 	function panjangSangatParam()
 	{
 		$amaran = 'parameter lebih daripada 8';
@@ -136,14 +139,14 @@ class Peta
 		$kawal->classTidakWujud($amaran);
 		return false;
 	}
-
+	#--------------------------------------------------------------------------------------------------------------
 	function classKawalTidakWujud($amaran)
 	{
 		$kawal = new \Aplikasi\Kawal\Sesat();
 		$kawal->classTidakWujud($amaran);
 		return false;
 	}
-
+	#--------------------------------------------------------------------------------------------------------------
 	public static function classTanyaTidakWujud($amaran)
 	{
 		$kawal = new \Aplikasi\Kawal\Sesat();
@@ -151,7 +154,7 @@ class Peta
 		//return false;
 		exit;
 	}
-
+	#--------------------------------------------------------------------------------------------------------------
 	public static function methodTanyaTidakWujud($amaran,$class,$method)
 	{
 		$kawal = new \Aplikasi\Kawal\Sesat();
@@ -159,19 +162,21 @@ class Peta
 		//return false;
 		exit;
 	}
-
+	#--------------------------------------------------------------------------------------------------------------
 	public static function folderPaparTidakWujud()
 	{
 		$kawal = new \Aplikasi\Kawal\Sesat();
 		$kawal->folderPaparTidakWujud();
 		return false;//*/
 	}
-
+	#--------------------------------------------------------------------------------------------------------------
 	public static function failPaparTidakWujud()
 	{
 		$kawal = new \Aplikasi\Kawal\Sesat();
 		$kawal->failTidakWujud();
 		return false;
 	}
+	#--------------------------------------------------------------------------------------------------------------
+#------------------------------------------------------------------------------------------------------------------
 #==================================================================================================================
 }
