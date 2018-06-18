@@ -9,7 +9,7 @@ class Sesat extends \Aplikasi\Kitab\Kawal
 		//\Aplikasi\Kitab\Kebenaran::kawalMasuk();
 		//\Aplikasi\Kitab\Kebenaran::kawalKeluar();
 		$this->_tajukAtas = 'Enjin - Sesat';
-		$this->_folder = 'index'; //huruf('kecil', namaClass($this));
+		$this->_folder = huruf('kecil', namaClass($this));
 		//echo '<hr>Nama class :' . __METHOD__ . '<hr>';
 		//echo '<hr>Nama function :' .__FUNCTION__ . '<hr>';
 	}
@@ -74,6 +74,7 @@ class Sesat extends \Aplikasi\Kitab\Kawal
 		# Pergi papar kandungan
 		//$this->semakPembolehubah($this->papar->mesej); # Semak data dulu
 		$this->paparKandungan($this->_folder, 'index');
+		//exit();
 	}
 #-------------------------------------------------------------------------------------------
 	function methodTanyaTidakWujud($amaran,$class,$method)
