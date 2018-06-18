@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="author" content="">
+<link rel="icon" href="../../001/dist/img/favicon.ico">
+
+<title>MVC&nbsp;MELAYU&nbsp;2.&nbsp;:&nbsp;Konsep&nbsp;Asas</title>
+
+<!-- Bootstrap core CSS -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+</head>
+<body>
+
+<h1>Konsep asas mvc melayu.</h1>
+<div class="container-fluid">
+<p>Cara membaca parameter url GET
+<br>http://localhost/apps/{kawal}/{kaedah}/(param)/(param)/(param)/(param)/(param)/(param)
+<br>url[0] = Kawal -> senarai class dalam folder kawal
+<br>url[1] = Kaedah -> senarai fungsi2 dalam class Kawal
+<br>url[2] = Param2
+<br>url[3] = Param3
+<br>url[4] = Param4
+<br>url[5] = Param5
+<br>url[6] = Param6
+<br>url[7] = Param7
+</p>
+
+<p>Dalam mvc-melayu, kita hanya setkan 6 sahaja pembolehubah dalam setiap fail dalam folder kawal.
+<br>Jadi fungsi class Peta adalah mengesan adakah wujud fail atau tidak.
+<br>Jika wujud, include fail tersebut guna fungsi spl_autoload_register()
+<br>Jika tidak wujud, campak dalam fail Kawal/Sesat.php
+</p>
+
+<p>Jika fail dalam folder kawal wujud, kita akan setkan 2 nilai secara default.
+<br>Maka fail Index dan fungsi index akan diwujudkan secara automatik.
+<br>lepas itu kita kan cari fungsi jemaahTaskil() dalam class Kawal.
+</p>
+
+<p>Tugas class Kawal adalah untuk wujudkan $this->papar dan $this->tanya.
+<br>fungsi jemaahTaskil() adalah untuk semak sama ada adalah wujud fail $nama dalam folder tanya.
+<br>jika wujud, baru include fail tersebut guna fungsi spl_autoload_register()
+</p>
+
+</div<!--  class="container-fluid" -->
+
+<!-- Bootstrap core JavaScript
+    ================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="../../assets/js/vendor/popper.min.js"></script>
+<script src="../../dist/js/bootstrap.min.js"></script>
+
+</body>
+</html>
