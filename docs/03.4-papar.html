@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="author" content="">
+<link rel="icon" href="../../001/dist/img/favicon.ico">
+
+<title>MVC&nbsp;MELAYU&nbsp;2.&nbsp;:&nbsp;Konsep&nbsp;Asas</title>
+
+<!-- Bootstrap core CSS -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+</head>
+<body>
+
+<div class="container-fluid">
+<h1>class Papar </h1>
+
+<p>dalam class Papar ada fungsi pilihTemplate()</p>
+<p>dalam fungsi ini ada beberapa jenis template iaitu</p>
+
+<ol>
+<li>miminium</li>
+<li>modern_admin_panel</li>
+<li>startbootstrap-sb-admin-2-1.0.8</li>
+<li>FlatAdmin-V.2</li>
+<li>AdminLTE-2.3.0</li>
+<li>A0</li>
+</ol>
+
+<p>A0 adalah template default berasaskan bootstarp twitter 4.1.1</p>
+
+<p>fungsi paparTemplate adalah untuk debug sama ada lokasi include fail adalah fail yang betul</p>
+
+<p>fungsi bacaTemplate adalah untuk memilih fail2 yang berkaitan dengan template</p>
+
+<p>jika $paparFail == false, maka kita akan campak ke \Aplikasi\Kitab\Peta::failPaparTidakWujud()</p>
+
+<p>jika $noInclude == true atau $noInclude == 1, kita hanya include $paparFail sahaja</p>
+
+<p>selain itu baru kita include fail2 berkaitan dengan $paparFail iaitu</p>
+<ol>
+<li>diatas.php</li>
+<li>menu_atas.php</li>
+<li>menu-tengah-atas.php</li>
+<li>menu-tengah-bawah.php</li>
+<li>dibawah.php</li>
+</ol>
+
+<p>$paparFail diletakkan antara menu-tengah-atas dan menu-tengah-bawah</p>
+
+</div<!--  class="container-fluid" -->
+
+<!-- Bootstrap core JavaScript
+    ================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="../../assets/js/vendor/popper.min.js"></script>
+<script src="../../dist/js/bootstrap.min.js"></script>
+
+</body>
+</html>
