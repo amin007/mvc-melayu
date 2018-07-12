@@ -10,13 +10,13 @@ MVC dalam bahasa melayu terutama nama folder, class dan pembolehubah.
 Dalam folder aplikasi terdapat 4 folder utama iaitu kawal,papar,pustaka,tanya 
 dimana kawal => controller, papar => view, kitab => library dan tanya => model. 
 
-##al-amin
+## al-amin
 Dedikasikan kepada nabi muhammad saw (selawat atas nabi).
 
 Jadi antara cadangan kita tukar istilah 4 folder utama adalah
 fikirumat => controller, dakwah => view, kitab => library dan  ??? => model. 
 
-##karkun 
+## karkun
 Dalam tabligh ada istilah taskil yang bertujuan memujuk orang keluar pada jalan Allah.
 Biasanya ada orang yang akan ambil nama selepas bayan(ceramah usaha atas iman amal).
 Di samping itu ada juga fikir harian, mesyuarat mingguan dan malam karguzari.
@@ -24,12 +24,12 @@ Di samping itu ada juga fikir harian, mesyuarat mingguan dan malam karguzari.
 Jadi antara cadangan kita tukar istilah 4 folder utama adalah
 fikir => controller, bayan => view, kitab => library dan taskil => model. 
 
-##sultan-jdt
+## sultan-jdt
 
 Jadi antara cadangan kita tukar istilah 4 folder utama adalah
 dun => controller, copmohor => view, perlembagaan => library dan ??? => model. 
 
-#konsep-asal 
+#konsep-asal
 Tujuan guna verb (kata kerja) hanya pendek kata. Jadikan 5 huruf bagi setiap konsep mvc. 
 Asalnya cuba hendak terjemahkan konsep mvc semudah mungkin dalam bahasa melayu. 
 Mungkin akan dibaiki jika jumpa perkataan sesuai.
