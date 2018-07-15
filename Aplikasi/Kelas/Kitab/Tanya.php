@@ -62,6 +62,9 @@ class Tanya
 	}
 #--- tamat - contoh cari dan simpan ---#
 #-------------------------------------------------------------------------------------------------
+##################################################################################################
+## mula - untuk create sql
+	#---------------------------------------------------------------------------------------------
 	public function buatJadual($myTable, $medan)
 	{
 		# set sql
@@ -72,7 +75,7 @@ class Tanya
 		//echo '$sql-><pre>'; print_r($sql); echo '</pre>';
 		$this->db->selectAll($sql);
 	}
-#-------------------------------------------------------------------------------------------------
+	#---------------------------------------------------------------------------------------------
 	public function salinJadual($myTableNew, $medan, $myTableOld)
 	{
 		# set sql
@@ -80,10 +83,11 @@ class Tanya
 			 . ' SELECT ' . $medan . ' FROM ' . $myTableOld
 			 . '';
 
-		echo '$sql-><pre>'; print_r($sql); echo '</pre>';
-		//$this->db->insert($sql);	header('location:' . URL . 'test/paparfail');
+		print_r($sql); echo ";\r";
+		//echo '$sql-><pre>'; print_r($sql); echo '</pre>';
+		//$this->db->insert($sql); header('location:' . URL . 'test/paparfail');
 	}
-#-------------------------------------------------------------------------------------------------
+	#---------------------------------------------------------------------------------------------
 	public function tambahJadual($myTable, $kira, $cantumMedan, $cantumData)
 	{
 		# set sql
@@ -93,9 +97,10 @@ class Tanya
 		$sql .= implode(",\r", $cantumData);
 
 		echo '$sql-><pre>'; print_r($sql); echo '</pre>';
-		//$this->db->insert($sql);	header('location:' . URL . 'test/paparfail');
+		//$this->db->insert($sql); header('location:' . URL . 'test/paparfail');
 	}
-#-------------------------------------------------------------------------------------------------
+	#---------------------------------------------------------------------------------------------
+## tamat - untuk create sql
 ##################################################################################################
 ## mula - untuk insert sql
 	#---------------------------------------------------------------------------------------------
