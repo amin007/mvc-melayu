@@ -150,6 +150,7 @@ class Tanya
 	}
 
 #--- tamat - contoh tambah sql guna values ---#
+#-------------------------------------------------------------------------------------------------
 	public function buatJadual($myTable, $medan)
 	{
 		# set sql
