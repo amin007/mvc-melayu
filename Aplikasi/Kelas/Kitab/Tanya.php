@@ -96,94 +96,74 @@ class Tanya
 		//$this->db->insert($sql);	header('location:' . URL . 'test/paparfail');
 	}
 #-------------------------------------------------------------------------------------------------
-#--- mula - contoh tambah sql guna set ---#
+##################################################################################################
+## mula - untuk insert sql
+	#---------------------------------------------------------------------------------------------
+	#--- mula - contoh tambah sql guna set ---#
 	public function tambahSql($myTable, $data)
 	{
-		$senarai = null; //echo '<pre>$data->', print_r($data, 1) . '</pre>';
-		foreach ($data as $medan => $nilai)
-		{
-			$senarai[] = ($nilai==null) ? " `$medan`=null" : " `$medan`='$nilai'"; 
-		}
-
-		# set sql
-		$sql  = "INSERT INTO $myTable SET \r";
-		$sql .= implode(",\r", $senarai);
-
+		$sql = $this->sql->arahanSet($myTable, $data);
 		echo '<pre>Tambah $sql->'; print_r($sql); echo '</pre>';
 		//$this->db->insert($sql);
 	}
-#-------------------------------------------------------------------------------------------------
+	#---------------------------------------------------------------------------------------------
 	public function tambahData($myTable, $data)
 	{
-		$senarai = null; //echo '<pre>$data->', print_r($data, 1); echo '</pre>';
-		foreach ($data as $medan => $nilai)
-		{
-			$senarai[] = ($nilai==null) ? " `$medan`=null" : " `$medan`='$nilai'"; 
-		}
-
-		# set sql
-		$sql  = "INSERT INTO $myTable SET \r";
-		$sql .= implode(",\r", $senarai);
-
+		$sql = $this->sql->arahanSet($myTable, $data);
 		//echo '<pre>Tambah $sql->'; print_r($sql); echo '</pre>';
 		$this->db->insert($myTable, $data);
 	}
-#--- tamat - contoh tambah sql guna set ---#
-#--- mula - contoh tambah sql guna values ---#
+	#--- tamat - contoh tambah sql guna set ---#
+	#---------------------------------------------------------------------------------------------
+	#--- mula - contoh tambah sql guna values ---#
 	public function tambahSimpanBanyak($myTable, $data)
 	{
-		//echo '<pre>$myTable->', print_r($data, 1); echo '</pre>';
+		//echo '<pre>$myTable->'; print_r($data); echo '</pre>';
 		$this->db->insert($myTable, $data);
 	}
-#-------------------------------------------------------------------------------------------------
+	#---------------------------------------------------------------------------------------------
 	public function tambahSqlBanyakNilai($myTable, $medan, $data)
 	{
-		//echo '<pre>$data->', print_r($data, 1); echo '</pre>';
-
-		# set sql
-		$sql  = "INSERT INTO $myTable\r($medan) VALUES \r";
-		$sql .= implode(",\r", $data) . ";";
-
+		$sql = $this->sql->arahanValues($myTable, $medan, $data);
 		echo '<pre>$sql->'; print_r($sql); echo '</pre>';
 		//$this->db->insertAll($sql);
 	}
-#-------------------------------------------------------------------------------------------------
+	#---------------------------------------------------------------------------------------------
 	public function tambahArahanSqlBanyakNilai($myTable, $medan, $data)
 	{
-		//echo '<pre>$data->', print_r($data, 1); echo '</pre>';
-
-		# set sql
-		$sql  = "INSERT INTO $myTable\r($medan) VALUES \r";
-		$sql .= implode(",\r", $data) . ";";
-
+		$sql = $this->sql->arahanValues($myTable, $medan, $data);
 		return $sql;
 	}
-#-------------------------------------------------------------------------------------------------
+	#---------------------------------------------------------------------------------------------
 	public function tambahBanyakNilai($myTable, $medan, $data)
 	{
-		//echo '<pre>$data->', print_r($data, 1); echo '</pre>';
-
-		# set sql
-		$sql  = "INSERT INTO $myTable\r($medan) VALUES \r";
-		$sql .= implode(",\r", $data) . ";";
-
+		$sql = $this->sql->arahanValues($myTable, $medan, $data);
 		//echo '<pre>$sql->'; print_r($sql); echo '</pre>';
 		$this->db->insertAll($sql);
 	}
-#-------------------------------------------------------------------------------------------------
+	#---------------------------------------------------------------------------------------------
 	public function tambahPDOBanyakNilai($myTable, $medan, $dataProksi, $data)
 	{
-		//echo '<pre>$data->', print_r($data, 1); echo '</pre>';
-
-		# set sql
-		$sql  = "INSERT INTO `$myTable`\r($medan) VALUES \r";
-		$sql .= implode(",\r", $dataProksi) . ";";
-
+		$sql = $this->sql->arahanValues($myTable, $medan, $dataProksi);
 		//echo '<pre>$sql->'; print_r($sql); echo '</pre>';
 		$this->db->insertAllNew($sql,$data);
 	}
+	#--- tamat - contoh tambah sql guna values ---#
+	#---------------------------------------------------------------------------------------------
+	public function tambahJadualBarukeLama($myTableNew,$medanLama,$medanBaru,$myTableOld,
+		$carian = null)
+	{
+		# set sql
+		$sql  = "INSERT INTO $myTableNew($medanLama)";
+		$sql .= "\r SELECT $medanBaru";
+		$sql .= "\r FROM $myTableOld\r";
+		$sql .= $this->sql->dimana($carian);
 
-#--- tamat - contoh tambah sql guna values ---#
+		echo '<pre>$sql->'; print_r($sql); echo '</pre>';
+		//$this->db->insertAllNew($sql,$data);
+	}
+	#---------------------------------------------------------------------------------------------
+## tamat - untuk insert sql
 ##################################################################################################
 ## mula - untuk select sql
 	#---------------------------------------------------------------------------------------------
