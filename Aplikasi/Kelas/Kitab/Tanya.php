@@ -182,6 +182,103 @@ class Tanya
 		echo '$sql-><pre>'; print_r($sql); echo '</pre>';
 		//$this->db->insert($sql);	header('location:' . URL . 'test/paparfail');
 	}
+##################################################################################################
+## mula - untuk select sql
+	#---------------------------------------------------------------------------------------------
+	public function kiraMedan($myTable, $medan, $carian)
+	{
+		$sql = $this->sql->bentukSqlSelect($myTable, $medan, $carian);
+
+		//echo htmlentities($sql) . '<br>';
+		$result = $this->db->columnCount($sql);
+
+		return $result;
+	}
+	#---------------------------------------------------------------------------------------------
+	public function kiraBaris($myTable, $medan, $carian)
+	{
+		$sql = $this->sql->bentukSqlSelect($myTable, $medan, $carian);
+		//echo htmlentities($sql) . '<br>';
+		$result = $this->db->rowCount($sql);
+
+		return $result;
+	}
+	#---------------------------------------------------------------------------------------------
+	public function cariSemuaData($myTable, $medan, $carian, $susun)
+	{
+		$sql = $this->sql->bentukSqlSelect($myTable, $medan, $carian, $susun);
+		$result = $this->db->selectAll($sql);
+		//echo json_encode($result);
+
+		return $result;
+	}
+	#---------------------------------------------------------------------------------------------
+	public function cariArahanSql($myTable, $medan, $carian, $susun)
+	{
+		$sql = $this->sql->bentukSqlSelect($myTable, $medan, $carian, $susun);
+
+		return $sql;
+	}
+	#---------------------------------------------------------------------------------------------
+	public function cariSql($myTable, $medan, $carian, $susun)
+	{
+		$sql = $this->sql->bentukSqlSelect($myTable, $medan, $carian, $susun);
+
+		echo '<pre>' . htmlentities($sql) . '</pre><br>';
+	}
+	#---------------------------------------------------------------------------------------------
+	public function paparSql($myTable, $medan, $carian, $susun)
+	{
+		$sql = $this->sql->bentukSqlSelect($myTable, $medan, $carian, $susun);
+
+		echo '<pre>$sql->' . htmlentities($sql) . '</pre><br>';
+	}
+	#---------------------------------------------------------------------------------------------
+## tamat - untuk select sql
+##################################################################################################
+## mula - untuk update sql
+	#---------------------------------------------------------------------------------------------
+	public function ubahSimpan($data, $myTable, $medanID)
+	{
+		$sql = $this->sql->bentukSqlUpdate($data, $myTable, $medanID);
+		//echo '<pre>$sql->'; print_r($sql); echo '</pre>';
+		$this->db->update($sql);
+	}
+	#---------------------------------------------------------------------------------------------
+	public function ubahSqlSimpan($data, $myTable, $medanID)
+	{
+		$sql = $this->sql->bentukSqlUpdate($data, $myTable, $medanID);
+		echo '<pre>$sql->'; print_r($sql); echo '</pre>';
+	}
+	#---------------------------------------------------------------------------------------------
+	public function ubahArahanSqlSimpan($data, $myTable, $medanID)
+	{
+		return $this->sql->bentukSqlUpdate($data, $myTable, $medanID);
+		//echo '<pre>$sql->'; print_r($sql); echo '</pre>';
+	}
+	#---------------------------------------------------------------------------------------------
+	public function ubahPDOSqlSimpan($data, $myTable, $medanID)
+	{
+		list($sql, $data2) = $this->sql->bentukSqlUpdateDPO($data, $myTable, $medanID);
+		//echo '$sql-><pre>'; print_r($sql); echo '</pre>';
+		$this->db->updateNew($sql, $data2);
+	}
+	#---------------------------------------------------------------------------------------------
+	public function ubahSimpanSemua($data, $myTable, $medanID, $dimana)
+	{
+		$sql = $this->sql->bentukSqlSimpanSemua($data, $myTable, $medanID, $dimana);
+		echo '<pre>$sql->'; print_r($sql); echo '</pre>';
+		//$this->db->update($sql);//*/
+	}
+	#---------------------------------------------------------------------------------------------
+	public function ubahSqlSimpanSemua($data, $myTable, $medanID, $dimana)
+	{
+		$sql = $this->sql->bentukSqlSimpanSemua($data, $myTable, $medanID, $dimana);
+		echo '<pre>$sql->'; print_r($sql); echo '</pre>';
+	}
+	#---------------------------------------------------------------------------------------------
+## tamat - untuk update sql
+##################################################################################################
 #-------------------------------------------------------------------------------------------------
 	/*public function buangTerus($data, $myTable)
 	{
