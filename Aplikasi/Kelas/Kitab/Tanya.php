@@ -2,13 +2,14 @@
 namespace Aplikasi\Kitab; //echo __NAMESPACE__;
 class Tanya
 {
-#==========================================================================================
+#=================================================================================================
+#-------------------------------------------------------------------------------------------------
 	function __construct()
 	{
 		$this->db = new \Aplikasi\Kitab\DB_Pdo(DB_TYPE, DB_HOST, DB_NAME, DB_USER, DB_PASS);
 		//$this->db = new \Aplikasi\Kitab\DB_Mysqli(DB_TYPE, DB_HOST, DB_NAME, DB_USER, DB_PASS);
 	}
-
+#-------------------------------------------------------------------------------------------------
 	private function jika($fix,$atau,$medan,$cariApa,$akhir)
 	{
 		$dimana = null; //echo "\r($fix) +> $atau $medan -> '$cariApa' |";
@@ -79,7 +80,7 @@ class Tanya
 
 		return $dimana; //echo '<br>' . $dimana;
 	}
-
+#-------------------------------------------------------------------------------------------------
 	private function dimana($carian)
 	{
 		$where = null; //echo '<pre>'; print_r($carian); echo '</pre>';
@@ -100,7 +101,7 @@ class Tanya
 
 		return $where; //echo '<pre>'; print_r($where); echo '</pre>';
 	}
-
+#-------------------------------------------------------------------------------------------------
 	private function dibawah($carian)
 	{
 		$susunan = null; //echo '<pre>'; print_r($carian); echo '</pre>';
@@ -125,7 +126,7 @@ class Tanya
 
 		return $susunan; //echo '<pre>'; print_r($susunan); echo '</pre>';
 	}
-
+#-------------------------------------------------------------------------------------------------
 	public function kiraMedan($myTable, $medan, $carian)
 	{
 		$sql = 'SELECT ' . $medan . ' FROM ' . $myTable 
@@ -136,7 +137,7 @@ class Tanya
 
 		return $result;
 	}
-
+#-------------------------------------------------------------------------------------------------
 	public function kiraBaris($myTable, $medan, $carian)
 	{
 		$sql = 'SELECT ' . $medan . ' FROM ' . $myTable 
@@ -147,14 +148,14 @@ class Tanya
 
 		return $result;
 	}
-
+#-------------------------------------------------------------------------------------------------
 	public function paparMedan($myTable)
 	{
 		//return $this->db->select('SHOW COLUMNS FROM ' . $myTable);
 		$sql = 'SHOW COLUMNS FROM ' . $myTable;
 		return $this->db->selectAll($sql);
 	}
-
+#-------------------------------------------------------------------------------------------------
 	public function pilihMedan($database,$myTable)
 	{
 		/*TABLE_CATALOG, TABLE_SCHEMA, TABLE_NAME
@@ -174,7 +175,7 @@ class Tanya
 		echo htmlentities($sql) . '<br>';
 		return $this->db->selectAll($sql);
 	}
-
+#-------------------------------------------------------------------------------------------------
 	public function ubahMedan($myTable, $medan)
 	{
 		$sql = 'ALTER TABLE `' . $myTable . '` '
@@ -185,7 +186,7 @@ class Tanya
 		echo htmlentities($sql) . '<br>';
 		//return $this->db->selectAll($sql);
 	}
-
+#-------------------------------------------------------------------------------------------------
 	public function cariSemuaData($myTable, $medan, $carian, $susun)
 	{
 		$sql = 'SELECT ' . $medan . ' FROM ' . $myTable 
@@ -198,7 +199,7 @@ class Tanya
 
 		return $result;
 	}
-
+#-------------------------------------------------------------------------------------------------
 	public function cariSql($myTable, $medan, $carian, $susun)
 	{
 		$sql = 'SELECT ' . $medan . ' FROM ' . $myTable 
@@ -208,7 +209,7 @@ class Tanya
 		echo htmlentities($sql) . '<br>';
 		//echo '<pre>$sql->' . $sql . '</pre><br>';
 	}
-
+#-------------------------------------------------------------------------------------------------
 	public function cariArahanSql($myTable, $medan, $carian, $susun)
 	{
 		$sql = 'SELECT ' . $medan . ' FROM ' . $myTable 
@@ -246,7 +247,7 @@ class Tanya
 		echo '<pre>Tambah $sql->'; print_r($sql); echo '</pre>';
 		//$this->db->insert($sql);
 	}
-
+#-------------------------------------------------------------------------------------------------
 	public function tambahData($myTable, $data)
 	{
 		$senarai = null; //echo '<pre>$data->', print_r($data, 1); echo '</pre>';
@@ -269,7 +270,7 @@ class Tanya
 		//echo '<pre>$myTable->', print_r($data, 1); echo '</pre>';
 		$this->db->insert($myTable, $data);
 	}
-
+#-------------------------------------------------------------------------------------------------
 	public function tambahSqlBanyakNilai($myTable, $medan, $data)
 	{
 		//echo '<pre>$data->', print_r($data, 1); echo '</pre>';
@@ -281,7 +282,7 @@ class Tanya
 		echo '<pre>$sql->'; print_r($sql); echo '</pre>';
 		//$this->db->insertAll($sql);
 	}
-
+#-------------------------------------------------------------------------------------------------
 	public function tambahArahanSqlBanyakNilai($myTable, $medan, $data)
 	{
 		//echo '<pre>$data->', print_r($data, 1); echo '</pre>';
@@ -292,7 +293,7 @@ class Tanya
 
 		return $sql;
 	}
-
+#-------------------------------------------------------------------------------------------------
 	public function tambahBanyakNilai($myTable, $medan, $data)
 	{
 		//echo '<pre>$data->', print_r($data, 1); echo '</pre>';
@@ -304,7 +305,7 @@ class Tanya
 		//echo '<pre>$sql->'; print_r($sql); echo '</pre>';
 		$this->db->insertAll($sql);
 	}
-
+#-------------------------------------------------------------------------------------------------
 	public function tambahPDOBanyakNilai($myTable, $medan, $dataProksi, $data)
 	{
 		//echo '<pre>$data->', print_r($data, 1); echo '</pre>';
@@ -328,7 +329,7 @@ class Tanya
 		//echo '$sql-><pre>'; print_r($sql); echo '</pre>';
 		$this->db->selectAll($sql);
 	}
-
+#-------------------------------------------------------------------------------------------------
 	public function salinJadual($myTableNew, $medan, $myTableOld)
 	{
 		# set sql
@@ -339,7 +340,7 @@ class Tanya
 		echo '$sql-><pre>'; print_r($sql); echo '</pre>';
 		//$this->db->insert($sql);	header('location:' . URL . 'test/paparfail');
 	}
-
+#-------------------------------------------------------------------------------------------------
 	public function tambahJadual($myTable, $kira, $cantumMedan, $cantumData)
 	{
 		# set sql
@@ -351,7 +352,7 @@ class Tanya
 		echo '$sql-><pre>'; print_r($sql); echo '</pre>';
 		//$this->db->insert($sql);	header('location:' . URL . 'test/paparfail');
 	}
-
+#-------------------------------------------------------------------------------------------------
 	public function ubahSimpan($data, $myTable, $medanID)
 	{
 		$senarai = null; //echo '<pre>$data->', print_r($data, 1) . '</pre>';
@@ -372,7 +373,7 @@ class Tanya
 		//echo '$sql-><pre>'; print_r($sql); echo '</pre>';
 		$this->db->update($sql);
 	}
-
+#-------------------------------------------------------------------------------------------------
 	public function ubahSqlSimpan($data, $myTable, $medanID)
 	{
 		$senarai = null; //echo '<pre>$data->', print_r($data, 1); echo '</pre>';
@@ -392,7 +393,7 @@ class Tanya
 		$sql = " UPDATE `$myTable` SET \r$senaraiData\r $where";
 		echo '<pre>$sql->'; print_r($sql); echo '</pre>';//*/
 	}
-
+#-------------------------------------------------------------------------------------------------
 	public function ubahPDOSqlSimpan($data, $myTable, $medanID)
 	{
 		$senarai = null; //echo '<pre>$data->'; print_r($data); echo '</pre>';
@@ -411,7 +412,7 @@ class Tanya
 		//echo '$sql-><pre>'; print_r($sql); echo '</pre>';
 		$this->db->updateNew($sql, $data);
 	}
-
+#-------------------------------------------------------------------------------------------------
 	public function ubahArahanSqlSimpan($data, $myTable, $medanID)
 	{
 		$senarai = null; //echo '<pre>$data->', print_r($data, 1); echo '</pre>';
@@ -431,7 +432,7 @@ class Tanya
 		return $sql = " UPDATE `$myTable` SET \r$senaraiData\r $where";
 		//echo '<pre>$sql->'; print_r($sql); echo '</pre>';//*/
 	}
-
+#-------------------------------------------------------------------------------------------------
 	public function ubahSimpanSemua($data, $myTable, $medanID, $dimana)
 	{
 		//echo '<pre>$data->', print_r($data, 1); echo '</pre>';
@@ -454,7 +455,7 @@ class Tanya
 		//$this->db->update($sql);
 		//*/
 	}
-
+#-------------------------------------------------------------------------------------------------
 	public function ubahSqlSimpanSemua($data, $myTable, $medanID, $dimana)
 	{
 		//echo '<pre>$data->', print_r($data, 1) . '</pre>';
@@ -475,7 +476,7 @@ class Tanya
 		$sql = " UPDATE `$myTable` SET \r$senaraiData\r $where";
 		echo '<pre>$sql->'; print_r($sql, 1); echo '</pre>';
 	}
-
+#-------------------------------------------------------------------------------------------------
 	/*public function buangTerus($data, $myTable)
 	{
 		//echo '<pre>$sql->', print_r($data, 1); echo '</pre>';
@@ -486,6 +487,6 @@ class Tanya
 		//echo '<pre>$sql->', print_r($sql, 1); echo '</pre>';
 		$this->db->delete($myTable, "`$cariID` = '{$data[$cariID]}' ");
 	}//*/
-
-#==========================================================================================
+#-------------------------------------------------------------------------------------------------
+#=================================================================================================
 }
