@@ -61,6 +61,7 @@ class Tanya
 		return $result;	
 	}
 #--- tamat - contoh cari dan simpan ---#
+#-------------------------------------------------------------------------------------------------
 #--- mula - contoh tambah sql guna set ---#
 	public function tambahSql($myTable, $data)
 	{
