@@ -62,6 +62,40 @@ class Tanya
 	}
 #--- tamat - contoh cari dan simpan ---#
 #-------------------------------------------------------------------------------------------------
+	public function buatJadual($myTable, $medan)
+	{
+		# set sql
+		$sql = 'CREATE TABLE `' . $myTable . '` '
+			 . "\r(\r" . $medan . "\r)"
+			 . ';';
+
+		//echo '$sql-><pre>'; print_r($sql); echo '</pre>';
+		$this->db->selectAll($sql);
+	}
+#-------------------------------------------------------------------------------------------------
+	public function salinJadual($myTableNew, $medan, $myTableOld)
+	{
+		# set sql
+		$sql = 'CREATE TABLE ' . $myTableNew . ' AS'
+			 . ' SELECT ' . $medan . ' FROM ' . $myTableOld
+			 . '';
+
+		echo '$sql-><pre>'; print_r($sql); echo '</pre>';
+		//$this->db->insert($sql);	header('location:' . URL . 'test/paparfail');
+	}
+#-------------------------------------------------------------------------------------------------
+	public function tambahJadual($myTable, $kira, $cantumMedan, $cantumData)
+	{
+		# set sql
+		$sql  = "CREATE TABLE `$myTable` /*".($kira)."*/(\r";
+		$sql .= substr($cantumMedan, 0, -1);
+		$sql .= "\r);\r\rINSERT INTO `$myTable` VALUES \r";
+		$sql .= implode(",\r", $cantumData);
+
+		echo '$sql-><pre>'; print_r($sql); echo '</pre>';
+		//$this->db->insert($sql);	header('location:' . URL . 'test/paparfail');
+	}
+#-------------------------------------------------------------------------------------------------
 #--- mula - contoh tambah sql guna set ---#
 	public function tambahSql($myTable, $data)
 	{
@@ -150,40 +184,6 @@ class Tanya
 	}
 
 #--- tamat - contoh tambah sql guna values ---#
-#-------------------------------------------------------------------------------------------------
-	public function buatJadual($myTable, $medan)
-	{
-		# set sql
-		$sql = 'CREATE TABLE `' . $myTable . '` '
-			 . "\r(\r" . $medan . "\r)"
-			 . ';';
-
-		//echo '$sql-><pre>'; print_r($sql); echo '</pre>';
-		$this->db->selectAll($sql);
-	}
-#-------------------------------------------------------------------------------------------------
-	public function salinJadual($myTableNew, $medan, $myTableOld)
-	{
-		# set sql
-		$sql = 'CREATE TABLE ' . $myTableNew . ' AS'
-			 . ' SELECT ' . $medan . ' FROM ' . $myTableOld
-			 . '';
-
-		echo '$sql-><pre>'; print_r($sql); echo '</pre>';
-		//$this->db->insert($sql);	header('location:' . URL . 'test/paparfail');
-	}
-#-------------------------------------------------------------------------------------------------
-	public function tambahJadual($myTable, $kira, $cantumMedan, $cantumData)
-	{
-		# set sql
-		$sql  = "CREATE TABLE `$myTable` /*".($kira)."*/(\r";
-		$sql .= substr($cantumMedan, 0, -1);
-		$sql .= "\r);\r\rINSERT INTO `$myTable` VALUES \r";
-		$sql .= implode(",\r", $cantumData);
-
-		echo '$sql-><pre>'; print_r($sql); echo '</pre>';
-		//$this->db->insert($sql);	header('location:' . URL . 'test/paparfail');
-	}
 ##################################################################################################
 ## mula - untuk select sql
 	#---------------------------------------------------------------------------------------------
