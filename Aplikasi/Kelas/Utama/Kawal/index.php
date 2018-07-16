@@ -41,6 +41,18 @@ class Index extends \Aplikasi\Kitab\Kawal
 		echo '</pre>|';//*/
 	}
 ##------------------------------------------------------------------------------------------
+	public function template()
+	{
+		//echo '<hr>Nama class :' . __METHOD__ . '<hr>';
+		# Set pemboleubah utama
+		$this->papar->senarai = $this->tanya->pilihTajuk();
+		//$this->semakPembolehubah($this->papar->senarai); # Semak data dulu
+
+		# Pergi papar kandungan
+		$fail = array('template');
+		$this->paparKandungan($this->_folder,$fail[0],$noInclude=0);
+	}
+##------------------------------------------------------------------------------------------
 	function logout()
 	{
 		//echo '<pre>sebelum:'; print_r($_SESSION); echo '</pre>';
