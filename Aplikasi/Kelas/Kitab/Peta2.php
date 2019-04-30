@@ -1,10 +1,10 @@
 <?php
 /* Ini class untuk
- * 1. membaca $url dari fungsi dpt_url() dari fail fungsi.php
- *    dan masukkan dalam $url
- * 2. semak sama ada nilai $url[0] kosong tak
- * 3. dapatkan fail dalam folder KAWAL yang serupa dengan $url[0]
- * 4. semak sama ada dalam folder KAWAL $fail benar2 wujud
+ * 1. capai fungsi $this->parseURL() dan masukkan dalam $url
+ * 2. cari controller => kawal
+ * 3. cari method => fungsi
+ * 4. masukkan tatasusunan dalam params jika ada
+ * 5. jalankan controller & method, serta kirim params jika ada
  */
 namespace Aplikasi\Kitab; //echo __NAMESPACE__;
 class Peta2
