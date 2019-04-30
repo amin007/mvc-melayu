@@ -11,7 +11,7 @@ class Peta2
 {
 #==========================================================================================
 #------------------------------------------------------------------------------------------
-	//protected $this->kawal = '';
+	protected $kawal = '';
 	//protected $this->method = '';
 	//protected $params = [];//*/
 #------------------------------------------------------------------------------------------
@@ -46,10 +46,10 @@ class Peta2
 		list($url,$Url) = $this->semakURL($url);
 		//$this->debugData($url,$Url);#semak untuk masa depan
 		# controller => kawal
-		($url,$this->kawal) = $this->semakKawal($url,$Url);
+		list($url) = $this->semakKawal($url,$Url);
 
 		# method
-		$url = $this->semakMethod($url,$this->kawal);
+		$url = $this->semakMethod($url);
 
 		/*# params
 		if ( !empty($url) )
@@ -96,17 +96,17 @@ class Peta2
 			unset($url[0]);
 		}
 		$this->kawal = new $this->kawal;
-		return array($url,$this->kawal);
+		return array($url);
 	}
 #------------------------------------------------------------------------------------------
-	function semakMethod($url,$this->kawal)
+	function semakMethod($url)
 	{
 		if( isset($url[1]) )
 		{
 			if( method_exists($this->kawal, $url[1]) )
 			{
 				$this->method = $url[1];
-				echo 'nama class:' . $this->kawal . '<hr>';
+				//echo 'nama class:' . $this->kawal . '<hr>';
 				echo 'nama method:' . $url[1] . '<hr>';
 				unset($url[1]);
 			}
