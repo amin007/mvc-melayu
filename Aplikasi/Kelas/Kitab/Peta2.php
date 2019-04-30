@@ -11,9 +11,9 @@ class Peta2
 {
 #==========================================================================================
 #------------------------------------------------------------------------------------------
-	/*protected $kawal = 'index';
-	protected $method = 'index';
-	protected $params = [];*/
+	protected $kawal = '';
+	protected $method = '';
+	//protected $params = [];//*/
 #------------------------------------------------------------------------------------------
 	public function semakPembolehubah($senarai,$jadual,$p='0')
 	{
