@@ -106,6 +106,8 @@ class Peta2
 			if( method_exists($this->kawal, $url[1]) )
 			{
 				$this->method = $url[1];
+				echo 'nama class:' . $this->kawal . '<hr>';
+				echo 'nama method:' . $url[1] . '<hr>';
 				unset($url[1]);
 			}
 		}
