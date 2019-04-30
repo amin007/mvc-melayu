@@ -94,7 +94,7 @@ class Peta2
 		{
 			$this->kawal = $Url[0];
 			//echo 'lokasi fail:' . KAWAL . '/' . $url[0] . '.php<hr>';
-			echo 'nama class:' . $this->kawal . '<hr>';
+			//echo 'nama class:' . $this->kawal . '<hr>';
 			require_once KAWAL . '/' . $url[0] . '.php';
 			unset($url[0]);
 		}
@@ -113,7 +113,7 @@ class Peta2
 			if( method_exists($this->kawal, $method) )
 			{
 				$this->method = $method;
-				echo 'nama method:' . $method . '<hr>';
+				//echo 'nama method:' . $method . '<hr>';
 				unset($url[1]);
 			}
 		}
