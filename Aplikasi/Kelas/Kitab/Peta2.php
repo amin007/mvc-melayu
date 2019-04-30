@@ -41,7 +41,7 @@ class Peta2
 #------------------------------------------------------------------------------------------
 	public function __construct()
 	{
-		$url = $this->parseURL();//$this->semakPembolehubah($url,'x0');
+		$url = $this->parseURL();
 		//$this->debugData($url);#semak untuk masa depan
 		list($url,$Url) = $this->semakURL($url);$this->semakPembolehubah($url,'x1');
 		# controller => kawal
@@ -69,6 +69,7 @@ class Peta2
 #------------------------------------------------------------------------------------------
 	private function debugData($url)
 	{
+		$this->semakPembolehubah($url,'x0');
 		if($url == '')
 		{
 			echo '$url kosong daa<hr>';
