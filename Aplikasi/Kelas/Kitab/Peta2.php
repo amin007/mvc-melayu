@@ -34,7 +34,7 @@ class Peta2
 			$url = rtrim($_GET['url'], '/');
 			$url = filter_var($url, FILTER_SANITIZE_URL);
 			$url = explode('/', $url);
-			//$url[0] = (empty($url[0])) ? 'index' : $url[0];
+			$url[0] = (!isset($url[0])) ? 'index' : $url[0];
 			return $url;
 		}
 	}
