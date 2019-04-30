@@ -68,17 +68,19 @@ class Peta2
 		call_user_func_array([$this->controller,$this->method], $this->params);//*/
 	}
 #------------------------------------------------------------------------------------------
-	private function debugData($url)
+	private function debugData($url, $Url = null)
 	{
 		$this->semakPembolehubah($url,'x0');
-		if($url == '')
-		{
-			echo '$url kosong daa<hr>';
-		}
+		# semak $url
+		if($url == '') echo '$url kosong daa<hr>';
+		else echo '$url adalah tatasusunan<hr>';
+		# semak $Url
+		if($Url == null) echo '$Url kosong daa<hr>';
 		else
 		{
-			echo '$url adalah tatasusnan<hr>';
+			$this->semakPembolehubah($Url,'Url adalah tatasusunan ');
 		}
+
 	}
 #------------------------------------------------------------------------------------------
 	function semakURL($url)
