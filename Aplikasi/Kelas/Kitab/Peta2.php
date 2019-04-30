@@ -45,13 +45,13 @@ class Peta2
 		$url = $this->parseURL();//$this->semakPembolehubah($url,'url');
 		list($url,$Url) = $this->semakURL($url);//$this->semakPembolehubah($url,'x1');
 
-		/*# controller
-		if( file_exists('app/controllers/' . $url[0] . '.php') )
+		# controller
+		if( file_exists(KAWAL . '/' . $url[0] . '.php') )
 		{
-			$this->controller = $url[0];
+			$this->controller = $Url[0];
+			require_once KAWAL . '/' . $url[0] . '.php';
 			unset($url[0]);
 		}
-		require_once 'app/controllers/' . $this->controller . '.php';
 		$this->controller = new $this->controller;
 
 		# method
