@@ -97,6 +97,8 @@ class Peta2
 		if( file_exists(KAWAL . '/' . $url[0] . '.php') )
 		{
 			$this->kawal = $Url[0];
+			//echo 'lokasi fail:' . KAWAL . '/' . $url[0] . '.php<hr>';
+			//echo 'nama class:' . $this->kawal . '<hr>';
 			require_once KAWAL . '/' . $url[0] . '.php';
 			unset($url[0]);
 		}
