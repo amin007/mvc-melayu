@@ -42,14 +42,7 @@ class Peta2
 	{
 		//$this->semakPembolehubah($_GET,'_GET');
 		$url = $this->parseURL();//$this->semakPembolehubah($url,'x0');
-			if($url == '')
-			{
-				echo '$url kosong daa<hr>';
-			}
-			else
-			{
-				echo '$url adalah tatasusnan<hr>';
-			}
+		//$this->debugData($url);#semak untuk masa depan
 		list($url,$Url) = $this->semakURL($url);$this->semakPembolehubah($url,'x1');
 		# controller => kawal
 		//$url = $this->semakKawal($url,$Url);$this->semakPembolehubah($Url,'x2');
@@ -72,6 +65,18 @@ class Peta2
 
 		# jalankan controller & method, serta kirim params jika ada
 		call_user_func_array([$this->controller,$this->method], $this->params);//*/
+	}
+#------------------------------------------------------------------------------------------
+	private function debugData($url)
+	{
+		if($url == '')
+		{
+			echo '$url kosong daa<hr>';
+		}
+		else
+		{
+			echo '$url adalah tatasusnan<hr>';
+		}
 	}
 #------------------------------------------------------------------------------------------
 	public function semakURL($url)
