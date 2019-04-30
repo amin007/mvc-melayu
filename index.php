@@ -48,4 +48,4 @@ spl_autoload_register(function ($namaClass)
 **
 **      new \Foo\Bar\Baz\Qux;
 **/
-$aplikasi = new \Aplikasi\Kitab\Peta();
+$aplikasi = new \Aplikasi\Kitab\Peta2();
