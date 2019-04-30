@@ -34,18 +34,25 @@ class Peta2
 			$url = rtrim($_GET['url'], '/');
 			$url = filter_var($url, FILTER_SANITIZE_URL);
 			$url = explode('/', $url);
-			$url[0] = (isset($url[0])) ? $url[0] : 'index';
 			return $url;
 		}
 	}
 #------------------------------------------------------------------------------------------
 	public function __construct()
 	{
-		$this->semakPembolehubah($_GET,'_GET');
-		$url = $this->parseURL();$this->semakPembolehubah($url,'x0');
+		//$this->semakPembolehubah($_GET,'_GET');
+		$url = $this->parseURL();//$this->semakPembolehubah($url,'x0');
+			if($url == '')
+			{
+				echo '$url kosong daa<hr>';
+			}
+			else
+			{
+				echo '$url adalah tatasusnan<hr>';
+			}
 		list($url,$Url) = $this->semakURL($url);$this->semakPembolehubah($url,'x1');
 		# controller => kawal
-		$url = $this->semakKawal($url,$Url);$this->semakPembolehubah($Url,'x2');
+		//$url = $this->semakKawal($url,$Url);$this->semakPembolehubah($Url,'x2');
 
 		/*# method
 		if( isset($url[1]) )
@@ -70,7 +77,7 @@ class Peta2
 	public function semakURL($url)
 	{
 		# 2. semak sama ada $url[0] kosong * jika ya : $url[0] == 'index';
-		//$url[0] = (empty($url[0])) ? 'index' : $url[0];
+		$url[0] = (empty($url[0])) ? 'index' : $url[0];
 		$Url[0] = '\\Aplikasi\Kawal\\' . huruf('Besar', $url[0]);
 
 		return array($url,$Url);
