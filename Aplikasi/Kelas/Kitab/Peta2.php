@@ -43,6 +43,7 @@ class Peta2
 	{
 		# 1. capai fungsi dpt_url() dan masukkan dalam $url
 		$url = $this->parseURL();//$this->semakPembolehubah($url,'url');
+		list($url,$Url) = $this->semakURL($url);//$this->semakPembolehubah($url,'x1');
 
 		/*# controller
 		if( file_exists('app/controllers/' . $url[0] . '.php') )
@@ -71,6 +72,15 @@ class Peta2
 
 		# jalankan controller & method, serta kirim params jika ada
 		call_user_func_array([$this->controller,$this->method], $this->params);*/
+	}
+#------------------------------------------------------------------------------------------
+	public function semakURL($url)
+	{
+		# 2. semak sama ada $url[0] kosong * jika ya : $url[0] == 'index';
+		$url[0] = (empty($url[0])) ? 'index' : $url[0];
+		$Url[0] = '\\Aplikasi\Kawal\\' . huruf('Besar', $url[0]);
+
+		return array($url,$Url);
 	}
 #------------------------------------------------------------------------------------------
 #==========================================================================================
