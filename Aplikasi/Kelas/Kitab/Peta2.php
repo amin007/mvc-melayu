@@ -11,8 +11,8 @@ class Peta2
 {
 #==========================================================================================
 #------------------------------------------------------------------------------------------
-	protected $kawal = '';
-	//protected $this->method = '';
+	protected $kawal = 'index';
+	protected $method = 'index';
 	//protected $params = [];//*/
 #------------------------------------------------------------------------------------------
 	public function semakPembolehubah($senarai,$jadual,$p='0')
@@ -94,7 +94,7 @@ class Peta2
 		{
 			$this->kawal = $Url[0];
 			//echo 'lokasi fail:' . KAWAL . '/' . $url[0] . '.php<hr>';
-			//echo 'nama class:' . $this->kawal . '<hr>';
+			echo 'nama class:' . $this->kawal . '<hr>';
 			require_once KAWAL . '/' . $url[0] . '.php';
 			unset($url[0]);
 		}
@@ -105,12 +105,15 @@ class Peta2
 #------------------------------------------------------------------------------------------
 	function semakMethod($url)
 	{
-		if( isset($url[1]) )
+		# jika $url[1] tak disetkan, bagi $method='index'
+		$method = (isset($url[1])) ? $url[1] : 'index';
+
+		if( isset($method) )
 		{
-			if( method_exists($this->kawal, $url[1]) )
+			if( method_exists($this->kawal, $method) )
 			{
-				$this->method = $url[1];
-				//echo 'nama method:' . $url[1] . '<hr>';
+				$this->method = $method;
+				echo 'nama method:' . $method . '<hr>';
 				unset($url[1]);
 			}
 		}
