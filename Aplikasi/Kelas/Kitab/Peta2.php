@@ -11,8 +11,8 @@ class Peta2
 {
 #==========================================================================================
 #------------------------------------------------------------------------------------------
-	protected $this->kawal = '';
-	protected $this->method = '';
+	//protected $this->kawal = '';
+	//protected $this->method = '';
 	//protected $params = [];//*/
 #------------------------------------------------------------------------------------------
 	public function semakPembolehubah($senarai,$jadual,$p='0')
@@ -46,10 +46,10 @@ class Peta2
 		list($url,$Url) = $this->semakURL($url);
 		//$this->debugData($url,$Url);#semak untuk masa depan
 		# controller => kawal
-		$url = $this->semakKawal($url,$Url);
+		($url,$this->kawal) = $this->semakKawal($url,$Url);
 
 		# method
-		$url = $this->semakMethod($url,$Url);
+		$url = $this->semakMethod($url,$this->kawal);
 
 		/*# params
 		if ( !empty($url) )
@@ -96,10 +96,10 @@ class Peta2
 			unset($url[0]);
 		}
 		$this->kawal = new $this->kawal;
-		return $url;
+		return array($url,$this->kawal);
 	}
 #------------------------------------------------------------------------------------------
-	function semakMethod($url,$Url)
+	function semakMethod($url,$this->kawal)
 	{
 		if( isset($url[1]) )
 		{
