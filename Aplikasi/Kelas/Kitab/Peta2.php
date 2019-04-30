@@ -42,8 +42,8 @@ class Peta2
 	public function __construct()
 	{
 		# 1. capai fungsi dpt_url() dan masukkan dalam $url
-		$url = $this->parseURL();//$this->semakPembolehubah($url,'url');
-		list($url,$Url) = $this->semakURL($url);//$this->semakPembolehubah($url,'x1');
+		$url = $this->parseURL();$this->semakPembolehubah($url,'x0');
+		list($url,$Url) = $this->semakURL($url);$this->semakPembolehubah($url,'x1');
 
 		# controller
 		if( file_exists(KAWAL . '/' . $url[0] . '.php') )
