@@ -45,11 +45,14 @@ class Peta2
 		//$this->debugData($url);#semak untuk masa depan
 		list($url,$Url) = $this->semakURL($url);
 		//$this->debugData($url,$Url);#semak untuk masa depan
+
 		# controller => kawal
-		list($url) = $this->semakKawal($url,$Url);
+		$url = $this->semakKawal($url,$Url);
+		$this->semakPembolehubah($url,'url selepas class');
 
 		# method
 		$url = $this->semakMethod($url);
+		$this->semakPembolehubah($url,'url selepas method');
 
 		/*# params
 		if ( !empty($url) )
@@ -96,7 +99,8 @@ class Peta2
 			unset($url[0]);
 		}
 		$this->kawal = new $this->kawal;
-		return array($url);
+
+		return $url;
 	}
 #------------------------------------------------------------------------------------------
 	function semakMethod($url)
@@ -106,11 +110,11 @@ class Peta2
 			if( method_exists($this->kawal, $url[1]) )
 			{
 				$this->method = $url[1];
-				//echo 'nama class:' . $this->kawal . '<hr>';
-				echo 'nama method:' . $url[1] . '<hr>';
+				//echo 'nama method:' . $url[1] . '<hr>';
 				unset($url[1]);
 			}
 		}
+
 		return $url;
 	}
 #------------------------------------------------------------------------------------------
