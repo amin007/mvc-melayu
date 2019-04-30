@@ -46,13 +46,7 @@ class Peta2
 		list($url,$Url) = $this->semakURL($url);$this->semakPembolehubah($url,'x1');
 
 		# controller => kawal
-		if( file_exists(KAWAL . '/' . $url[0] . '.php') )
-		{
-			$this->kawal = $Url[0];
-			require_once KAWAL . '/' . $url[0] . '.php';
-			unset($url[0]);
-		}
-		$this->kawal = new $this->kawal;$this->semakPembolehubah($Url,'x2');
+		$url = $this->semakKawal($url,$Url);$this->semakPembolehubah($Url,'x2');
 
 		/*# method
 		if( isset($url[1]) )
@@ -81,6 +75,18 @@ class Peta2
 		$Url[0] = '\\Aplikasi\Kawal\\' . huruf('Besar', $url[0]);
 
 		return array($url,$Url);
+	}
+#------------------------------------------------------------------------------------------
+	public function semakKawal($url,$Url)
+	{
+		if( file_exists(KAWAL . '/' . $url[0] . '.php') )
+		{
+			$this->kawal = $Url[0];
+			require_once KAWAL . '/' . $url[0] . '.php';
+			unset($url[0]);
+		}
+		$this->kawal = new $this->kawal;
+		return $url;
 	}
 #------------------------------------------------------------------------------------------
 #==========================================================================================
