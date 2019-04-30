@@ -80,7 +80,7 @@ class Peta2
 		}
 	}
 #------------------------------------------------------------------------------------------
-	public function semakURL($url)
+	function semakURL($url)
 	{
 		# 2. semak sama ada $url[0] kosong * jika ya : $url[0] == 'index';
 		$url[0] = (empty($url[0])) ? 'index' : $url[0];
@@ -89,7 +89,7 @@ class Peta2
 		return array($url,$Url);
 	}
 #------------------------------------------------------------------------------------------
-	public function semakKawal($url,$Url)
+	function semakKawal($url,$Url)
 	{
 		if( file_exists(KAWAL . '/' . $url[0] . '.php') )
 		{
