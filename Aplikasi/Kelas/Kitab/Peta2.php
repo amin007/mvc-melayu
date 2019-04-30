@@ -54,14 +54,14 @@ class Peta2
 		$url = $this->semakMethod($url);
 		$this->semakPembolehubah($url,'url selepas method');
 
-		/*# params
+		# params
 		if ( !empty($url) )
 		{
 			$this->params = array_values($url);
 		}
 
 		# jalankan controller & method, serta kirim params jika ada
-		call_user_func_array([$this->controller,$this->method], $this->params);//*/
+		call_user_func_array([$this->kawal,$this->method], $this->params);//*/
 	}
 #------------------------------------------------------------------------------------------
 	private function debugData($url, $Url = null)
