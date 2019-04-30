@@ -48,7 +48,8 @@ class Peta2
 		# controller => kawal
 		$url = $this->semakKawal($url,$Url);
 
-		/*# method
+		# method
+		$url = $this->semakMethod($url,$Url);
 		if( isset($url[1]) )
 		{
 			if( method_exists($this->controller, $url[1]) )
@@ -58,7 +59,7 @@ class Peta2
 			}
 		}
 
-		# params
+		/*# params
 		if ( !empty($url) )
 		{
 			$this->params = array_values($url);
