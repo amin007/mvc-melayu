@@ -39,26 +39,24 @@ class Peta2
 #------------------------------------------------------------------------------------------
 	public function __construct()
 	{
+		# 1. capai fungsi $this->parseURL() dan masukkan dalam $url
 		$url = $this->parseURL();
-		//$this->debugData($url);#semak untuk masa depan
 		list($url,$Url) = $this->semakURL($url);
 		//$this->debugData($url,$Url);#semak untuk masa depan
 
-		# controller => kawal
+		# 2. cari controller => kawal
 		$url = $this->semakKawal($url,$Url);
 		//$this->semakPembolehubah($url,'url selepas class');
 
-		# method
+		# 3. cari method => fungsi
 		$url = $this->semakMethod($url);
 		//$this->semakPembolehubah($url,'url selepas method');
 
-		# params
+		# 4. masukkan tatasusunan dalam params jika ada
 		if ( !empty($url) )
-		{
 			$this->params = array_values($url);
-		}
 
-		# jalankan controller & method, serta kirim params jika ada
+		# 5. jalankan controller & method, serta kirim params jika ada
 		call_user_func_array([$this->kawal,$this->method], $this->params);//*/
 	}
 #------------------------------------------------------------------------------------------
