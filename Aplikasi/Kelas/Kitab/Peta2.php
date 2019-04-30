@@ -29,6 +29,7 @@ class Peta2
 #------------------------------------------------------------------------------------------
 	public function parseURL()
 	{
+		//$this->semakPembolehubah($_GET,'_GET');
 		if( isset($_GET['url']) )
 		{
 			$url = rtrim($_GET['url'], '/');
@@ -40,7 +41,6 @@ class Peta2
 #------------------------------------------------------------------------------------------
 	public function __construct()
 	{
-		//$this->semakPembolehubah($_GET,'_GET');
 		$url = $this->parseURL();//$this->semakPembolehubah($url,'x0');
 		//$this->debugData($url);#semak untuk masa depan
 		list($url,$Url) = $this->semakURL($url);$this->semakPembolehubah($url,'x1');
