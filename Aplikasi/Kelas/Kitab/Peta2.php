@@ -6,12 +6,12 @@
  * 4. masukkan tatasusunan dalam params jika ada
  * 5. jalankan controller & method, serta kirim params jika ada
  */
-namespace Aplikasi\Kitab; //echo __NAMESPACE__;
+namespace Aplikasi\Kitab;//echo __NAMESPACE__;
 class Peta2
 {
 #==========================================================================================
 #------------------------------------------------------------------------------------------
-	protected $params = [];//*/
+	protected $params = [];
 #------------------------------------------------------------------------------------------
 	public function semakPembolehubah($senarai,$jadual,$p='0')
 	{
@@ -53,11 +53,10 @@ class Peta2
 		//$this->semakPembolehubah($url,'url selepas method');
 
 		# 4. masukkan tatasusunan dalam params jika ada
-		if ( !empty($url) )
-			$this->params = array_values($url);
+		if(!empty($url)) $this->params = array_values($url);
 
 		# 5. jalankan controller & method, serta kirim params jika ada
-		call_user_func_array([$this->kawal,$this->method], $this->params);//*/
+		call_user_func_array([$this->kawal,$this->method], $this->params);
 	}
 #------------------------------------------------------------------------------------------
 	private function debugData($url, $Url = null)
@@ -72,7 +71,7 @@ class Peta2
 		{
 			$this->semakPembolehubah($Url,'Url adalah tatasusunan ');
 		}
-		#
+		# mungkin akan sambung nota lagi
 	}
 #------------------------------------------------------------------------------------------
 	function semakURL($url)
