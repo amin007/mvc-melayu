@@ -34,14 +34,15 @@ class Peta2
 			$url = rtrim($_GET['url'], '/');
 			$url = filter_var($url, FILTER_SANITIZE_URL);
 			$url = explode('/', $url);
-			return $url;
+			$url[0] = (empty($url[0])) ? 'index' : $url[0];
+			//return $url;
 		}
 	}
 #------------------------------------------------------------------------------------------
 	public function __construct()
 	{
 		# 1. capai fungsi dpt_url() dan masukkan dalam $url
-		$url = $this->parseURL();$this->semakPembolehubah($url,'url');
+		$url = $this->parseURL();//$this->semakPembolehubah($url,'url');
 
 		/*# controller
 		if( file_exists('app/controllers/' . $url[0] . '.php') )
