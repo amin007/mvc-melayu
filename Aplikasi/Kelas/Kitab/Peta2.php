@@ -34,17 +34,16 @@ class Peta2
 			$url = rtrim($_GET['url'], '/');
 			$url = filter_var($url, FILTER_SANITIZE_URL);
 			$url = explode('/', $url);
-			$url[0] = (empty($url[0])) ? 'index' : $url[0];
-			//return $url;
+			//$url[0] = (empty($url[0])) ? 'index' : $url[0];
+			return $url;
 		}
 	}
 #------------------------------------------------------------------------------------------
 	public function __construct()
 	{
-		# 1. capai fungsi dpt_url() dan masukkan dalam $url
+		$this->semakPembolehubah($_GET,'_GET');
 		$url = $this->parseURL();$this->semakPembolehubah($url,'x0');
 		list($url,$Url) = $this->semakURL($url);$this->semakPembolehubah($url,'x1');
-
 		# controller => kawal
 		$url = $this->semakKawal($url,$Url);$this->semakPembolehubah($Url,'x2');
 
