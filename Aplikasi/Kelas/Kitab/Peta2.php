@@ -50,14 +50,6 @@ class Peta2
 
 		# method
 		$url = $this->semakMethod($url,$Url);
-		if( isset($url[1]) )
-		{
-			if( method_exists($this->controller, $url[1]) )
-			{
-				$this->method = $url[1];
-				unset($url[1]);
-			}
-		}
 
 		/*# params
 		if ( !empty($url) )
@@ -104,6 +96,19 @@ class Peta2
 			unset($url[0]);
 		}
 		$this->kawal = new $this->kawal;
+		return $url;
+	}
+#------------------------------------------------------------------------------------------
+	function semakMethod($url,$Url)
+	{
+		if( isset($url[1]) )
+		{
+			if( method_exists($this->kawal, $url[1]) )
+			{
+				$this->method = $url[1];
+				unset($url[1]);
+			}
+		}
 		return $url;
 	}
 #------------------------------------------------------------------------------------------
