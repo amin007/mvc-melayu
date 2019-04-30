@@ -46,7 +46,8 @@ Ini kerana saya cuba bagi tahu yang $this->db akan dirujuk terus kepada
 sql yang akan guna istilah select,update,delete dan sebagainya.
 
 # Standard
-http://www.php-fig.org/psr/psr-4/
+* http://www.php-fig.org/psr/psr-4/
 
 # Sumber ilham dari 
-http://jream.com/lab
+* http://jream.com/lab
+* https://www.php-fig.org
