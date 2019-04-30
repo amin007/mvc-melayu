@@ -98,7 +98,7 @@ class Peta2
 			require_once KAWAL . '/' . $url[0] . '.php';
 			unset($url[0]);
 		}
-		$this->kawal = new $this->kawal;
+		$this->kawal = new $this->kawal;# nilai default adalah index
 
 		return $url;
 	}
@@ -112,7 +112,7 @@ class Peta2
 		{
 			if( method_exists($this->kawal, $method) )
 			{
-				$this->method = $method;
+				$this->method = $method;# nilai default adalah index
 				//echo 'nama method:' . $method . '<hr>';
 				unset($url[1]);
 			}
