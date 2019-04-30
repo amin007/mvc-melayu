@@ -54,7 +54,7 @@ class Peta2
 		}
 		$this->controller = new $this->controller;
 
-		# method
+		/*# method
 		if( isset($url[1]) )
 		{
 			if( method_exists($this->controller, $url[1]) )
@@ -71,7 +71,7 @@ class Peta2
 		}
 
 		# jalankan controller & method, serta kirim params jika ada
-		call_user_func_array([$this->controller,$this->method], $this->params);*/
+		call_user_func_array([$this->controller,$this->method], $this->params);//*/
 	}
 #------------------------------------------------------------------------------------------
 	public function semakURL($url)
