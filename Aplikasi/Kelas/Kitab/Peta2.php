@@ -44,9 +44,9 @@ class Peta2
 		$url = $this->parseURL();
 		//$this->debugData($url);#semak untuk masa depan
 		list($url,$Url) = $this->semakURL($url);
-		$this->debugData($url,$Url);#semak untuk masa depan
+		//$this->debugData($url,$Url);#semak untuk masa depan
 		# controller => kawal
-		//$url = $this->semakKawal($url,$Url);$this->semakPembolehubah($Url,'x2');
+		$url = $this->semakKawal($url,$Url);
 
 		/*# method
 		if( isset($url[1]) )
