@@ -72,12 +72,12 @@ class Peta2
 		{
 			$this->semakPembolehubah($Url,'Url adalah tatasusunan ');
 		}
-
+		#
 	}
 #------------------------------------------------------------------------------------------
 	function semakURL($url)
 	{
-		# 2. semak sama ada $url[0] kosong * jika ya : $url[0] == 'index';
+		# semak sama ada $url[0] kosong * jika ya : $url[0] == 'index';
 		$url[0] = (empty($url[0])) ? 'index' : $url[0];
 		$Url[0] = '\\Aplikasi\Kawal\\' . huruf('Besar', $url[0]);
 
