@@ -45,14 +45,14 @@ class Peta2
 		$url = $this->parseURL();$this->semakPembolehubah($url,'x0');
 		list($url,$Url) = $this->semakURL($url);$this->semakPembolehubah($url,'x1');
 
-		# controller
+		# controller => kawal
 		if( file_exists(KAWAL . '/' . $url[0] . '.php') )
 		{
-			$this->controller = $Url[0];
+			$this->kawal = $Url[0];
 			require_once KAWAL . '/' . $url[0] . '.php';
 			unset($url[0]);
 		}
-		$this->controller = new $this->controller;
+		$this->kawal = new $this->kawal;$this->semakPembolehubah($Url,'x2');
 
 		/*# method
 		if( isset($url[1]) )
