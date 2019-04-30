@@ -21,7 +21,7 @@ class Peta2
 		if($p == '0') print_r($senarai);
 		if($p == '1') var_export($senarai);
 		if($p == '2') var_dump($senarai);
-		echo '</pre>';//*/
+		echo '</pre><hr>';//*/
 		//$this->semakPembolehubah($ujian,'ujian',0);
 		#http://php.net/manual/en/function.var-export.php
 		#http://php.net/manual/en/function.print-r.php
