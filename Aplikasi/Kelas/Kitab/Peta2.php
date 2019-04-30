@@ -11,9 +11,8 @@ class Peta2
 {
 #==========================================================================================
 #------------------------------------------------------------------------------------------
-	protected $kawal = 'index';
 	protected $method = 'index';
-	//protected $params = [];//*/
+	protected $params = [];//*/
 #------------------------------------------------------------------------------------------
 	public function semakPembolehubah($senarai,$jadual,$p='0')
 	{
@@ -48,11 +47,11 @@ class Peta2
 
 		# controller => kawal
 		$url = $this->semakKawal($url,$Url);
-		$this->semakPembolehubah($url,'url selepas class');
+		//$this->semakPembolehubah($url,'url selepas class');
 
 		# method
 		$url = $this->semakMethod($url);
-		$this->semakPembolehubah($url,'url selepas method');
+		//$this->semakPembolehubah($url,'url selepas method');
 
 		# params
 		if ( !empty($url) )
