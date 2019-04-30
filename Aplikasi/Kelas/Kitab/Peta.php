@@ -16,7 +16,7 @@ class Peta
 		# 1. capai fungsi dpt_url() dan masukkan dalam $url
 		$url = dpt_url(); //echo '<br>$url->'; print_r($url) . '';
 
-		# 2. semak sama ada $url[0] kosong * jika ya : $url[0] == 'index'; 
+		# 2. semak sama ada $url[0] kosong * jika ya : $url[0] == 'index';
 		$url[0] = (empty($url[0])) ? 'index' : $url[0];
 		$Url[0] = '\\Aplikasi\Kawal\\' . huruf('Besar', $url[0]);
 
