@@ -1,0 +1,49 @@
+ul.grid, dl.grid {
+	margin: 0 auto;
+	padding: 0;
+}
+
+ul.grid.three {
+	width: 708px;
+}
+
+ul.grid li, dl.grid dt {
+	width: 216px;
+	height: 206px;
+	float: left;
+	position: relative;
+	margin: 10px;
+	list-style-type: none;
+}
+
+/* untuk download*/
+ul.downloads { 
+	margin: 0;
+	padding: 0;
+	overflow: auto;
+	clear: both;
+}
+
+ul.downloads li {
+	width: 200px;
+	float: left;
+	list-style-type: none;
+	font-size: 12px;
+	line-height: 20px;
+}
+
+ul.downloads li h3 {
+	margin: 0;
+	text-align: center;
+	background-color:#fff;
+	color: #e9967a;	
+}
+
+ul.downloads li p.excerpt {
+	width: 200px;
+	padding-top: 90px;
+	vertical-align: bottom;
+	color: #666;
+	font-size: 18px;
+	line-height: 8px;
+}
