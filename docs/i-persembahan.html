@@ -91,25 +91,17 @@ table.excel tbody td
 	</section>
 	<section><h2>&nbsp;</h2>
 <!-- ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
-<pre><code class="html">&lt;?php
-$conn = mysqli_connect('localhost:3306', 'root', 'root');
+<pre><code class="html" style="font-size: 16px;">&lt;?php $conn = mysqli_connect('localhost:3306', 'root', 'root');
 if(! $conn ) die('Could not connect: ' . mysqli_error());
-?>&lt;html>&lt;head>&lt;title>Contoh koding style lama&lt;/title>&lt;/head>&lt;body>
-&lt;?php
-#---------------------------------------------------------#
+?>&lt;html>&lt;head>&lt;title>Contoh koding style lama&lt;/title>&lt;/head>&lt;body>&lt;?php
 $sql = 'SELECT nama FROM senarai_awek';
 $result = mysqli_query($conn, $sql);
-if (mysqli_num_rows($result) > 0)
-{
+if (mysqli_num_rows($result) > 0){
 	while($row = mysqli_fetch_assoc($result))
-	{
-		echo '&lt;br>Nama:' . $row['nama'];
-	}
+	{ echo '&lt;br>Nama:' . $row['nama']; }
 }
 else echo '&lt;br>Tidak jumpa daa';
-mysqli_close($conn);
-#---------------------------------------------------------#
-?>
+mysqli_close($conn);?>
 &lt;/body>
 &lt;/html></code></pre>
 	<p>Code syntax highlighting courtesy of <a href="http://softwaremaniacs.org/soft/highlight/en/description/">highlight.js</a>.</p>
