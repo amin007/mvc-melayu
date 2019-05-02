@@ -81,33 +81,37 @@ table.excel tbody td
 		<p>tanya - papar - kawal</p>
 	</section>
 	<section><h2>&nbsp;</h2>
-		<p>"Reka bentuk seni bina dalam reka bentuk penarafan berorientasikan objek."</p>
+		<blockquote>Rekabentuk dalam senibina pengaturcaraan berorientasikan objek.</blockquote>
 	</section>
 	<section><h2>&nbsp;</h2>
-		<p>"Memisahkan antara paparan, data dan proses."</p>
+		<blockquote>Memisahkan antara paparan, data dan proses.</blockquote>
 	</section>
 	<section><h2>&nbsp;</h2>
 		<p>tanpa MVC</p>
 	</section>
 	<section><h2>&nbsp;</h2>
-		<p>{letak gambar koding tanpa mvc01}</p>
 <!-- ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
-<pre><code class="hljs" data-trim data-line-numbers="4,8-9">
-import React, { useState } from 'react';
-
-function Example() {
-  const [count, setCount] = useState(0);
-
-  return (
-    &lt;div&gt;
-      &lt;p&gt;You clicked {count} times&lt;/p&gt;
-      &lt;button onClick={() =&gt; setCount(count + 1)}&gt;
-        Click me
-      &lt;/button&gt;
-    &lt;/div&gt;
-  );
+<pre><code class="html">&lt;?php
+$conn = mysqli_connect('localhost:3306', 'root', 'root');
+if(! $conn ) die('Could not connect: ' . mysqli_error());
+?>&lt;html>&lt;head>&lt;title>Contoh koding style lama&lt;/title>&lt;/head>&lt;body>
+&lt;?php
+#---------------------------------------------------------#
+$sql = 'SELECT nama FROM senarai_awek';
+$result = mysqli_query($conn, $sql);
+if (mysqli_num_rows($result) > 0)
+{
+	while($row = mysqli_fetch_assoc($result))
+	{
+		echo '&lt;br>Nama:' . $row['nama'];
+	}
 }
-</code></pre>
+else echo '&lt;br>Tidak jumpa daa';
+mysqli_close($conn);
+#---------------------------------------------------------#
+?>
+&lt;/body>
+&lt;/html></code></pre>
 	<p>Code syntax highlighting courtesy of <a href="http://softwaremaniacs.org/soft/highlight/en/description/">highlight.js</a>.</p>
 <!-- ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
 
