@@ -405,33 +405,34 @@ mysqli_close($conn);?>
 </div><!-- / class="reveal -->
 <!-- untuk javascrip 
 ======================================================== -->
-
-<script src="sumber/rangka-dawai/persembahan/lib/js/head.min.js"></script>
-<script src="sumber/rangka-dawai/persembahan/js/reveal.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.6/highlight.min.js"></script>
+<script src="sumber/rangka-dawai/persembahan/js/reveal.js"></script>
+<!-- script src="sumber/rangka-dawai/persembahan/lib/js/head.min.js"></script -->
+<!-- script src="sumber/rangka-dawai/persembahan/js/reveal.min.js"></script -->
+<!-- script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.6/highlight.min.js"></script -->
 <script>
 // Full list of configuration options available here:
-// https://github.com/hakimel/reveal.js#configuration
+// More info https://github.com/hakimel/reveal.js#configuration
 Reveal.initialize({
 	controls: true,
 	progress: true,
-	history: true,
 	center: true,
-	
-	theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
-	transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+	hash: true,
+
+	transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+	// More info https://github.com/hakimel/reveal.js#dependencies
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Optional reveal.js plugins
 	dependencies: [
-		{ src: 'sumber/rangka-dawai/persembahan/lib/js/classList.js', condition: function() { return !document.body.classList; } },
 		{ src: 'sumber/rangka-dawai/persembahan/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
 		{ src: 'sumber/rangka-dawai/persembahan/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-		{ src: 'sumber/rangka-dawai/persembahan/plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+		{ src: 'sumber/rangka-dawai/persembahan/plugin/highlight/highlight.js', async: true },
+		{ src: 'sumber/rangka-dawai/persembahan/plugin/search/search.js', async: true },
 		{ src: 'sumber/rangka-dawai/persembahan/plugin/zoom-js/zoom.js', async: true },
 		{ src: 'sumber/rangka-dawai/persembahan/plugin/notes/notes.js', async: true }
 	]
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 });
-</script>	
+</script>
 </body>
 </html>
