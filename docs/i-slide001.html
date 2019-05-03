@@ -2,7 +2,8 @@
 <head>
 	<link rel="stylesheet" href="sumber/rangka-dawai/persembahan/css/reveal.css">
 	<link rel="stylesheet" href="sumber/rangka-dawai/persembahan/css/theme/black.css">
-<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+	<link href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/default.min.css" rel="stylesheet">
+	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 <style>
 .reveal i{
     font-family: 'FontAwesome';
@@ -42,11 +43,31 @@ table.excel tbody td
 <section>Slide 1</section>
 <section>Slide 2</section>
 <section data-markdown>
-	<textarea rows="10" cols="100" data-template>
+	<textarea data-template>
 		## Page title
 
 		A paragraph with some text and a [link](http://hakim.se).
 	</textarea>
+</section>
+<section>
+	<section><h2>&nbsp;</h2>
+<!-- ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+<pre><code class="html" style="font-size: 16px;">&lt;?php $conn = mysqli_connect('localhost:3306', 'root', 'root');
+if(! $conn ) die('Could not connect: ' . mysqli_error());
+?>&lt;html>&lt;head>&lt;title>Contoh koding style lama&lt;/title>&lt;/head>&lt;body>&lt;?php
+$sql = 'SELECT nama FROM senarai_awek';
+$result = mysqli_query($conn, $sql);
+if (mysqli_num_rows($result) > 0){
+	while($row = mysqli_fetch_assoc($result))
+	{ echo '&lt;br>Nama:' . $row['nama']; }
+}
+else echo '&lt;br>Tidak jumpa daa';
+mysqli_close($conn);?>
+&lt;/body>
+&lt;/html></code></pre>
+	<p>Code syntax highlighting courtesy of <a href="http://softwaremaniacs.org/soft/highlight/en/description/">highlight.js</a>.</p>
+<!-- ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+	</section>
 </section>
 <!-- penghabisan - mula -->
 <section>
@@ -73,8 +94,33 @@ table.excel tbody td
 <!-- untuk javascrip 
 ======================================================== -->
 <script src="sumber/rangka-dawai/persembahan/js/reveal.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js"></script>
 <script>
-	Reveal.initialize();
+//Reveal.initialize();
+// More info https://github.com/hakimel/reveal.js#configuration
+Reveal.initialize({
+	// seting tinggi dan lebar slide
+	width: "95%",
+	height: "95%",
+	margin: 0,
+	minScale: 1,
+	maxScale: 1,
+	// seting asal sama macam website rasmi
+	controls: true,
+	progress: true,
+	center: true,
+	hash: true,
+	transition: 'slide', // none/fade/slide/convex/concave/zoom
+	// More info https://github.com/hakimel/reveal.js#dependencies
+	dependencies: [
+		{ src: 'sumber/rangka-dawai/persembahan/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+		{ src: 'sumber/rangka-dawai/persembahan/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+		{ src: 'sumber/rangka-dawai/persembahan/plugin/highlight/highlight.js', async: true },
+		{ src: 'sumber/rangka-dawai/persembahan/plugin/search/search.js', async: true },
+		{ src: 'sumber/rangka-dawai/persembahan/plugin/zoom-js/zoom.js', async: true },
+		{ src: 'sumber/rangka-dawai/persembahan/plugin/notes/notes.js', async: true }
+	]
+});
 </script>
 </body>
 </html>
