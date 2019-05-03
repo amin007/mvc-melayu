@@ -61,7 +61,7 @@ class Index extends \Aplikasi\Kitab\Kawal
 		//exit;
 	}
 #==========================================================================================
-	function login($user)
+	function login($user='ali')
 	{
 		# Set pemboleubah utama
 		$this->papar->nama = $user; # dapatkan nama pengguna
@@ -70,10 +70,10 @@ class Index extends \Aplikasi\Kitab\Kawal
 
 		# Pergi papar kandungan
 		//$this->semakPembolehubah(); # Semak data dulu
-		$this->paparKandungan($this->_folder,$fail[0],$noInclude=0); # $noInclude=0
+		$this->paparKandungan($this->_folder,$fail[0],$noInclude=1); # $noInclude=0
 	}
 #------------------------------------------------------------------------------------------
-	function login_automatik($user)
+	function login_automatik($user='ali')
 	{
 		# Set pemboleubah utama
 		$this->papar->nama = $user; # dapatkan nama pengguna
