@@ -2,7 +2,8 @@
 <head>
 	<link rel="stylesheet" href="sumber/rangka-dawai/persembahan/css/reveal.css">
 	<link rel="stylesheet" href="sumber/rangka-dawai/persembahan/css/theme/black.css">
-	<link href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/default.min.css" rel="stylesheet">
+	<!-- Theme used for syntax highlighting of code -->
+	<link rel="stylesheet" href="sumber/rangka-dawai/persembahan/lib/css/monokai.css">
 	<!-- link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" -->
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css">
 <style>
@@ -57,7 +58,7 @@ table.excel tbody td
 <section>
 	<section><h2>&nbsp;</h2>
 <!-- ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
-<pre><code style="font-size: 16px;">&lt;?php $conn = mysqli_connect('localhost:3306', 'root', 'root');
+<pre><code class="html" style="font-size: 20px;">&lt;?php $conn = mysqli_connect('localhost:3306', 'root', 'root');
 if(! $conn ) die('Could not connect: ' . mysqli_error());
 ?>&lt;html>&lt;head>&lt;title>Contoh koding style lama&lt;/title>&lt;/head>&lt;body>&lt;?php
 $sql = 'SELECT nama FROM senarai_awek';
@@ -99,7 +100,6 @@ mysqli_close($conn);?>
 <!-- untuk javascrip 
 ======================================================== -->
 <script src="sumber/rangka-dawai/persembahan/js/reveal.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js"></script>
 <script>
 //Reveal.initialize();
 // More info https://github.com/hakimel/reveal.js#configuration
@@ -120,7 +120,7 @@ Reveal.initialize({
 	dependencies: [
 		{ src: 'sumber/rangka-dawai/persembahan/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
 		{ src: 'sumber/rangka-dawai/persembahan/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-		//{ src: 'sumber/rangka-dawai/persembahan/plugin/highlight/highlight.js', async: true },
+		{ src: 'sumber/rangka-dawai/persembahan/plugin/highlight/highlight.js', async: true },
 		{ src: 'sumber/rangka-dawai/persembahan/plugin/search/search.js', async: true },
 		{ src: 'sumber/rangka-dawai/persembahan/plugin/zoom-js/zoom.js', async: true },
 		{ src: 'sumber/rangka-dawai/persembahan/plugin/notes/notes.js', async: true }
