@@ -1,11 +1,23 @@
 <html>
 <head>
-	<link rel="stylesheet" href="sumber/rangka-dawai/persembahan/css/reveal.css">
-	<link rel="stylesheet" href="sumber/rangka-dawai/persembahan/css/theme/black.css">
-	<!-- Theme used for syntax highlighting of code -->
-	<link rel="stylesheet" href="sumber/rangka-dawai/persembahan/lib/css/monokai.css">
-	<!-- link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" -->
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css">
+<link rel="stylesheet" href="sumber/rangka-dawai/persembahan/css/reveal.css">
+<link rel="stylesheet" href="sumber/rangka-dawai/persembahan/css/theme/black.css">
+<!-- Theme used for syntax highlighting of code -->
+<link rel="stylesheet" href="sumber/rangka-dawai/persembahan/lib/css/monokai.css">
+<!-- link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" -->
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css">
+<script>
+	var link = document.createElement( 'link' );
+	link.rel = 'stylesheet';
+	link.type = 'text/css';
+	link.href = window.location.search.match( /print-pdf/gi ) ?
+		'sumber/rangka-dawai/persembahan/css/print/pdf.css'
+		: 'sumber/rangka-dawai/persembahan/css/print/paper.css';
+	document.getElementsByTagName( 'head' )[0].appendChild( link );
+</script>
+<!--[if lt IE 9]>
+	<script src="lib/js/html5shiv.js"></script>
+<![endif]-->
 <style>
 .reveal i{
     font-family: 'FontAwesome';
@@ -105,16 +117,9 @@ mysqli_close($conn);?>
 // More info https://github.com/hakimel/reveal.js#configuration
 Reveal.initialize({
 	// seting tinggi dan lebar slide
-	width: "95%",
-	height: "95%",
-	margin: 0,
-	minScale: 1,
-	maxScale: 1,
+	width:"95%", height:"95%", margin:0, minScale:1, maxScale:1,
 	// seting asal sama macam website rasmi
-	controls: true,
-	progress: true,
-	center: true,
-	hash: true,
+	controls: true, progress: true, center: true, hash: true,
 	transition: 'slide', // none/fade/slide/convex/concave/zoom
 	// More info https://github.com/hakimel/reveal.js#dependencies
 	dependencies: [
