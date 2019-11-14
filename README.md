@@ -45,9 +45,23 @@ Kalau perasan class DB_PDO extends PDO dan class DB_Mysqli saya kekalkan dalam b
 Ini kerana saya cuba bagi tahu yang $this->db akan dirujuk terus kepada 
 sql yang akan guna istilah select,update,delete dan sebagainya.
 
+___
 # Standard
 * http://www.php-fig.org/psr/psr-4/
 
+___
 # Sumber ilham dari 
 * http://jream.com/lab
 * https://www.php-fig.org
+
+___
+# Sumber ilham kawan-kawan
+* [jQuery](http://jquery.com)
+* [Bootstrap](http://getbootstrap.com)
+* [animate.css](https://daneden.github.io/animate.css)
+* [Sweet Alert](http://t4t5.github.io/sweetalert)
+* [FontAwesome](http://fortawesome.github.io/Font-Awesome)
+* [backstretch](http://srobbin.com/jquery-plugins/backstretch)
+* [jQuery.Form](http://malsup.com/jquery/form)
+* [Pixabay](https://pixabay.com)
+* [Unslpash](https://unsplash.com)
