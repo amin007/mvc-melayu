@@ -46,6 +46,16 @@ Ini kerana saya cuba bagi tahu yang $this->db akan dirujuk terus kepada
 sql yang akan guna istilah select,update,delete dan sebagainya.
 
 ___
+# Php Version
+
+```php
+//phpinfo();
+//echo PHPVERSION() . '<br>';
+echo PHP_VERSION . '<br>';
+echo PHP_MAJOR_VERSION . '.' . PHP_MINOR_VERSION . '.' . PHP_RELEASE_VERSION . '<br>';
+echo '<pre>'; print_r($_SERVER); echo '</pre>';
+```
+___
 # Standard
 * http://www.php-fig.org/psr/psr-4/
 
