@@ -131,5 +131,89 @@ class Index extends \Aplikasi\Kitab\Kawal
 		$this->paparKandungan($this->_folder,$f[1],$noInclude=0);
 	}
 #--------------------------------------------------------------------------------------------------
+# khas untuk api sahaja
+#--------------------------------------------------------------------------------------------------
+	public function apiderma($a=null,$b=null)
+	{
+		# Set pembolehubah utama
+		echo '<hr>Nama class :' . __METHOD__ . '<hr>';
+		$posmen = $this->ubahsuaiPostBaru();
+		$this->godekApiBillplz($posmen);
+
+		# Pergi papar kandungan
+		$this->debugApiDerma();# Semak data dulu
+		//header('location:' . URL . 'index/dermaberjaya');
+	}
+#--------------------------------------------------------------------------------------------------
+	function dermaberjaya()
+	{
+		# Set pembolehubah utama
+		//echo '<hr>Nama class :' . __METHOD__ . '<hr>';
+		$f = array('dermaberjaya');
+
+		# Pergi papar kandungan
+		//$this->debugApiDerma();# Semak data dulu
+		//$this->paparKandungan($this->_folder,$f[0],$noInclude=0);
+	}
+#--------------------------------------------------------------------------------------------------
+	function ubahsuaiPostBaru()
+	{
+		$posmen = array();
+		foreach ($_POST as $jadual => $value):
+			foreach ($value as $kekunci => $papar)
+			{
+				//$posmen[$jadual][$kekunci] = bersih($papar);
+				$posmen[$kekunci] = bersih($papar);
+			}//*/
+		endforeach;
+		# semak data
+		$this->papar->posmen = $posmen;
+
+		return $posmen;
+	}
+#--------------------------------------------------------------------------------------------------
+	function godekApiBillplz($posmen)
+	{
+		# https://gist.github.com/AriffAzmi/40243dfd8b147851eaed59cd1980ab06
+		# untuk bayar katanya
+		$a = new \Aplikasi\Kitab\BillplzAPI(BILLPLZ_API_KEY);
+		# set nilai utama
+		//$a->setVersion('v3');
+		//$a->setCollectionID('collect_id');#rujuk dalam billplz
+		#Post transaction status ke server
+		$siapaCall = URL . 'index/billplzPanggilDaa';
+		//$a->setCallbackUrl($siapaCall);
+		#billplz redirect setelah transaction berjaya/tidak berjaya dilakukan
+		$berjayaCall = URL . 'index/berjayaDaa';
+		//$a->setRedirectUrl($berjayaCall);
+		# masukkan nilai $posmen daa
+		//$a->setDescription('Kesian Kucing tersebut');# masukkan keterangan
+		$a->setName($posmen['nama']);
+		$a->setAmount($posmen['nilai']);
+		$a->setEmail($posmen['email']);
+		$a->setMobile($posmen['handphone']);
+		$a->setReference1Label('Item 1:');
+		$a->setReference1($posmen['tajuk']);
+		//$a->setReference2Label('Item 2:');
+		//$a->setReference2();*/
+		$bill = $a->payBill();
+		$this->semakPembolehubah($bill,'bill');
+		//header('Location: ' . $nakpergimana);
+	}
+#--------------------------------------------------------------------------------------------------
+	function billplzPanggilDaa()
+	{
+		$data = $_REQUEST;
+	}
+#--------------------------------------------------------------------------------------------------
+	function debugApiDerma()
+	{
+		$this->semakPembolehubah($_POST,'_POST');
+		$this->semakPembolehubah($this->papar->posmen,'posmen');
+		//$this->semakPembolehubah($this->papar->senarai,'senarai');
+		//$this->semakPembolehubah($this->papar->_meta,'_meta');
+		//$this->semakPembolehubah($f,'f');
+	}
+#--------------------------------------------------------------------------------------------------
 #==================================================================================================
 }
