@@ -20,7 +20,7 @@ if (isset($this->css))
 	foreach ($this->css as $css)
 	{
 		// '<link rel="stylesheet" type="text/css" href="' . $css . '">';
-		?><link rel="stylesheet" type="text/css" href="<?php echo SUMBER . $css ?>"><?php
+		?><link rel="stylesheet" type="text/css" href="<?php echo $css ?>"><?php
 		echo "\n";
 	}
 }
