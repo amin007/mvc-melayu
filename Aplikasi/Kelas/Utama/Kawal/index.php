@@ -97,7 +97,8 @@ class Index extends \Aplikasi\Kitab\Kawal
 		$this->papar->a = $a;
 		$this->papar->b = $b;
 		# Set pembolehubah utama
-		$folder = $this->papar->folder = huruf('kecil', namaClassDaa(__CLASS__));
+		//$folder = $this->papar->folder = huruf('kecil', namaClass(__CLASS__));
+		$folder = $this->papar->folder = huruf('kecil', namaClass($this));
 		$this->papar->url = URL . $folder;
 		$this->papar->logout = URL . $folder . '/logout';
 		# masukkan tatasusunan $f
