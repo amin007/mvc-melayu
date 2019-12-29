@@ -96,7 +96,7 @@ class BillplzAPI
 	  *
 	  * @return self
 	  */
-	protected function setSecretKey(String $secret_key)
+	public function setSecretKey(String $secret_key)
 	{
 		# $secret_key adalah kod rahsia dari Billplz
 		$this->secret_key = $secret_key;
@@ -114,7 +114,7 @@ class BillplzAPI
 	  *
 	  * @return self
 	  */
-	protected function setVersion(String $version)
+	public function setVersion(String $version)
 	{
 		# $version adalah versi dari Billplz
 		$this->version = $version;
@@ -132,7 +132,7 @@ class BillplzAPI
 	  *
 	  * @return self
 	  */
-	protected function setCollectionID(String $collectionID)
+	public function setCollectionID(String $collectionID)
 	{
 		$this->collectionID = $collectionID;
 
@@ -149,7 +149,7 @@ class BillplzAPI
 	  *
 	  * @return self
 	  */
-	protected function setDescription(String $description)
+	public function setDescription(String $description)
 	{
 		$this->description = $description;
 
@@ -166,7 +166,7 @@ class BillplzAPI
 	  *
 	  * @return self
 	  */
-	protected function setEmail(String $email)
+	public function setEmail(String $email)
 	{
 		$this->email = $email;
 
@@ -183,7 +183,7 @@ class BillplzAPI
 	  *
 	  * @return self
 	  */
-	protected function setName(String $name)
+	public function setName(String $name)
 	{
 		$this->name = $name;
 
@@ -200,7 +200,7 @@ class BillplzAPI
 	  *
 	  * @return self
 	  */
-	protected function setMobile(String $mobile)
+	public function setMobile(String $mobile)
 	{
 		$this->mobile = $mobile;
 
@@ -217,7 +217,7 @@ class BillplzAPI
 	  *
 	  * @return self
 	  */
-	protected function setAmount(Integer $amount)
+	public function setAmount(Integer $amount)
 	{
 		$this->amount = $amount;
 
@@ -234,7 +234,7 @@ class BillplzAPI
 	  *
 	  * @return self
 	  */
-	protected function setDueAt(String $due_at)
+	public function setDueAt(String $due_at)
 	{
 		$this->due_at = $due_at;
 
@@ -251,7 +251,7 @@ class BillplzAPI
 	  *
 	  * @return self
 	  */
-	protected function setReference1Label(String $reference_1_label)
+	public function setReference1Label(String $reference_1_label)
 	{
 		$this->reference_1_label = $reference_1_label;
 
@@ -268,7 +268,7 @@ class BillplzAPI
 	  *
 	  * @return self
 	  */
-	protected function setReference1(String $reference_1)
+	public function setReference1(String $reference_1)
 	{
 		$this->reference_1 = $reference_1;
 
@@ -285,7 +285,7 @@ class BillplzAPI
 	  *
 	  * @return self
 	  */
-	protected function setReference2Label(String $reference_2_label)
+	public function setReference2Label(String $reference_2_label)
 	{
 		$this->reference_2_label = $reference_2_label;
 
@@ -302,7 +302,7 @@ class BillplzAPI
 	  *
 	  * @return self
 	  */
-	protected function setReference2(String $reference_2)
+	public function setReference2(String $reference_2)
 	{
 		$this->reference_2 = $reference_2;
 
@@ -319,7 +319,7 @@ class BillplzAPI
 	  *
 	  * @return self
 	  */
-	protected function setCallbackUrl(String $callback_url)
+	public function setCallbackUrl(String $callback_url)
 	{
 		$this->callback_url = $callback_url;
 
@@ -336,7 +336,7 @@ class BillplzAPI
 	  *
 	  * @return self
 	  */
-	protected function setRedirectUrl(String $redirect_url)
+	public function setRedirectUrl(String $redirect_url)
 	{
 		$this->redirect_url = $redirect_url;
 
