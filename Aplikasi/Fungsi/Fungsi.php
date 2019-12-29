@@ -73,28 +73,25 @@ function dpt_ip()
 function dpt_senarai($pilih)
 {
 	# define('MSICBARU', serialize (array()) );
-	if ($pilih == 'msicbaru') :
-		$jadual = unserialize(MSICBARU);
-	elseif ($pilih == 'produk') :
-		$jadual = unserialize(PRODUK);
+	if ($pilih == 'TNT_PEGAWAI') :
+		$jadual = unserialize(TNT_PEGAWAI);
+	# kod JS/css local dan cdn
+	elseif ($pilih == 'CSS_ARRAY') :
+		$jadual = unserialize(CSS_ARRAY);
+	elseif ($pilih == 'JS_ARRAY') :
+		$jadual = unserialize(JS_ARRAY);
+	elseif ($pilih == 'CSS_ARRAY_CDN') :
+		$jadual = unserialize(CSS_ARRAY_CDN);
+	elseif ($pilih == 'JS_ARRAY_CDN') :
+		$jadual = unserialize(JS_ARRAY_CDN);
+	# kod login
 	elseif ($pilih == 'jadual_login') :
 		$jadual = unserialize(JADUAL_LOGIN);
 	elseif ($pilih == 'jadual_biodata') :
 		$jadual = unserialize(JADUAL_BIODATA);
-	elseif ($pilih == 'jadual_biodata2') :
-		$jadual = unserialize(JADUAL_BIODATA2);
-	elseif ($pilih == 'jadual_biodata3') :
-		$jadual = unserialize(JADUAL_BIODATA3);
-	elseif ($pilih == 'staf_prosesan') :
-		$jadual = unserialize(PROSESAN);
-	elseif ($pilih == 'staf_biasa') :
-		$jadual = unserialize(PEGAWAI);
-	elseif ($pilih == 'jadual_kawalan') :
-		$jadual = unserialize(JADUAL_KAWALAN);
-	elseif ($pilih == 'jadual_kawalan2') :
-		$jadual = unserialize(JADUAL_KAWALAN2);
-	elseif ($pilih == 'jadual_rangka') :
-		$jadual = unserialize(JADUAL_RANGKA);
+	# pilih nama jadual
+	elseif ($pilih == 'jadual_nama') :
+		$jadual = unserialize(JADUAL_NAMA);
 	else : $jadual = array(); //unserialize()
 	endif;
 
