@@ -14,15 +14,14 @@ $dpt_url = dpt_url();
 echo (empty($dpt_url[2])) ? null : '[' . $_GET['url'] . ']';
 ?></title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<link href="<?=FONTAWESOME?>" rel="stylesheet" type="text/css">
-<link href="<?=BOOTSTRAPCSS?>" rel="stylesheet" type="text/css">
 <?php
 if (isset($this->css)) 
 {
 	foreach ($this->css as $css)
 	{
-		echo "\n"; // '<link rel="stylesheet" type="text/css" href="' . $css . '">';
+		// '<link rel="stylesheet" type="text/css" href="' . $css . '">';
 		?><link rel="stylesheet" type="text/css" href="<?php echo SUMBER . $css ?>"><?php
+		echo "\n";
 	}
 }
 echo "\n";
