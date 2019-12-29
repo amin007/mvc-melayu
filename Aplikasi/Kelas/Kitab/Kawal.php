@@ -43,5 +43,16 @@ class Kawal
 		return array($tanya);
 	}
 #------------------------------------------------------------------------------------------
+	public function semakPembolehubah($senarai,$jadual,$p='0')
+	{
+		echo '<pre>$' . $jadual . '=><br>';
+		if($p == '0') print_r($senarai);
+		if($p == '1') var_export($senarai);
+		echo '</pre>';//*/
+		//$this->semakPembolehubah($ujian,'ujian',0);
+		#http://php.net/manual/en/function.var-export.php
+		#http://php.net/manual/en/function.print-r.php
+	}
+#------------------------------------------------------------------------------------------
 #==========================================================================================
 }
