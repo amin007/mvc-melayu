@@ -138,10 +138,11 @@ class Index extends \Aplikasi\Kitab\Kawal
 		# Set pembolehubah utama
 		echo '<hr>Nama class :' . __METHOD__ . '<hr>';
 		$posmen = $this->ubahsuaiPostBaru();
+		$this->debugApiDerma();# Semak data dulu
 		$this->godekApiBillplz($posmen);
 
 		# Pergi papar kandungan
-		$this->debugApiDerma();# Semak data dulu
+		//$this->debugApiDerma();# Semak data dulu
 		//header('location:' . URL . 'index/dermaberjaya');
 	}
 #--------------------------------------------------------------------------------------------------
@@ -178,16 +179,16 @@ class Index extends \Aplikasi\Kitab\Kawal
 		# untuk bayar katanya
 		$a = new \Aplikasi\Kitab\BillplzAPI(BILLPLZ_API_KEY);
 		# set nilai utama
-		//$a->setVersion('v3');
+		$a->setVersion('v3');
 		//$a->setCollectionID('collect_id');#rujuk dalam billplz
 		#Post transaction status ke server
 		$siapaCall = URL . 'index/billplzPanggilDaa';
-		//$a->setCallbackUrl($siapaCall);
+		$a->setCallbackUrl($siapaCall);
 		#billplz redirect setelah transaction berjaya/tidak berjaya dilakukan
 		$berjayaCall = URL . 'index/berjayaDaa';
-		//$a->setRedirectUrl($berjayaCall);
+		$a->setRedirectUrl($berjayaCall);
 		# masukkan nilai $posmen daa
-		//$a->setDescription('Kesian Kucing tersebut');# masukkan keterangan
+		$a->setDescription('Kesian Kucing tersebut');# masukkan keterangan
 		$a->setName($posmen['nama']);
 		$a->setAmount($posmen['nilai']);
 		$a->setEmail($posmen['email']);
