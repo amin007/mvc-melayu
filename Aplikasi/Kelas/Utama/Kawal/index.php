@@ -86,4 +86,42 @@ class Index extends \Aplikasi\Kitab\Kawal
 	}
 #--------------------------------------------------------------------------------------------------
 #==================================================================================================
+##-------------------------------------------------------------------------------------------------
+	function setDermaDaa($a,$b)
+	{
+		# data dari url
+		$this->papar->a = $a;
+		$this->papar->b = $b;
+		# Set pembolehubah utama
+		$folder = $this->papar->folder = huruf('kecil', namaClassDaa(__CLASS__));
+		$this->papar->url = URL . $folder;
+		$this->papar->logout = URL . $folder . '/logout';
+		# masukkan tatasusunan $f
+		$f = array('index','derma','produk');
+		return $f;
+	}
+##-------------------------------------------------------------------------------------------------
+	function debugDaa($f)
+	{
+		$this->semakPembolehubah($this->papar->css,'css');
+		$this->semakPembolehubah($this->papar->js,'js');
+		$this->semakPembolehubah($this->papar->a,'a');
+		$this->semakPembolehubah($this->papar->b,'b');
+		$this->semakPembolehubah($this->papar->folder,'folder');
+		$this->semakPembolehubah($f,'f');
+	}
+##-------------------------------------------------------------------------------------------------
+#--------------------------------------------------------------------------------------------------
+	public function derma($a=null,$b=null)
+	{
+		# Set pembolehubah utama
+		//echo '<hr>Nama class :' . __METHOD__ . '<hr>';
+		$f = $this->setDermaDaa($a,$b);
+
+		# Pergi papar kandungan
+		$this->debugDaa($f);# Semak data dulu
+		//$this->paparKandungan($this->_folder,$f[1],$noInclude=0);
+	}
+#--------------------------------------------------------------------------------------------------
+#==================================================================================================
 }
