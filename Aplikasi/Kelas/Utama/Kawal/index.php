@@ -102,7 +102,7 @@ class Index extends \Aplikasi\Kitab\Kawal
 		//$folder = $this->papar->folder = huruf('kecil', namaClass(__CLASS__));
 		$folder = $this->papar->folder = huruf('kecil', namaClass($this));
 		$this->papar->url = URL . $folder;
-		$this->papar->urlDerma = URL . 'index/derma';
+		$this->papar->urlDerma = URL . 'index/apiderma';
 		$this->papar->logout = URL . $folder . '/logout';
 		# masukkan tatasusunan $f
 		$f = array('index','derma','produk');
