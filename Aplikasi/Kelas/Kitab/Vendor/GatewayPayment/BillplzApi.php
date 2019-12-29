@@ -217,7 +217,8 @@ class BillplzAPI
 	  *
 	  * @return self
 	  */
-	public function setAmount(Integer $amount)
+	//public function setAmount(Integer $amount)
+	public function setAmount($amount)
 	{
 		$this->amount = $amount;
 
