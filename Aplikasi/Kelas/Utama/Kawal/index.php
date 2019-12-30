@@ -180,7 +180,8 @@ class Index extends \Aplikasi\Kitab\Kawal
 		$a = new \Aplikasi\Kitab\BillplzAPI(BILLPLZ_API_KEY);
 		# set nilai utama
 		$a->setVersion('v3');
-		//$a->setCollectionID('collect_id');#rujuk dalam billplz
+		#rujuk dalam billplz dashboard
+		$a->setCollectionID(BILLPLZ_COLLECTION_ID);
 		#Post transaction status ke server
 		$siapaCall = URL . 'index/billplzPanggilDaa';
 		$a->setCallbackUrl($siapaCall);
