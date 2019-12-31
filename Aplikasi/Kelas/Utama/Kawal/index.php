@@ -136,7 +136,7 @@ class Index extends \Aplikasi\Kitab\Kawal
 	public function apiderma($a=null,$b=null)
 	{
 		# Set pembolehubah utama
-		echo '<hr>Nama class :' . __METHOD__ . '<hr>';
+		//echo '<hr>Nama class :' . __METHOD__ . '<hr>';
 		$posmen = $this->ubahsuaiPostBaru();
 		$this->debugApiDerma();# Semak data dulu
 		$this->godekApiBillplz($posmen);
@@ -199,8 +199,10 @@ class Index extends \Aplikasi\Kitab\Kawal
 		//$a->setReference2Label('Item 2:');
 		//$a->setReference2();*/
 		$bill = $a->payBill();
-		$this->semakPembolehubah($bill,'bill');
-		//header('Location: ' . $nakpergimana);
+		foreach ($bill as $key => $value)
+			if($key=='url') $nakpergimana = $value;
+		//$this->semakPembolehubah($bill,'bill');//*/
+		header('Location: ' . $nakpergimana);//*/
 	}
 #--------------------------------------------------------------------------------------------------
 	function billplzPanggilDaa()
