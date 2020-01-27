@@ -25,11 +25,17 @@ class RahsiaHash
 		return hash_final($context);
 	}
 #---------------------------------------------------------------------------------------------
-	public static function cincang($data, $numAlgo = 12, $arrOptions = array())
+	public static function cincang($data)
 	{
-		if (function_exists('password_hash')) 
+		#https://www.php.net/manual/en/function.password-hash.php
+		if (function_exists('password_hash'))
 		{# php >= 5.5
-			$cincang = password_hash($data, $numAlgo, $arrOptions);
+			//$numAlgo = PASSWORD_DEFAULT;
+			//$numAlgo = PASSWORD_ARGON2I; php7.2.0
+			//$numAlgo = PASSWORD_ARGON2ID; php7.3.0
+			$numAlgo = PASSWORD_BCRYPT;
+			$options = array('cost' => 12);
+			$cincang = password_hash($data, $numAlgo, $options);
 		}
 		else
 		{
