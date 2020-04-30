@@ -6,6 +6,7 @@
  * 3. setkan tatarajah sistem
  * 4. masukkan semua fail class dari folder Kelas
  * 5. istihar class \Aplikasi\Kitab\Peta2()
+ * 6. tarikh Hari Raya Aidilfitri jatuh pada ...
  */
  
 # 1. laporan tahap kesilapan kod PHP
