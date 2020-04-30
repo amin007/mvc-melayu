@@ -4,8 +4,8 @@
  * 1. laporan tahap kesilapan kod PHP
  * 2. zon masa kita pada Asia/Kuala Lumpur
  * 3. setkan tatarajah sistem
- * 4. masukkan semua fail class dari folder PUSTAKA
- * 5. istihar class \Aplikasi\Kitab\Route()
+ * 4. masukkan semua fail class dari folder Kelas
+ * 5. istihar class \Aplikasi\Kitab\Peta2()
  */
  
 # 1. laporan tahap kesilapan kod PHP
