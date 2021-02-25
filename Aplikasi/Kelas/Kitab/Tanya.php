@@ -18,6 +18,16 @@ class Tanya
 		return $this->db->selectAll($sql);
 	}
 #-------------------------------------------------------------------------------------------------
+	public function paparMedan02($myTable)
+	{
+		//return $this->db->select('SHOW COLUMNS FROM ' . $myTable);
+		$sql = 'DESCRIBE ' . $myTable;
+		echo htmlentities($sql) . '<br>';
+		list($result,$meta) = $this->db->selectAll($sql,null);
+
+		return array($result,$meta);
+	}
+#-------------------------------------------------------------------------------------------------
 	public function pilihMedan($database,$myTable)
 	{
 		/*TABLE_CATALOG, TABLE_SCHEMA, TABLE_NAME
@@ -36,6 +46,44 @@ class Tanya
 
 		echo htmlentities($sql) . '<br>';
 		return $this->db->selectAll($sql);
+	}
+#-------------------------------------------------------------------------------------------------
+	public function pilihMedan01($myTable, $dbType = 'mysql', $database = DB_NAME)
+	{# https://stackoverflow.com/questions/3157831/how-can-i-determine-the-column-type-with-pdo
+		# pilih db ikut yang popular di pasaran
+		$medan['oracle'] = 'COLUMN_NAME,DATA_TYPE,DATA_LENGTH,DATA_PRECISION,DATA_SCALE';
+		$table['oracle'] = 'user_tab_cols';
+		$medan['postgres'] = 'CHARACTER_MAXIMUM_LENGTH, COLUMN_NAME, IS_NULLABLE,' . "\r"
+			. ' COLUMN_DEFAULT, NUMERIC_PRECISION, NUMERIC_SCALE, UDT_NAME';
+		$table['postgres'] = 'INFORMATION_SCHEMA.COLUMNS';
+		$medan['mysql'] = 'COLUMN_NAME, DATA_TYPE,' . "\r"
+			. ' concat_ws(" ",CHARACTER_MAXIMUM_LENGTH, NUMERIC_PRECISION) DATA_NO,' . "\r"
+			. ' COLUMN_KEY, EXTRA, PRIVILEGES, COLUMN_COMMENT';
+		$table['mysql'] = 'INFORMATION_SCHEMA.COLUMNS';
+		$m = huruf('Besar_Depan', $medan[$dbType]);
+		$t = huruf('Besar_Depan', $table[$dbType]);
+		# buat where
+		$c[] = array('fix'=>':=','atau'=>'WHERE','medan'=>'table_name','apa'=>':tn');
+		$p['tn'] = $myTable;
+		if($dbType == 'mysql')
+		{
+			$c[] = array('fix'=>':=','atau'=>'AND','medan'=>'table_schema','apa'=>':ts');
+			$p['ts'] = $database;
+		}
+		# bentuk sql
+		$sql = $this->sql->bentukSqlSelect($t,$m,$c);
+
+		//echo htmlentities($sql) . '<br>';
+		echo '$sql-><pre>'; print_r($sql); echo '</pre>';
+		list($result,$meta) = $this->db->selectAll($sql,$p);
+
+		return array($result,$meta);
+	}
+#-------------------------------------------------------------------------------------------------
+	public function pilihMedan02($myTable)
+	{
+		//echo '<br>return $this->db->getColumnNames('.$myTable.');';
+		return $this->db->getColumnNames($myTable);
 	}
 #-------------------------------------------------------------------------------------------------
 	public function ubahMedan($myTable, $medan)
