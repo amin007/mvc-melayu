@@ -54,7 +54,7 @@ ___
 echo PHP_VERSION . '<br>';
 echo PHP_MAJOR_VERSION . '.' . PHP_MINOR_VERSION . '.' . PHP_RELEASE_VERSION . '<br>';
 echo '<pre>'; print_r($_SERVER); echo '</pre>';
-
+```
 ___
 # spl_autoload_register()
 
