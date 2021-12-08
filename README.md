@@ -54,6 +54,32 @@ ___
 echo PHP_VERSION . '<br>';
 echo PHP_MAJOR_VERSION . '.' . PHP_MINOR_VERSION . '.' . PHP_RELEASE_VERSION . '<br>';
 echo '<pre>'; print_r($_SERVER); echo '</pre>';
+
+___
+# spl_autoload_register()
+
+```php
+/* 4. masukkan semua fail class dari folder Aplikasi/Class
+** URL : http://www.php-fig.org/psr/psr-4/examples/
+** Contoh pelaksanaan projek khusus.
+**
+** @param string $class nama class yang sebenar tanpa namespace.
+** @return void
+**/
+spl_autoload_register(function ($namaClass)
+{
+	# buat pecahan tatasusunan $namaClass
+	$class = explode('\\', $namaClass); //print_r($class) . '<br>';
+	# semak kewujudan class
+	//echo '<hr>nama class:' . $class[count($class)-1] . ' | ';
+	$cariFail = GetMatchingFiles(GetContents('Aplikasi/Kelas'),$class[count($class)-1] . '.php');
+	# jika fail wujud, masukkan
+	foreach($cariFail as $kitabApa)
+	{	//echo '$kitabApa->' . $kitabApa . '<br>';
+		if (file_exists($kitabApa)) require $kitabApa;
+		//else echo 'tidak jumpa daa<br>';
+	}//*/
+});
 ```
 ___
 # Standard
